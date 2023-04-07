@@ -60,7 +60,8 @@ static gpointer   gegl_tile_backend_buffer_command             (GeglTileSource  
 static GeglTile * gegl_tile_backend_buffer_get_tile            (GeglTileBackendBuffer *tile_backend_buffer,
                                                                 gint                   x,
                                                                 gint                   y,
-                                                                gint                   z);
+                                                                gint                   z,
+                                                                GeglTileGetState       s);
 static void       gegl_tile_backend_buffer_set_tile            (GeglTileBackendBuffer *tile_backend_buffer,
                                                                 GeglTile              *tile,
                                                                 gint                   x,
@@ -183,7 +184,7 @@ gegl_tile_backend_buffer_command (GeglTileSource  *tile_source,
     {
     case GEGL_TILE_GET:
       return gegl_tile_backend_buffer_get_tile (tile_backend_buffer,
-                                                x, y, z);
+                                                x, y, z, (GeglTileGetState)data);
 
     case GEGL_TILE_SET:
       gegl_tile_backend_buffer_set_tile (tile_backend_buffer,
@@ -226,13 +227,14 @@ static GeglTile *
 gegl_tile_backend_buffer_get_tile (GeglTileBackendBuffer *tile_backend_buffer,
                                    gint                   x,
                                    gint                   y,
-                                   gint                   z)
+                                   gint                   z,
+                                   GeglTileGetState       s)
 {
   GeglBuffer *buffer = tile_backend_buffer->buffer;
   GeglTile   *src_tile;
   GeglTile   *tile   = NULL;
 
-  src_tile = gegl_buffer_get_tile (buffer, x, y, z);
+  src_tile = gegl_buffer_get_tile (buffer, x, y, z, s);
 
   if (G_LIKELY(src_tile))
     {

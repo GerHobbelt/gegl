@@ -183,7 +183,7 @@ gegl_tile_handler_cache_get_tile_command (GeglTileSource *tile_store,
                                           gint        x,
                                           gint        y,
                                           gint        z,
-					  GeglTileGetState data)
+                                          GeglTileGetState data)
 {
   GeglTileHandlerCache *cache    = (GeglTileHandlerCache*) (tile_store);
   GeglTileSource       *source   = ((GeglTileHandler*) (tile_store))->source;

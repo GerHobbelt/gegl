@@ -210,13 +210,14 @@ gegl_tile_handler_get_tile_internal (GeglTileHandler *handler,
                                      gint             x,
                                      gint             y,
                                      gint             z,
-                                     gboolean         preserve_data)
+                                     gboolean         preserve_data,
+                                     GeglTileGetState s)
 {
   GeglTile *tile = NULL;
 
   if (preserve_data && source)
     {
-      tile = gegl_tile_source_command (source, GEGL_TILE_GET, x, y, z, NULL);
+      tile = gegl_tile_source_command (source, GEGL_TILE_GET, x, y, z, (gpointer)s);
     }
   else if (handler->priv->cache)
     {
@@ -237,12 +238,14 @@ gegl_tile_handler_get_tile (GeglTileHandler *handler,
                             gint             x,
                             gint             y,
                             gint             z,
-                            gboolean         preserve_data)
+                            gboolean         preserve_data,
+                            GeglTileGetState s)
 {
   return gegl_tile_handler_get_tile_internal (handler,
                                               GEGL_TILE_SOURCE (handler),
                                               x, y, z,
-                                              preserve_data);
+                                              preserve_data,
+                                              s);
 }
 
 GeglTile *
@@ -250,12 +253,14 @@ gegl_tile_handler_get_source_tile (GeglTileHandler *handler,
                                    gint             x,
                                    gint             y,
                                    gint             z,
-                                   gboolean         preserve_data)
+                                   gboolean         preserve_data,
+                                   GeglTileGetState s)
 {
   return gegl_tile_handler_get_tile_internal (handler,
                                               handler->source,
                                               x, y, z,
-                                              preserve_data);
+                                              preserve_data,
+                                              s);
 }
 
 GeglTile *

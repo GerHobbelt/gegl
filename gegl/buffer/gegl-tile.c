@@ -23,7 +23,7 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-
+#include <assert.h>
 #include <glib-object.h>
 
 #include "gegl-buffer.h"
@@ -123,7 +123,10 @@ gegl_tile_dup (GeglTile *src)
 {
   GeglTile *tile;
 
-  g_warn_if_fail (src->lock_count == 0);
+  // added by zombie. since we are running bunch of stuff in parallel, this does not hold.
+  // instead we grab a read lock.
+  // g_warn_if_fail (src->lock_count == 0);
+  gegl_tile_read_lock(src);
   g_warn_if_fail (! src->damage);
 
   if (! src->keep_identity)
@@ -161,6 +164,7 @@ gegl_tile_dup (GeglTile *src)
    */
   tile->rev++;
 
+  gegl_tile_read_unlock(src);
   return tile;
 }
 
