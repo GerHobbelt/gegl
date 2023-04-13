@@ -32,8 +32,17 @@ void gegl_zombie_link_test() {
 using Key = std::tuple<gint, gint, gint>;
 
 struct Proxy {
+  size_t size;
+  explicit Proxy(size_t size) : size(size) { }
+  Proxy() = delete;
 };
 
+template<>
+struct GetSize<Proxy> {
+  size_t operator()(const Proxy& p) {
+    return p.size;
+  }
+};
 // A Zombified Tile.
 using ZombieTile = Zombie<Proxy>;
 
@@ -114,6 +123,64 @@ bool operator==(const GeglRectangle& lhs, const GeglRectangle& rhs) {
   return lhs.x == rhs.x && lhs.y == rhs.y && lhs.width == rhs.width && lhs.height == rhs.height;
 }
 
+std::string node_name(const GeglNode* node) {
+  return gegl_node_get_operation(node) ? std::string(gegl_node_get_operation(node)) : "";
+}
+
+struct Profiler {
+  std::mutex m;
+
+  std::unordered_map<std::string, ns> time_table;
+
+  void record(const GeglNode* node, ns time) {
+    std::lock_guard<std::mutex> lg(m);
+    std::string name = node_name(node);
+    if (time_table.count(name) == 0) {
+      time_table[name] = ns(0);
+    }
+    time_table[name] += time;
+  }
+
+  static Profiler& GetProfiler() {
+    static Profiler profiler;
+    return profiler;
+  }
+
+  ~Profiler() {
+    std::lock_guard<std::mutex> lg(m);
+    for (const auto& p : time_table) {
+      std::cout << "running " << p.first << " took " << double(p.second.count()) / 1e9 << std::endl;
+    }
+  }
+};
+
+struct NodePropertyTable {
+  std::unordered_map<std::string, bool> incremental_;
+  bool incremental(const GeglNode* node) const {
+    if (use_zombie()) {
+      if (node->cache != nullptr) {
+        std::string name = node_name(node);
+        if (incremental_.count(name) == 0) {
+          std::cout << "incremental of " << name << " unknown" << std::endl;
+        }
+        return incremental_.at(name);
+      } else {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }
+  NodePropertyTable() {
+    incremental_["gegl:gblur-1d"] = true;
+    incremental_["gegl:jpg-load"] = false;
+    incremental_["gegl:nop"] = true;
+  }
+  static const NodePropertyTable& GetNodePropertyTable() {
+    static NodePropertyTable npt;
+    return npt;
+  }
+};
 // Every tile of the buffer that zombie see is categorized into 3 type:
 // A Zombie, which is a tile that is being managed normally,
 // A PreZombie, which is a tile that had been freshly recorded, waiting to be commit in a bit,
@@ -123,6 +190,11 @@ struct _GeglZombieManager {
   GeglNode* node;
   GWeakRef cache;
   bool initialized = false;
+  // some operation, like reading from a jpeg, is non-incremental.
+  // for those operation we recompute everything when we recompute one place.
+  bool incremental;
+  std::chrono::time_point<std::chrono::system_clock> start_time;
+  ns total_time = ns(0);
   std::optional<GeglRectangle> tile;
   std::unordered_map<Key, ZombieTile> map;
   std::mutex mutex;
@@ -132,6 +204,7 @@ struct _GeglZombieManager {
   }
 
   ~_GeglZombieManager() {
+    Profiler::GetProfiler().record(node, total_time);
     g_clear_object (&node->cache);
     gpointer cache_strong = g_weak_ref_get(&cache);
     if (cache_strong != nullptr) {
@@ -160,16 +233,29 @@ struct _GeglZombieManager {
     return GetTile(k, lg);
   }
 
+  size_t GetTileSize() const {
+    assert(tile);
+    // we are assuming float, and rgba
+    return tile.value().width * tile.value().height * 4 * 4;
+  }
+
   ZombieTile MakeZombieTile(Key k) {
     lock_guard lg(zombie_mutex);
     // todo: calculate parent dependency
+    auto tile_size = GetTileSize();
     if (node->cache != nullptr) {
-      ZombieTile zt(bindZombie([](){ return ZombieTile(Proxy { }); }));
-      zt.evict(); // doing a single eviction to make sure we can recompute
+      ZombieTile zt(bindZombie([tile_size]() {
+        Trailokya::get_trailokya().zc.fast_forward(1s);
+        return ZombieTile(Proxy{tile_size});
+      }));
+      if (incremental) {
+        // zt.evict(); // doing a single eviction to make sure we can recompute
+      }
       return zt;
     } else {
-      return bindZombie([](){
-        ZombieTile zt(Proxy { });
+      return bindZombie([tile_size]() {
+        Trailokya::get_trailokya().zc.fast_forward(1s);
+        ZombieTile zt(Proxy{tile_size});
         zt.evict();
         return zt;
       });
@@ -222,6 +308,7 @@ struct _GeglZombieManager {
         // may god forgive my sin.
         g_rec_mutex_unlock(&GEGL_BUFFER(node->cache)->tile_storage->mutex);
         GeglEvalManager * em = gegl_eval_manager_new(node, "output");
+        gegl_eval_manager_recompute(em);
         gegl_eval_manager_apply(em, &roi, z);
         g_rec_mutex_lock(&GEGL_BUFFER(node->cache)->tile_storage->mutex);
         gegl_cache_computed(node->cache, &roi, z);
@@ -240,6 +327,7 @@ struct _GeglZombieManager {
     return forward();
   }
 
+  // TODO: I dont think the handling of level is correct
   gpointer command(GeglTileCommand   command,
                    gint              x,
                    gint              y,
@@ -253,6 +341,7 @@ struct _GeglZombieManager {
     if ((!use_zombie()) || (!initialized)) {
       return forward();
     } else {
+      assert(z == 0);
       switch (command) {
       case GEGL_TILE_GET: {
         return tile_get(x, y, z, *reinterpret_cast<GeglTileGetState*>(&data));
@@ -272,10 +361,10 @@ struct _GeglZombieManager {
   }
 
   void prepare() {
-    // todo: we want to record time here
+    start_time = std::chrono::system_clock::now();
   }
 
-  std::vector<GeglRectangle> split_to_tiles(const GeglRectangle& roi) const {
+  std::vector<GeglRectangle> SplitToTiles(const GeglRectangle& roi) const {
     assert(initialized);
     std::vector<GeglRectangle> ret;
     if (this->tile) {
@@ -300,6 +389,7 @@ struct _GeglZombieManager {
 	      GeglBuffer* buffer,
 	      gint level) {
     if (use_zombie()) {
+      total_time += std::chrono::system_clock::now() - start_time;
       std::optional<GeglRectangle> tile;
       if (buffer != nullptr) {
         tile = *GEGL_RECTANGLE (buffer->shift_x,
@@ -309,16 +399,17 @@ struct _GeglZombieManager {
       }
       lock_guard lg(mutex);
       if (!initialized) {
-        if (false) {
-          std::cout << "name: " << std::string(gegl_node_get_operation(node)) << std::endl;
+        if (true) {
+          std::cout << "name: " << node_name(node) << std::endl;
           std::cout << "cache:" << ((node->cache != nullptr) ? "yes" : "no") << std::endl;
           std::cout << "bb:   " << gegl_node_get_bounding_box(node) << std::endl;
           std::cout << "roi:  " << roi << std::endl;
         }
         initialized = true;
         this->tile = tile;
+        this->incremental = NodePropertyTable::GetNodePropertyTable().incremental(node);
       }
-      for (const GeglRectangle& r: split_to_tiles(roi)) {
+      for (const GeglRectangle& r: SplitToTiles(roi)) {
         // todo: we may want more fine grained tracking
         GetTile({r.x, r.y, level}, lg);
       }

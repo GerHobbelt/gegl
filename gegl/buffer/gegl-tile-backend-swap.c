@@ -1509,6 +1509,9 @@ gegl_tile_backend_swap_cleanup (void)
   if (! writer_thread)
     return;
 
+  g_message("CLENAUP, bytes written to swap: %ld", (long)write_total);
+  g_message("TILE_CACHE_SIZE is: %ld", (long)gegl_buffer_config()->tile_cache_size);
+  g_message("TILE_CACHE_TOTAL_MAX is: %ld", (long)gegl_tile_handler_cache_get_total_max());
   g_signal_handlers_disconnect_by_func (
     gegl_buffer_config (),
     gegl_tile_backend_swap_tile_cache_size_notify,

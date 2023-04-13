@@ -183,7 +183,7 @@ cflags_cpp    = []
 cflags_common += '-DHAVE_CONFIG_H'
 
 if buildtype == 'debugoptimized' or buildtype == 'release'
-  cflags_common += '-Ofast'
+  cflags_common += '-O3'
 endif
 
 if buildtype == 'debugoptimized' or buildtype == 'debug'

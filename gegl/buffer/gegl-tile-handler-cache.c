@@ -28,6 +28,7 @@
 #include "gegl-tile-handler-cache.h"
 #include "gegl-tile-storage.h"
 #include "gegl-debug.h"
+#include <stdint.h>
 
 /*
 #define GEGL_DEBUG_CACHE_HITS
@@ -1066,6 +1067,11 @@ gegl_tile_cache_init (void)
 {
   g_signal_connect (gegl_buffer_config (), "notify::tile-cache-size",
                     G_CALLBACK (gegl_buffer_config_tile_cache_size_notify), NULL);
+  if (g_getenv("TILE_CACHE_SIZE")) {
+    uint64_t tile_cache_size = ((uint64_t)(atoi(g_getenv("TILE_CACHE_SIZE")))) >> 20;
+    g_print("TILE_CACHE_SIZE set to %ld\n", tile_cache_size);
+    gegl_buffer_config()->tile_cache_size = tile_cache_size;
+  }
 }
 
 void
