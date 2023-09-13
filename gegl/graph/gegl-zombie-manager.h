@@ -16,6 +16,10 @@ bool use_zombie();
 
 void gegl_zombie_link_test();
 
+void gegl_process_start();
+
+void gegl_process_end();
+
 GeglZombieManager* make_zombie_manager(GeglNode*);
 
 void destroy_zombie_manager(GeglZombieManager*);

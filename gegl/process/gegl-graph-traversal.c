@@ -34,6 +34,7 @@
 #include "graph/gegl-callback-visitor.h"
 #include "graph/gegl-visitable.h"
 #include "graph/gegl-connection.h"
+#include "graph/gegl-zombie-manager.h"
 
 #include "process/gegl-graph-traversal.h"
 #include "process/gegl-graph-traversal-private.h"
@@ -411,8 +412,7 @@ gegl_graph_get_shared_empty (GeglGraphTraversal *path)
     }
   return path->shared_empty;
 }
-
-
+  
 /**
  * gegl_graph_process:
  * @path: The traversal path
@@ -431,6 +431,8 @@ GeglBuffer *
 gegl_graph_process (GeglGraphTraversal *path,
                     gint                level)
 {
+  gegl_process_start();
+
   GList *list_iter = NULL;
   GeglBuffer *result = NULL;
   GeglOperationContext *context = NULL;
@@ -536,6 +538,8 @@ gegl_graph_process (GeglGraphTraversal *path,
         result = g_object_ref (gegl_graph_get_shared_empty (path));
       gegl_operation_context_purge (last_context);
     }
+
+  gegl_process_end();
 
   return result;
 }

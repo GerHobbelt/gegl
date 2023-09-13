@@ -1,7 +1,9 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <iostream>
+#include <fstream>
 #include <mutex>
+#include <chrono>
 
 #include "zombie/zombie.hpp"
 #include "gegl-zombie-manager.h"
@@ -13,6 +15,51 @@
 #include "process/gegl-eval-manager.h"
 
 IMPORT_ZOMBIE(default_config)
+
+struct RecomputeCounter {
+  int count = 0;
+
+  static void addCount() {
+    static RecomputeCounter rc;
+    rc.count++;
+  }
+
+  ~RecomputeCounter() {
+    std::ofstream fs;
+    fs.open("recompute.log");
+    fs << count << std::endl;
+    fs.close();
+  }
+};
+
+struct ProcessProfiler {
+  ns begin_time, end_time;
+
+  static ProcessProfiler& singleton() {
+    static ProcessProfiler pp;
+    return pp;
+  }
+
+  ~ProcessProfiler() {
+    std::ofstream of;
+    of.open("process.log", std::ios::out | std::ios::trunc);
+
+    of << (end_time - begin_time).count() << std::endl;
+  }
+};
+
+void gegl_process_start() {
+  static bool flag = false;
+  auto& pp = ProcessProfiler::singleton();
+  if (!flag) {
+    flag = true;
+    pp.begin_time = ZombieClock::singleton().time();
+  }
+}
+
+void gegl_process_end() {
+  ProcessProfiler::singleton().end_time = ZombieClock::singleton().time();
+}
 
 // last lock in 2 phase locking
 std::mutex zombie_mutex;
@@ -136,9 +183,21 @@ struct _GeglZombieManager {
   std::optional<GeglRectangle> tile;
   std::unordered_map<Key, ZombieTile> map;
   std::mutex mutex;
+  unsigned long long max_score;
+  size_t max_memory;
+  std::ofstream memoryLog;
+  ns process_start, process_end;
 
   _GeglZombieManager(GeglNode* node) : node(node) {
     g_weak_ref_init(&cache, nullptr);
+
+    if (use_zombie()) {
+      std::string max_memory_str = getEnvVar("ZOMBIE_MAX_MEMORY");
+
+      max_memory = std::stoull(max_memory_str, nullptr, 10);   
+
+      memoryLog.open("memory.log", std::ios_base::app); 
+    }
   }
 
   ~_GeglZombieManager() {
@@ -149,9 +208,11 @@ struct _GeglZombieManager {
       g_object_unref(cache_strong);
     }
     g_weak_ref_clear(&cache);
+
+    memoryLog.close();
   }
 
-  ZombieTile GetTile(const Key& k, const lock_guard& lg) {
+  ZombieTile GetTile(const Key& k, const lock_guard& lg, ns additional_time = 0ns) {
     // A tile could be not in map, because we are overapproximating.
     // To be more precise, parent(over_approximate(r)) might be bigger then parent(r),
     // so the former will have more tile.
@@ -160,7 +221,7 @@ struct _GeglZombieManager {
     // Some gegl operation create a huge tile with only a portion of it being used.
     // If we manage all of those tile overhead will be unbearable.
     if (map.count(k) == 0) {
-      SetTile(k, lg);
+      SetTile(k, lg, additional_time);
     }
     return map.at(k);
   }
@@ -176,31 +237,40 @@ struct _GeglZombieManager {
     return tile.value().width * tile.value().height * 4;
   }
 
-  ZombieTile MakeZombieTile(Key k) {
+  ZombieTile MakeZombieTile(Key k, ns additional_time) {
     lock_guard lg(zombie_mutex);
     // todo: calculate parent dependency
+
+    Trailokya::get_trailokya().reaper.mass_extinction_by_memory(max_memory);
+    memoryLog << Trailokya::get_trailokya().space_used.bytes << std::endl;
+
     auto tile_size = GetTileSize();
     if (node->cache != nullptr) {
-      ZombieTile zt(bindZombie([tile_size](){ return ZombieTile(Proxy{tile_size}); }));
-      zt.evict(); // doing a single eviction to make sure we can recompute
+      ZombieTile zt(bindZombie([tile_size, additional_time](){
+                                 ZombieClock::singleton().fast_forward(additional_time);
+                                 return ZombieTile(Proxy{tile_size}); 
+                              })
+      );
+      // zt.evict(); // doing a single eviction to make sure we can recompute
       return zt;
     } else {
-      return bindZombie([tile_size](){
+      return bindZombie([tile_size, additional_time](){
         ZombieTile zt(Proxy{tile_size});
-        zt.evict();
+        ZombieClock::singleton().fast_forward(additional_time);
+        // zt.evict();
         return zt;
       });
     }
   }
 
-  void SetTile(const Key& k, const lock_guard& lg) {
+  void SetTile(const Key& k, const lock_guard& lg, ns additional_time) {
     assert(map.count(k) == 0);
-    map.insert({k, MakeZombieTile(k)});
+    map.insert({k, MakeZombieTile(k, additional_time)});
   }
 
-  void SetTile(const Key& k) {
+  void SetTile(const Key& k, ns additional_time) {
     lock_guard lg(mutex);
-    SetTile(k, lg);
+    SetTile(k, lg, additional_time);
   }
 
   // todo: avoid tile get reentrant
@@ -247,6 +317,7 @@ struct _GeglZombieManager {
           lock_guard lg(mutex);
           lock_guard zombie_lg(zombie_mutex);
           GetTile(k, lg).recompute();
+          RecomputeCounter::addCount();
         }
       }
     }
@@ -291,7 +362,7 @@ struct _GeglZombieManager {
   }
 
   void prepare() {
-    // todo: we want to record time here
+    process_start = ZombieClock::singleton().time();
   }
 
   std::vector<GeglRectangle> SplitToTiles(const GeglRectangle& roi) const {
@@ -319,6 +390,8 @@ struct _GeglZombieManager {
 	      GeglBuffer* buffer,
 	      gint level) {
     if (use_zombie()) {
+      process_end = ZombieClock::singleton().time();
+
       std::optional<GeglRectangle> tile;
       if (buffer != nullptr) {
         tile = *GEGL_RECTANGLE (buffer->shift_x,
@@ -339,7 +412,7 @@ struct _GeglZombieManager {
       }
       for (const GeglRectangle& r: SplitToTiles(roi)) {
         // todo: we may want more fine grained tracking
-        GetTile({r.x, r.y, level}, lg);
+        GetTile({r.x, r.y, level}, lg, process_end - process_start);
       }
       assert(this->tile == tile);
     }
