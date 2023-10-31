@@ -18,6 +18,7 @@
 
 #include "config.h"
 
+#include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
@@ -334,10 +335,16 @@ gegl_tile_alloc_init (void)
 {
 }
 
+guint64 max_alloc_total = 0;
+
 void
 gegl_tile_alloc_cleanup (void)
 {
   GeglTileBlock *block;
+
+  // log max_alloc_total
+  FILE *log = fopen("max_alloc_total.log", "w");
+  fprintf(log, "%lu\n", max_alloc_total);
 
   do
     {
@@ -361,6 +368,10 @@ gegl_tile_alloc (gsize size)
   gint                       n;
   gint                       i;
   gint                       j;
+
+  if (max_alloc_total < gegl_tile_alloc_get_total()) {
+    max_alloc_total = gegl_tile_alloc_get_total();
+  }
 
   if (size > GEGL_TILE_MAX_SIZE || ! gegl_tile_alloc_enabled ())
     return gegl_tile_alloc_fallback (size);

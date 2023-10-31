@@ -392,6 +392,13 @@ const Babl *    gegl_buffer_set_format        (GeglBuffer          *buffer,
 void            gegl_buffer_clear             (GeglBuffer          *buffer,
                                                const GeglRectangle *roi);
 
+void            gegl_buffer_force_clear       (GeglBuffer          *buffer,
+                                               const GeglRectangle *rot);
+
+void            gegl_buffer_force_clear_tile  (GeglBuffer *dst,
+                                               gint        tile_x,
+                                               gint        tile_y,
+                                               gpointer    data);
 
 /**
  * gegl_buffer_copy:

@@ -2810,6 +2810,22 @@ gegl_buffer_clear_tile (GeglBuffer *dst,
     }
 }
 
+void
+gegl_buffer_force_clear_tile (GeglBuffer *dst,
+                              gint        tile_x,
+                              gint        tile_y,
+                              gpointer    data)
+{
+  if (dst->initialized) {
+    gegl_tile_handler_cache_remove (dst->tile_storage->cache,
+                                    tile_x, tile_y, 0);
+
+    gegl_tile_handler_source_command (dst->tile_storage->cache,
+                                      GEGL_TILE_VOID,
+                                      tile_x, tile_y, 0, NULL);
+  }
+}
+
 static void
 gegl_buffer_clear_rect (GeglBuffer          *dst,
                         const GeglRectangle *dst_rect,
@@ -2832,6 +2848,18 @@ gegl_buffer_clear_rect (GeglBuffer          *dst,
     {
       memset (((guchar*)(i->items[0].data)), 0, i->length * pxsize);
     }
+}
+
+void
+gegl_buffer_force_clear (GeglBuffer          *dst,
+                         const GeglRectangle *dst_rect)
+{
+  g_return_if_fail (GEGL_IS_BUFFER (dst));
+
+  gegl_buffer_foreach_tile (dst, dst_rect,
+                            gegl_buffer_force_clear_tile,
+                            gegl_buffer_clear_rect,
+                            NULL);
 }
 
 void
