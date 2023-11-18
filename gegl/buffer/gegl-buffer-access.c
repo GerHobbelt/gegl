@@ -2823,6 +2823,10 @@ gegl_buffer_force_clear_tile (GeglBuffer *dst,
     gegl_tile_handler_source_command (dst->tile_storage->cache,
                                       GEGL_TILE_VOID,
                                       tile_x, tile_y, 0, NULL);
+  } else {
+    FILE *file = fopen("proxy.log", "a");
+    fprintf(file, "uninitalized!\n");
+    fclose(file);
   }
 }
 

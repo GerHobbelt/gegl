@@ -96,14 +96,22 @@ struct ProxyInside {
   ProxyInside() = delete;
 
   ~ProxyInside() {
+    FILE *file = fopen("proxy.log", "a");
+    fprintf(file, "Inside destructing starts\n");
     GeglBuffer* buffer_ptr = (GeglBuffer*)g_weak_ref_get(&buffer_ref);
 
     if (buffer_ptr != NULL) {
-      if (!(std::get<0>(key) == 0 && std::get<1>(key) == 0)) {
+      fclose(file);
+      // if (!(std::get<0>(key) == 0 && std::get<1>(key) == 0)) {
         gegl_buffer_force_clear_tile(buffer_ptr, std::get<0>(key), std::get<1>(key), NULL);
-      }
+      // }
       g_object_unref(buffer_ptr);
+      file = fopen("proxy.log", "a");
+    } else {
+      fprintf(file, "buffer_ptr is null\n");
     }
+    fprintf(file, "Inside destructing ends\n");
+    fclose(file);
   }
 };
 

@@ -29,6 +29,8 @@
 #include "gegl-tile-storage.h"
 #include "gegl-debug.h"
 
+#include <stdio.h> // for debug
+
 /*
 #define GEGL_DEBUG_CACHE_HITS
 */
@@ -823,6 +825,10 @@ gegl_tile_handler_cache_remove_item (GeglTileHandlerCache *cache,
   item->tile->tile_storage = NULL;
   gegl_tile_unref (item->tile);
 
+  FILE *file = fopen("proxy.log", "a");
+  fprintf(file, "tile unref!\n");
+  fclose(file);
+
   g_slice_free (CacheItem, item);
 }
 
@@ -841,6 +847,12 @@ gegl_tile_handler_cache_remove (GeglTileHandlerCache *cache,
       drop_hot_tile (item->tile);
 
       gegl_tile_handler_cache_remove_item (cache, item);
+    }
+  else
+    {
+      FILE *file = fopen("proxy.log", "a");
+      fprintf(file, "item eq false!\n");
+      fclose(file);
     }
 }
 
