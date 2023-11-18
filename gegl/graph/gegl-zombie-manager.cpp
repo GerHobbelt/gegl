@@ -6,6 +6,8 @@
 #include <chrono>
 
 #include "zombie/zombie.hpp"
+
+extern "C" {
 #include "gegl-buffer.h"
 #include "gegl-zombie-manager.h"
 #include "gegl-zombie-manager-private.h"
@@ -15,6 +17,7 @@
 #include "buffer/gegl-tile-alloc.h"
 #include "buffer/gegl-tile-storage.h"
 #include "process/gegl-eval-manager.h"
+};
 
 IMPORT_ZOMBIE(default_config)
 
@@ -278,9 +281,14 @@ struct _GeglZombieManager {
     lock_guard lg(zombie_mutex);
     // todo: calculate parent dependency
 
+    auto alloc_before = gegl_tile_alloc_get_total();
     Trailokya::get_trailokya().reaper.mass_extinction_by_memory(max_memory);
-    memoryLog << Trailokya::get_trailokya().space_used.bytes << std::endl;
+    auto alloc_after = gegl_tile_alloc_get_total();
 
+    if (alloc_before != alloc_after) {
+      std::cout << "QwQwQwQ: " << alloc_before - alloc_after << " " << alloc_before << " " << alloc_after << std::endl;
+    }
+    
     auto tile_size = GetTileSize();
     if (node->cache != nullptr) {
       ZombieTile zt(bindZombie([tile_size, additional_time, buffer_ptr, k](){
