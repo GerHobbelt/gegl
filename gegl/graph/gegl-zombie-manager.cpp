@@ -96,15 +96,19 @@ struct ProxyInside {
   ProxyInside() = delete;
 
   ~ProxyInside() {
+    // we wish this destructor will free the memory of the buffer_ref, but not.
+    // some debug information could be found by grep "fprintf"
+
     FILE *file = fopen("proxy.log", "a");
     fprintf(file, "Inside destructing starts\n");
     GeglBuffer* buffer_ptr = (GeglBuffer*)g_weak_ref_get(&buffer_ref);
 
     if (buffer_ptr != NULL) {
       fclose(file);
-      // if (!(std::get<0>(key) == 0 && std::get<1>(key) == 0)) {
+      // we should find a way to skip the first buffer instead of below.
+      if (!(std::get<0>(key) == 0 && std::get<1>(key) == 0)) {
         gegl_buffer_force_clear_tile(buffer_ptr, std::get<0>(key), std::get<1>(key), NULL);
-      // }
+      }
       g_object_unref(buffer_ptr);
       file = fopen("proxy.log", "a");
     } else {
