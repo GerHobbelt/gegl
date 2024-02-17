@@ -1,9 +1,9 @@
 project('gegl',
   'c', 'cpp',
   license: 'GPL3+',
-  version: '0.4.43',
+  version: '0.4.47',
   # when meson version passes 0.53.0 remove alternate build summary
-  meson_version: '>=0.50.0',
+  meson_version: '>=0.55.0',
   default_options: [
     'c_std=gnu11',
     'cpp_std=gnu++17',
@@ -58,7 +58,7 @@ dep_ver += {
 
 # GEGL binary - optional
 dep_ver += {
-  'gexiv2'          : '>=0.0.0',
+  'gexiv2'          : '>=0.14.0',
   'libpng'          : '>=1.6.0',
   'luajit'          : '>=2.0.4',
   'mrg'             : '>=0.0.0',
@@ -170,7 +170,7 @@ endif
 # and have exe wrapper. If we don't need a wrapper (e.g. 32 bit build in
 # 64-bit environment) then set proprty has_exe_wrapper=true in cross
 # file
-can_run_host_binaries = meson.has_exe_wrapper()
+can_run_host_binaries = meson.can_run_host_binaries()
 
 
 ################################################################################
@@ -194,7 +194,8 @@ cflags_common += [
   '-Winit-self',
   '-Wmissing-declarations',
   '-Wpointer-arith',
-  '-Wno-deprecated-declarations',
+  '-Wno-unused-parameter',
+  '-Wno-cast-function-type',
 ]
 cflags_c = [
   '-Wmissing-prototypes',
@@ -238,7 +239,7 @@ asciidoc          = find_program('asciidoc',
 dot               = find_program('dot',
                      required: false, native: true)
 gtkdoc_scan       = find_program('gtkdoc-scan',
-                     required: false, native: true)
+                     required: get_option('gtk-doc'), native: true)
 source_highlight  = find_program('source-highlight',
                      required: false, native: true)
 w3m               = find_program('w3m',
@@ -457,11 +458,10 @@ avlibs = avlibs_found ? [libavcodec, libavformat, libavutil, libswscale] : []
 # libumfpack
 libumfpack = cc.find_library('umfpack', required: get_option('umfpack'))
 if libumfpack.found()
-  have_umfpack = cc.has_header('umfpack.h')
+  have_umfpack = cc.has_header_symbol(
+    'umfpack.h','umfpack_dl_solve')
   have_ss_umfpack = cc.has_header_symbol(
-    'suitesparse/umfpack.h',
-    'umfpack_dl_solve'
-  )
+    'suitesparse/umfpack.h', 'umfpack_dl_solve')
 
   if not (have_umfpack or have_ss_umfpack)
     if get_option('umfpack').auto()
@@ -502,7 +502,20 @@ elif not asciidoc.found()
   build_docs = false
   warning('asciidoc is required to build website')
 endif
-build_reference = get_option('gtk-doc')
+
+gi_docgen = find_program('gi-docgen', required: get_option('gi-docgen'))
+if get_option('gi-docgen').auto()
+ build_gi_docgen = g_ir.found() and gi_docgen.found() and not meson.is_cross_build()
+else
+ build_gi_docgen = get_option('gi-docgen').enabled()
+
+ if build_gi_docgen and not g_ir.found()
+   warning('-Ddocs=true and -Dintrospection=true are required to build gi-docgen documentation')
+   build_gi_docgen = false
+ endif
+endif
+
+build_reference = get_option('gtk-doc') or build_gi_docgen
 
 
 #########################################################################
@@ -521,6 +534,7 @@ subdir('libs/rgbe')
 subdir('opencl')
 subdir('gegl')
 subdir('libs/npd')
+subdir('libs/ctx')
 
 # pkg-config file
 gegl_pub_deps = [
@@ -547,7 +561,7 @@ pkgconfig.generate(gegl_lib,
   subdirs: api_name,
 )
 
-gegl_dep = declare_dependency(link_with: gegl_lib,
+gegl_dep = declare_dependency(link_with: [gegl_lib, gegl_ctx_lib],
   include_directories: geglInclude,
   dependencies: [gegl_pub_deps, libnpd],
   sources: g_ir.found() ? gegl_gir : [],
@@ -605,112 +619,62 @@ endif
 ################################################################################
 # Build summary
 
-# workaround for some old build systems building GIMP 2.10
-if meson.version().version_compare('>=0.53.0')
-  summary(
-    {
-      'prefix'        : gegl_prefix,
-      'libdir'        : gegl_libdir,
-    }, section: 'Directories'
-  )
-  summary(
-    {
-      'Reference'       : build_reference,
-      'Docs'            : build_docs,
-    }, section: 'GEGL docs'
-  )
-  summary(
-    {
-      'Build workshop'    : get_option('workshop'),
-      'Introspection'     : g_ir.found(),
-      'Vala support'      : vapigen.found(),
-    }, section: 'Optional features'
-  )
-  summary(
-    {
-      'asciidoc'          : asciidoc.found(),
-      'dot'               : dot.found(),
-      'pygobject'         : pygobject3.found(),
-      'source-highlight'  : source_highlight.found(),
-      'w3m'               : w3m.found(),
-    }, section: 'Optional build utilities'
-  )
-  summary(
-    {
-      'avlibs'            : avlibs_found,
-      'Cairo'             : cairo.found(),
-      'GDKPixbuf'         : gdk_pixbuf.found(),
-      'gexiv2'            : gexiv2.found(),
-      'Jasper'            : jasper.found(),
-      'lcms'              : lcms.found(),
-      'libnsgif'          : libnsgif.found(),
-      'libraw'            : libraw.found(),
-      'Luajit'            : lua.found(),
-      'maxflow'           : maxflow.found(),
-      'mrg'               : mrg.found(),
-      'OpenEXR'           : openexr.found(),
-      'openMP'            : openmp.found(),
-      'Pango'             : pango.found(),
-      'pangocairo'        : pangocairo.found(),
-      'poly2tri-c'        : poly2tri_c.found(),
-      'poppler'           : poppler.found(),
-      'rsvg'              : librsvg.found(),
-      'SDL1'              : sdl1.found(),
-      'SDL2'              : sdl2.found(),
-      'spiro'             : libspiro.found(),
-      'TIFF'              : libtiff.found(),
-      'umfpack'           : libumfpack.found(),
-      'V4L'               : libv4l1.found(),
-      'V4L2'              : libv4l2.found(),
-      'webp'              : libwebp.found(),
-    }, section: 'Optional dependencies'
-  )
-else
-  message('\n'.join(['',
-  'Building GEGL with prefix=@0@'.format(get_option('prefix')),
-  '',
-  'GEGL docs:',
-  '  Reference:         @0@'.format(build_reference),
-  '  Docs:              @0@'.format(build_docs),
-  '',
-  'Optional features:',
-  '  Build workshop:    @0@'.format(get_option('workshop')),
-  '  Introspection:     @0@'.format(g_ir.found()),
-  '  Vala support:      @0@'.format(vapigen.found()),
-  '',
-  'Optional build utilities:',
-  '  asciidoc:          @0@'.format(asciidoc.found()),
-  '  dot:               @0@'.format(dot.found()),
-  '  pygobject:         @0@'.format(pygobject3.found()),
-  '  source-highlight:  @0@'.format(source_highlight.found()),
-  '  w3m:               @0@'.format(w3m.found()),
-  '',
-  'Optional dependencies:',
-  '  av libs:           @0@'.format(avlibs_found),
-  '  Cairo:             @0@'.format(cairo.found()),
-  '  GDKPixbuf:         @0@'.format(gdk_pixbuf.found()),
-  '  gexiv2:            @0@'.format(gexiv2.found()),
-  '  Jasper:            @0@'.format(jasper.found()),
-  '  lcms:              @0@'.format(lcms.found()),
-  '  libnsgif:          @0@'.format(libnsgif.found()),
-  '  libraw:            @0@'.format(libraw.found()),
-  '  Luajit:            @0@'.format(lua.found()),
-  '  maxflow:           @0@'.format(maxflow.found()),
-  '  mrg:               @0@'.format(mrg.found()),
-  '  OpenEXR:           @0@'.format(openexr.found()),
-  '  openMP:            @0@'.format(openmp.found()),
-  '  Pango:             @0@'.format(pango.found()),
-  '  pangocairo:        @0@'.format(pangocairo.found()),
-  '  poly2tri-c:        @0@ (@1@)'.format(poly2tri_c.found(),poly2tri_c.type_name()),
-  '  poppler:           @0@'.format(poppler.found()),
-  '  rsvg:              @0@'.format(librsvg.found()),
-  '  SDL1:              @0@'.format(sdl1.found()),
-  '  SDL2:              @0@'.format(sdl2.found()),
-  '  spiro:             @0@'.format(libspiro.found()),
-  '  TIFF               @0@'.format(libtiff.found()),
-  '  umfpack:           @0@'.format(libumfpack.found()),
-  '  V4L:               @0@'.format(libv4l1.found()),
-  '  V4L2:              @0@'.format(libv4l2.found()),
-  '  webp:              @0@'.format(libwebp.found()),
-  '']))
-endif
+summary(
+  {
+    'prefix'        : gegl_prefix,
+    'libdir'        : gegl_libdir,
+  }, section: 'Directories'
+)
+summary(
+  {
+    'GTK-docs reference'  : get_option('gtk-doc'),
+    'GI-docgen reference' : build_gi_docgen,
+    'Docs (GEGL website)' : build_docs,
+  }, section: 'GEGL docs'
+)
+summary(
+  {
+    'Build workshop'    : get_option('workshop'),
+    'Introspection'     : g_ir.found(),
+    'Vala support'      : vapigen.found(),
+  }, section: 'Optional features'
+)
+summary(
+  {
+    'asciidoc'          : asciidoc.found(),
+    'dot'               : dot.found(),
+    'pygobject'         : pygobject3.found(),
+    'source-highlight'  : source_highlight.found(),
+    'w3m'               : w3m.found(),
+  }, section: 'Optional build utilities'
+)
+summary(
+  {
+    'avlibs'            : avlibs_found,
+    'Cairo'             : cairo.found(),
+    'GDKPixbuf'         : gdk_pixbuf.found(),
+    'gexiv2'            : gexiv2.found(),
+    'Jasper'            : jasper.found(),
+    'lcms'              : lcms.found(),
+    'libnsgif'          : libnsgif.found(),
+    'libraw'            : libraw.found(),
+    'Luajit'            : lua.found(),
+    'maxflow'           : maxflow.found(),
+    'mrg'               : mrg.found(),
+    'OpenEXR'           : openexr.found(),
+    'openMP'            : openmp.found(),
+    'Pango'             : pango.found(),
+    'pangocairo'        : pangocairo.found(),
+    'poly2tri-c'        : poly2tri_c.found(),
+    'poppler'           : poppler.found(),
+    'rsvg'              : librsvg.found(),
+    'SDL1'              : sdl1.found(),
+    'SDL2'              : sdl2.found(),
+    'spiro'             : libspiro.found(),
+    'TIFF'              : libtiff.found(),
+    'umfpack'           : libumfpack.found(),
+    'V4L'               : libv4l1.found(),
+    'V4L2'              : libv4l2.found(),
+    'webp'              : libwebp.found(),
+  }, section: 'Optional dependencies'
+)

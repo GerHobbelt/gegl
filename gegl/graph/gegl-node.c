@@ -613,12 +613,21 @@ gegl_node_find_connection (GeglNode *sink,
 }
 
 gboolean
-gegl_node_connect_to (GeglNode    *source,
-                      const gchar *source_pad_name,
-                      GeglNode    *sink,
-                      const gchar *sink_pad_name)
+gegl_node_connect_from (GeglNode    *sink,
+                        const gchar *sink_pad_name,
+                        GeglNode    *source,
+                        const gchar *source_pad_name)
 {
-  return gegl_node_connect_from (sink, sink_pad_name, source, source_pad_name);
+  return gegl_node_connect (source, source_pad_name, sink, sink_pad_name);
+}
+
+gboolean
+gegl_node_connect_to (GeglNode    *sink,
+                      const gchar *sink_pad_name,
+                      GeglNode    *source,
+                      const gchar *source_pad_name)
+{
+  return gegl_node_connect (sink, sink_pad_name, source, source_pad_name);
 }
 
 /* the implementation of gegl_node_invalidated() can use either GeglRegions
@@ -797,7 +806,11 @@ gegl_node_invalidated (GeglNode            *node,
 
   rects = g_hash_table_new_full (NULL, NULL, NULL, g_free);
 
+#if GLIB_CHECK_VERSION(2,68,0)
+  g_hash_table_insert (rects, node, g_memdup2 (rect, sizeof (GeglRectangle)));
+#else
   g_hash_table_insert (rects, node, g_memdup (rect, sizeof (GeglRectangle)));
+#endif
 
   visitor = gegl_callback_visitor_new (gegl_node_invalidated_invalidate_node,
                                        rects);
@@ -873,20 +886,40 @@ gegl_node_is_graph (GeglNode *node)
 }
 
 gboolean
-gegl_node_connect_from (GeglNode    *sink,
-                        const gchar *sink_pad_name,
-                        GeglNode    *source,
-                        const gchar *source_pad_name)
+gegl_node_connect (GeglNode    *source,
+                   const gchar *source_pad_name,
+                   GeglNode    *sink,
+                   const gchar *sink_pad_name)
 {
+  if ((!GEGL_IS_NODE (sink))   ||
+      (sink_pad_name == NULL) ||
+      (!GEGL_IS_NODE (source))  ||
+      (source_pad_name == NULL))
+    return FALSE;
+
+  GeglPad *pad_sink = gegl_node_get_pad (sink, sink_pad_name);
+  if (pad_sink == NULL)
+    {
+      g_warning ("%s: the sink node '%s' doesn't have a pad named '%s', bailing.\n",
+                 G_STRFUNC, gegl_node_get_debug_name (sink), sink_pad_name);
+      return FALSE;
+    }
+
+  if (!gegl_pad_is_input (pad_sink))
+  {
+    { GeglNode *tmp = source;
+      source = sink;
+      sink = tmp; }
+    { const gchar *tmp = source_pad_name;
+      source_pad_name = sink_pad_name;
+      sink_pad_name = tmp;
+    }
+  }
+
   GeglNode    *real_sink            = sink;
   GeglNode    *real_source          = source;
   const gchar *real_sink_pad_name   = sink_pad_name;
   const gchar *real_source_pad_name = source_pad_name;
-
-  g_return_val_if_fail (GEGL_IS_NODE (sink), FALSE);
-  g_return_val_if_fail (sink_pad_name != NULL, FALSE);
-  g_return_val_if_fail (GEGL_IS_NODE (source), FALSE);
-  g_return_val_if_fail (source_pad_name != NULL, FALSE);
 
   if (gegl_node_has_source (source, sink))
     {
@@ -1079,7 +1112,7 @@ gegl_node_link (GeglNode *source,
   /* using connect_to is more natural here, but leads to an extra
    * function call, perhaps connect_to and connect_from should be swapped?
    */
-  gegl_node_connect_to (source, "output", sink, "input");
+  gegl_node_connect (source, "output", sink, "input");
 }
 
 void
@@ -1445,11 +1478,11 @@ gegl_node_set_operation_object (GeglNode      *self,
 
   /* FIXME: This should handle all input pads instead of just these 3 */
   if (input)
-    gegl_node_connect_from (self, "input", input, "output");
+    gegl_node_connect (input, "output", self, "input");
   if (aux)
-    gegl_node_connect_from (self, "aux", aux, "output");
+    gegl_node_connect (aux, "output", self, "aux");
   if (aux2)
-    gegl_node_connect_from (self, "aux2", aux2, "output");
+    gegl_node_connect (aux2, "output", self, "aux2");
 
   if (consumer_nodes)
     {
@@ -1459,7 +1492,7 @@ gegl_node_set_operation_object (GeglNode      *self,
           const gchar *output_dest_pad = consumer_names[i];
 
           if (output)
-            gegl_node_connect_to (self, "output", output, output_dest_pad);
+            gegl_node_connect (self, "output", output, output_dest_pad);
         }
 
       g_free (consumer_nodes);
@@ -2455,5 +2488,16 @@ const char *gegl_operation_get_op_version (const char *op_name)
   if (!ret)
     ret = "0:0";
   return ret;
+}
+
+void
+gegl_node_set_enum_as_string (GeglNode   *node,
+                              const char *key,
+                              const char *value)
+{
+  GValue gvalue = G_VALUE_INIT;
+  g_value_init (&gvalue, G_TYPE_STRING);
+  g_value_set_string (&gvalue, value);
+  gegl_node_set_property (node, key, &gvalue);
 }
 

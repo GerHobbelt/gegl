@@ -44,8 +44,8 @@ property_double (high_limit, _("High limit"), 1.0)
 #else
 
 #define GEGL_OP_POINT_FILTER
-#define GEGL_OP_NAME     rgb_clip
-#define GEGL_OP_C_SOURCE rgb-clip.c
+#define GEGL_OP_NAME     alpha_clip
+#define GEGL_OP_C_SOURCE alpha-clip.c
 
 #include "gegl-op.h"
 
@@ -54,22 +54,20 @@ prepare (GeglOperation *operation)
 {
   const Babl *space = gegl_operation_get_source_space (operation, "input");
   const Babl *src_format = gegl_operation_get_source_format (operation, "input");
-  const char *format     = "RGB float";
+  const char *format     = "RGBA float";
 
   if (src_format)
     {
       const Babl *model = babl_format_get_model (src_format);
 
       if (babl_model_is (model, "RGB"))
-        format = "RGB float";
+        format = "RGBA float";
       else if (babl_model_is (model, "RGBA"))
         format = "RGBA float";
       else if (babl_model_is (model, "R'G'B'"))
-        format = "R'G'B' float";
+        format = "R'G'B'A float";
       else if (babl_model_is (model, "R'G'B'A"))
         format = "R'G'B'A float";
-      else if (babl_format_has_alpha (src_format))
-        format = "RGBA float";
     }
 
   gegl_operation_set_format (operation, "input",  babl_format_with_space (format, space));
@@ -85,9 +83,7 @@ process (GeglOperation       *operation,
          gint                 level)
 {
   GeglProperties *o         = GEGL_PROPERTIES (operation);
-  const Babl     *format    = gegl_operation_get_format (operation, "input");
-  gboolean        has_alpha = babl_format_has_alpha (format);
-  gint            n_components = has_alpha ? 4 : 3;
+  gint            n_components = 4;
   gfloat *input  = in_buf;
   gfloat *output = out_buf;
 
@@ -98,12 +94,8 @@ process (GeglOperation       *operation,
     {
       while (n_pixels--)
         {
-          output[0] = CLAMP (input[0], low_limit, high_limit);
-          output[1] = CLAMP (input[1], low_limit, high_limit);
-          output[2] = CLAMP (input[2], low_limit, high_limit);
-
-          if (has_alpha)
-            output[3] = input[3];
+          for (int i = 0; i < 3; i++) output[i] = input[i];
+          output[3] = CLAMP (input[3], low_limit, high_limit);
 
           input  += n_components;
           output += n_components;
@@ -114,12 +106,8 @@ process (GeglOperation       *operation,
     {
       while (n_pixels--)
           {
-            output[0] = input[0] > high_limit ? high_limit : input[0];
-            output[1] = input[1] > high_limit ? high_limit : input[1];
-            output[2] = input[2] > high_limit ? high_limit : input[2];
-
-            if (has_alpha)
-              output[3] = input[3];
+            for (int i = 0; i < 3; i++) output[i] = input[i];
+            output[3] = input[3] > high_limit ? high_limit : input[3];
 
             input  += n_components;
             output += n_components;
@@ -130,12 +118,8 @@ process (GeglOperation       *operation,
     {
       while (n_pixels--)
         {
-          output[0] = input[0] < low_limit ? low_limit : input[0];
-          output[1] = input[1] < low_limit ? low_limit : input[1];
-          output[2] = input[2] < low_limit ? low_limit : input[2];
-
-          if (has_alpha)
-            output[3] = input[3];
+          for (int i = 0; i < 3; i++) output[i] = input[i];
+          output[3] = input[3] < low_limit ? low_limit : input[3];
 
           input  += n_components;
           output += n_components;
@@ -182,7 +166,7 @@ gegl_op_class_init (GeglOpClass *klass)
     "<gegl>"
     "  <node operation='gegl:crop' width='200' height='200'/>"
     "  <node operation='gegl:over'>"
-    "    <node operation='gegl:rgb-clip'>"
+    "    <node operation='gegl:alpha-clip'>"
     "      <params>"
     "        <param name='low_limit'>0.2</param>"
     "        <param name='high_limit'>0.8</param>"
@@ -208,12 +192,11 @@ gegl_op_class_init (GeglOpClass *klass)
   filter_class->process    = process;
 
   gegl_operation_class_set_keys (operation_class,
-    "name",        "gegl:rgb-clip",
-    "title",       _("Clip RGB"),
+    "name",        "gegl:alpha-clip",
+    "title",       _("Clip Alpha"),
     "categories",  "color",
-    "reference-hash", "a90f2b9f5b59357d85585720a7b2dd65",
     "reference-composition", composition,
-    "description", _("Keep RGB pixels values inside a specific range"),
+    "description", _("Keep alpha values inside a specific range"),
     NULL);
 }
 

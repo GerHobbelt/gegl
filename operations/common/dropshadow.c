@@ -97,7 +97,7 @@ update_graph (GeglOperation *operation)
   State *state = o->user_data;
   if (!state) return;
 
-  if (o->grow_radius > 0.0001)
+  if (fabs (o->grow_radius) > 0.0001)
   {
     gegl_node_link_many (state->input, state->grow, state->darken, NULL);
   }
@@ -145,8 +145,8 @@ attach (GeglOperation *operation)
 
   gegl_node_link_many (input, grow, darken, blur, opacity, translate, over, output,
                        NULL);
-  gegl_node_connect_from (over, "aux", input, "output");
-  gegl_node_connect_from (darken, "aux", color, "output");
+  gegl_node_connect (over, "aux", input, "output");
+  gegl_node_connect (darken, "aux", color, "output");
 
   gegl_operation_meta_redirect (operation, "grow-shape", grow, "neighborhood");
   gegl_operation_meta_redirect (operation, "grow-radius", grow, "radius");
