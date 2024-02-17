@@ -1,3 +1,73 @@
+GEGL-0.4.46 2023-06-26
+----------------------
+
+Core:
+~~~~~
+
+New simpler API for connecting pads, gegl_node_connect which can be
+used instead of either gegl_node_connect_from or gegl_node_connect_to by
+autosensing the neccesary direction of the connection.
+
+Operations:
+~~~~~~~~~~~
+
+GIMP has now started looking at the "gimp:menu-path" key among the GEGL
+operation class key/value pairs, and putting operations in the corresponding
+menu.
+
+- local-threshold: new operation that does neighborhood aware and optionally
+antialiased thresholding of an image. The operation is equivalent to doing an
+unsharp mask with a large radius, followed by scaling the image up applying
+threshold and scaling down by the inverse of the scale up factor.
+
+- chamfer: new operation in workshop that useis distance-transform and emboss or
+LinuxBeaver's research into modeling different bevels with combinations of
+blurs.
+
+- ff-load,ff-save: clean up of deprecated API, builds with ffmpeg-6.0
+but ff-save hasn't been made to work with this release of ffmpeg yet.
+
+
+Updated vendored libraries
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ctx and libnsgif have been updated from upstream.
+
+Build:
+~~~~~~
+
+ - Depend on meson 0.55.0
+ - various cleanups including re-enabling of deprecation warnings.
+ - make ctx be an internal library.
+
+Contributors to this release
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Alexandre Prokoudine, Asier Sarasua Garmendia, Ekaterine Papava, LinuxBeaver,
+Marco Ciampa, Martin, Øyvind Kolås, Piotr Drąg, Rodrigo Lledó, Sabri Ünal,
+Yuri Chornoivan.
+
+
+GEGL-0.4.44 2023-03-26
+----------------------
+
+GeglBuffer:
+~~~~~~~~~~~
+
+Fixed a invalid free that gets umasked by GLib 2.75.3 and newer.
+
+ctx:
+~~~~
+
+Updated vendored library from upstream.
+
+
+Contributors to this release:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Øyvind Kolås, Tim Sabsch, dimspingos and Jan Tojnar.
+
+
 GEGL-0.4.42 2023-02-20
 ----------------------
 
@@ -192,22 +262,24 @@ Upload meson logs as artifcats, use release and debugoptimized build types.
 Pin glibc package in arch CI build to a version before it hard depends on linux
 4.4.
 
-New Operations:
-~~~~~~~~~~~~~~~
-  negative-darkroom: This operation is for artists who use hybrid workflow
-   technique of analog photography. After scanning a developed negative, this
-   operation is used to invert the scan to create a positive image by simulating
-   the light behaviour of darkroom enlarger and common photographic papers.
+negative-darkroom
+~~~~~~~~~~~~~~~~~
 
-Operations:
-~~~~~~~~~~~
-  jpg-load,png-load,tiff-load: show ICC relatd problems as warnings.
-  rgbe-load : fix handling of exponent=0 in RLE encoded files.
-  color-reduction : Added blue-noise modes, the patents are expired for some 
-  years already, also added fix to levels parameters; enabling bi-level.
-  fattal02 : ensure gaussian pyramid has at least one level.
+New operation for artists who use hybrid workflow
+technique of analog photography. After scanning a developed negative, this
+operation is used to invert the scan to create a positive image by simulating
+the light behaviour of darkroom enlarger and common photographic papers.
 
-  paint-select (in workshop): multi-level banded graphcut, sub-region rather
+Operations
+~~~~~~~~~~
+
+ - jpg-load,png-load,tiff-load: show ICC relatd problems as warnings.
+ - rgbe-load : fix handling of exponent=0 in RLE encoded files.
+ - color-reduction : Added blue-noise modes, the patents are expired for some 
+ - years already, also added fix to levels parameters; enabling bi-level.
+ - fattal02 : ensure gaussian pyramid has at least one level.
+
+ - paint-select (in workshop): multi-level banded graphcut, sub-region rather
     than full buffer rcomputations and other improvements.
 
 Contributors to this release:
@@ -1247,11 +1319,11 @@ Better clone accounting in tile cache.
 Operations
 ~~~~~~~~~~
 
-  exp-combine: code cleanup/simplification
-  libraw: make bounding box handling consistent with rest of code.
-  transform ops: re-enabled multi-threading, reduced some format
-                 conversions and added wiggle-room in required/invalidated
-                 calculations.
+  - exp-combine: code cleanup/simplification
+  - libraw: make bounding box handling consistent with rest of code.
+  - transform ops: re-enabled multi-threading, reduced some format
+      conversions and added wiggle-room in required/invalidated
+      calculations.
 
 GEGL-0.3.24 2017-11-24
 ----------------------

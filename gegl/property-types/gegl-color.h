@@ -116,6 +116,88 @@ void         gegl_color_set_rgba               (GeglColor   *color,
                                                 gdouble      green,
                                                 gdouble      blue,
                                                 gdouble      alpha);
+
+/**
+ * gegl_color_get_rgba_with_space:
+ * @color: a #GeglColor
+ * @red: (out): red return location.
+ * @green: (out): green return location.
+ * @blue: (out): blue return location.
+ * @alpha: (out): alpha return location.
+ * @space: RGB space.
+ *
+ * Retrieves the current set color stored as @space.
+ * If @space is %NULL, this is equivalent to requesting color in sRGB.
+ */
+void         gegl_color_get_rgba_with_space    (GeglColor   *color,
+                                                gdouble     *red,
+                                                gdouble     *green,
+                                                gdouble     *blue,
+                                                gdouble     *alpha,
+                                                const Babl  *space);
+
+/**
+ * gegl_color_set_rgba_with_space:
+ * @color: a #GeglColor
+ * @red: red value
+ * @green: green value
+ * @blue: blue value
+ * @alpha: alpha value
+ * @space: RGB space.
+ *
+ * Set color as RGBA data stored as @space. If @space is %NULL, this is
+ * equivalent to storing as sRGB.
+ */
+void         gegl_color_set_rgba_with_space    (GeglColor   *color,
+                                                gdouble      red,
+                                                gdouble      green,
+                                                gdouble      blue,
+                                                gdouble      alpha,
+                                                const Babl  *space);
+
+/**
+ * gegl_color_get_cmyk:
+ * @color: a #GeglColor
+ * @cyan: (out): cyan return location.
+ * @magenta: (out): magenta return location.
+ * @yellow: (out): yellow return location.
+ * @key: (out): key return location.
+ * @alpha: (out): alpha return location.
+ * @space: (nullable): CMYK space.
+ *
+ * Retrieves the current set color stored as @space.
+ * If @space is %NULL, this is equivalent to requesting color in the default
+ * naive CMYK space.
+ */
+void         gegl_color_get_cmyk               (GeglColor   *color,
+                                                gdouble     *cyan,
+                                                gdouble     *magenta,
+                                                gdouble     *yellow,
+                                                gdouble     *key,
+                                                gdouble     *alpha,
+                                                const Babl  *space);
+
+/**
+ * gegl_color_set_cmyk:
+ * @color: a #GeglColor
+ * @cyan: cyan value
+ * @magenta: magenta value
+ * @yellow: yellow value
+ * @key: key value
+ * @alpha: alpha value
+ * @space: (nullable): CMYK space.
+ *
+ * Set color as CMYK data stored as @space. If @space is %NULL, this is
+ * equivalent to storing with the default naive CMYK space.
+ */
+void         gegl_color_set_cmyk               (GeglColor   *color,
+                                                gdouble      cyan,
+                                                gdouble      magenta,
+                                                gdouble      yellow,
+                                                gdouble      key,
+                                                gdouble      alpha,
+                                                const Babl  *space);
+
 /**
  * gegl_color_set_pixel: (skip)
  * @color: a #GeglColor
@@ -127,6 +209,7 @@ void         gegl_color_set_rgba               (GeglColor   *color,
 void         gegl_color_set_pixel              (GeglColor   *color,
                                                 const Babl  *format,
                                                 const void  *pixel);
+
 /**
  * gegl_color_get_pixel: (skip)
  * @color: a #GeglColor
@@ -138,6 +221,27 @@ void         gegl_color_set_pixel              (GeglColor   *color,
 void         gegl_color_get_pixel              (GeglColor   *color,
                                                 const Babl  *format,
                                                 void        *pixel);
+/**
+ * gegl_color_set_bytes:
+ * @color:  a #GeglColor
+ * @format: a babl pixel format
+ * @bytes:  color stored as @format
+ *
+ * Set a GeglColor from a pixel stored in a %GBytes and it's babl format.
+ */
+void         gegl_color_set_bytes              (GeglColor   *color,
+                                                const Babl  *format,
+                                                GBytes      *bytes);
+
+/**
+ * gegl_color_get_bytes:
+ * @color: a #GeglColor
+ * @format: a babl pixel format
+ *
+ * Returns: the color in the given @format.
+ */
+GBytes     * gegl_color_get_bytes              (GeglColor   *color,
+                                                const Babl  *format);
 
 /***
  */

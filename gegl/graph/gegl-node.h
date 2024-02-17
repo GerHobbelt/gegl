@@ -115,7 +115,8 @@ GeglNode    * gegl_node_new_child        (GeglNode      *parent,
 gboolean      gegl_node_connect_from     (GeglNode      *sink,
                                           const gchar   *input_pad_name,
                                           GeglNode      *source,
-                                          const gchar   *output_pad_name);
+                                          const gchar   *output_pad_name)
+G_DEPRECATED_FOR (gegl_node_connect or gegl_node_link if pads are "input" and "output");
 
 /**
  * gegl_node_connect_to:
@@ -131,7 +132,24 @@ gboolean      gegl_node_connect_from     (GeglNode      *sink,
 gboolean      gegl_node_connect_to       (GeglNode      *source,
                                           const gchar   *output_pad_name,
                                           GeglNode      *sink,
-                                          const gchar   *input_pad_name);
+                                          const gchar   *input_pad_name)
+G_DEPRECATED_FOR (gegl_node_connect or gegl_node_link if pads are "output" and "input");
+
+/**
+ * gegl_node_connect:
+ * @a: a node
+ * @a_pad_name: and the pad of the node we want connected.
+ * @b: another node
+ * @b_pad_name: and its pad to be connected.
+ *
+ * Makes a connection between the pads of two nodes, one pad should
+ * be a source pad the other a sink pad, order does not matter.
+ *
+ * Returns TRUE if the connection was successfully made.
+ */
+gboolean
+gegl_node_connect (GeglNode *a, const gchar*a_pad_name,
+                   GeglNode *b, const gchar*b_pad_name);
 
 
 /**
@@ -139,8 +157,7 @@ gboolean      gegl_node_connect_to       (GeglNode      *source,
  * @source: the producer of data.
  * @sink: the consumer of data.
  *
- * Synthetic sugar for linking the "output" pad of @source to the "input"
- * pad of @sink.
+ * This is equivalent to gegl_node_connect (source, "output", sink, "input");
  */
 void          gegl_node_link             (GeglNode      *source,
                                           GeglNode      *sink);
@@ -161,7 +178,7 @@ gegl_node_apply_roi (GeglNode            *self,
  * @first_sink: the first consumer of data.
  * @...: NULL, or optionally more consumers followed by NULL.
  *
- * Synthetic sugar for linking a chain of nodes with "input"->"output". The
+ * Synthetic sugar for linking a chain of nodes with "output"->"input". The
  * list is NULL terminated.
  */
 void          gegl_node_link_many        (GeglNode      *source,
@@ -713,6 +730,10 @@ gboolean        gegl_node_is_graph       (GeglNode *node);
 void       gegl_node_progress (GeglNode *node, gdouble progress, gchar *message);
 
 const char *gegl_operation_get_op_version (const gchar *op_name);
+void
+gegl_node_set_enum_as_string (GeglNode   *node,
+                              const char *key,
+                              const char *value);
 
 G_END_DECLS
 

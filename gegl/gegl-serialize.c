@@ -214,6 +214,8 @@ gegl_migrate_api (GeglNode    *node,
 }
 #endif
 
+#define GEGL_CHAIN_MAX_LEVEL 10
+
 void
 gegl_create_chain_argv (char      **argv,
                         GeglNode   *start,
@@ -223,12 +225,12 @@ gegl_create_chain_argv (char      **argv,
                         const char *path_root,
                         GError    **error)
 {
-  GeglNode   *iter[10] = {start, NULL};
   GeglNode   *new = NULL;
   gchar     **arg = argv;
   int level = 0;
-  char       *level_op[10];
-  char       *level_pad[10];
+  GeglNode   *iter[GEGL_CHAIN_MAX_LEVEL] = {start, NULL};
+  char       *level_op[GEGL_CHAIN_MAX_LEVEL];
+  char       *level_pad[GEGL_CHAIN_MAX_LEVEL];
   int in_keyframes = 0;
   int in_strkeyframes = 0;
   char       *prop = NULL;
@@ -237,6 +239,13 @@ gegl_create_chain_argv (char      **argv,
   GString    *string = NULL;
   GeglNode **ret_sinkp = NULL;
 #if 0
+  // for opi migration to work we need to parse into a hashtable of keys..
+  // that later get applied..
+
+  // in this database we collect *string values* including strings for animations
+  // the opi migration occurs on this list of key/value pairs along with the
+  // op name before reaching 
+
   char      *op_args[64]={NULL, };
   int        n_op_args = 0;
 #endif
@@ -250,7 +259,7 @@ gegl_create_chain_argv (char      **argv,
 
   remove_in_betweens (start, proxy);
 
-  level_op[level] = *arg;
+  level_op[level] = 0;//*arg;
 
   ht = g_hash_table_new (g_str_hash, g_str_equal);
 
@@ -371,8 +380,8 @@ gegl_create_chain_argv (char      **argv,
         {
           level--;
           if (level < 0) level = 0;
-          gegl_node_connect_to (iter[level+1], "output", iter[level],
-                                level_pad[level]);
+          gegl_node_connect (iter[level+1], "output", iter[level],
+                             level_pad[level]);
         }
       else
         {
@@ -455,7 +464,7 @@ gegl_create_chain_argv (char      **argv,
 
                         if (g_type_is_a (target_type, G_TYPE_STRING))
                           {
-                            string = g_string_new ("");
+                            if (string){g_string_assign(string, "");}else string = g_string_new ("");
                             in_strkeyframes = 1;
                             g_free (prop);
                             prop = g_strdup (key);
@@ -486,6 +495,10 @@ gegl_create_chain_argv (char      **argv,
                         level_pad[level] = (void*)g_intern_string(pad);
                         g_free (pad);
                         level++;
+                        if (level >= GEGL_CHAIN_MAX_LEVEL)
+                        {
+                          break;
+                        }
                         iter[level] = NULL;
                         level_op[level] = NULL;
                         level_pad[level] = NULL;
@@ -623,6 +636,7 @@ gegl_create_chain_argv (char      **argv,
                         if (!strcmp (value,
                                      "true") || !strcmp (value, "TRUE") ||
                             !strcmp (value, "YES") || !strcmp (value, "yes") ||
+                            !strcmp (value, "Yes") || !strcmp (value, "True") ||
                             !strcmp (value, "y") || !strcmp (value, "Y") ||
                             !strcmp (value, "1") || !strcmp (value, "on"))
                           {
@@ -719,7 +733,6 @@ gegl_create_chain_argv (char      **argv,
                                 g_string_append_printf (str, " %s", eclass->values[i].value_nick);
                               }
 
-
                               *error = g_error_new_literal (
                                   g_quark_from_static_string ( "gegl"), 0, str->str);
                               g_string_free (str, TRUE);
@@ -743,8 +756,8 @@ gegl_create_chain_argv (char      **argv,
                 if (end_block && level >0)
                   {
                     level--;
-                    gegl_node_connect_to (iter[level+1], "output", iter[level],
-                                          level_pad[level]);
+                    gegl_node_connect (iter[level+1], "output",
+                                       iter[level], level_pad[level]);
                   }
               }
             }
@@ -838,8 +851,8 @@ gegl_create_chain_argv (char      **argv,
   while (level > 0)
     {
       level--;
-      gegl_node_connect_to (iter[level+1], "output", iter[level],
-                            level_pad[level]);
+      gegl_node_connect (iter[level+1], "output",
+                         iter[level], level_pad[level]);
     }
 
   g_free (prop);
@@ -847,7 +860,7 @@ gegl_create_chain_argv (char      **argv,
 
 
   if (gegl_node_has_pad (iter[level], "output"))
-    gegl_node_link_many (iter[level], proxy, NULL);
+    gegl_node_link (iter[level], proxy);
   else
   {
     if (ret_sinkp)
@@ -881,7 +894,6 @@ gegl_serialize2 (GeglNode         *start,
                  GHashTable       *ht,
                  GeglSerializeFlag flags)
 {
-  char *ret = NULL;
   gboolean trim_defaults = flags & GEGL_SERIALIZE_TRIM_DEFAULTS;
   gboolean bake_anim = flags & GEGL_SERIALIZE_BAKE_ANIM;
   GeglNode *iter;
@@ -1225,11 +1237,7 @@ gegl_serialize2 (GeglNode         *start,
           iter = gegl_node_get_producer (iter, "input", NULL);
         }
     }
-  ret = str->str;
-  g_string_free (str, FALSE);
-
-
-  return ret;
+  return g_string_free (str, FALSE);
 }
 
 gchar *
