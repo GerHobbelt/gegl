@@ -139,7 +139,7 @@ json_list_pads (GType type, GString *s, const gchar *opname)
     {
       g_string_append_printf (s, "%s\n", input_pads[i]);
     }
-    g_free (input_pads);
+    g_strfreev (input_pads);
   }
 
   if (output_pads && output_pads[0])
@@ -148,7 +148,7 @@ json_list_pads (GType type, GString *s, const gchar *opname)
     {
       g_string_append_printf (s, "%s\n", output_pads[i]);
     }
-    g_free (output_pads);
+    g_strfreev (output_pads);
   }
     g_string_append_printf (s, "<br/>");
 
@@ -538,9 +538,8 @@ main (gint argc, gchar **argv)
       g_string_append_printf (s, "</div>");
       g_string_append (s, html_post);
       {
-        gchar *html_name = g_strdup_printf ("%s.html", name);
-        gchar *colon = strchr (html_name, ':');
-        if (colon) *colon = '-';
+        gchar *html_name = g_strdelimit (g_strdup_printf ("%s.html", name), ":", '-');
+
         g_print ("%s\n", html_name);
         g_file_set_contents (html_name, s->str, -1, NULL);
         g_string_assign (s, "");
@@ -608,9 +607,7 @@ all:
       if (found || !strcmp(category, "all") ||
         !strcmp(category, g_type_name (g_type_parent(G_OBJECT_CLASS_TYPE(klass))) ))
       {
-        gchar *name_dup = g_strdup (name);
-        gchar *colon = strchr (name_dup, ':');
-        if (colon) *colon = '-';
+        gchar *name_dup = g_strdelimit (g_strdup (name), ":", '-');
 
       {
         char *image = operation_to_image_path (name);
@@ -684,9 +681,7 @@ all:
             const char *title = gegl_operation_class_get_key (klass, "title");
             const char *description = gegl_operation_class_get_key (klass, "description");
       {
-        gchar *name_dup = g_strdup (name);
-        gchar *colon = strchr (name_dup, ':');
-        if (colon) *colon = '-';
+        gchar *name_dup = g_strdelimit (g_strdup (name), ":", '-');
 
       {
         char *image = operation_to_image_path (name);
