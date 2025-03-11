@@ -41,16 +41,14 @@ property_enum   (grow_shape, _("Grow shape"),
 
 property_double (x, _("X"), 0.0)
   description   (_("Horizontal shadow offset"))
-  ui_range      (-15.0, 15.0)
-  value_range   (-15.0, 15.0)
+  ui_range      (-30.0, 30.0)
   ui_steps      (1, 2)
   ui_meta       ("unit", "pixel-distance")
   ui_meta       ("axis", "x")
 
 property_double (y, _("Y"), 0.0)
   description   (_("Vertical shadow offset"))
-  ui_range      (-15.0, 15.0)
-  value_range   (-15.0, 15.0)
+  ui_range      (-30.0, 30.0)
   ui_steps      (1, 2)
   ui_meta       ("unit", "pixel-distance")
   ui_meta       ("axis", "y")
@@ -100,7 +98,7 @@ property_double  (cover, _("Median fix for non-affected pixels on edges"), 60)
 static void attach (GeglOperation *operation)
 {
   GeglNode *gegl = operation->node;
-  GeglNode *input, *color, *translate, *out, *median, *medianfix, *opacity, *gaussian,  *output;
+  GeglNode *input, *color, *translate, *out, *median, *medianfix, *crop, *opacity, *gaussian,  *output;
 
   input    = gegl_node_get_input_proxy (gegl, "input");
   output   = gegl_node_get_output_proxy (gegl, "output");
@@ -121,6 +119,10 @@ static void attach (GeglOperation *operation)
                                          "radius",       1,
                                          "alpha-percentile", 0.0,
                                          NULL);
+
+ crop    = gegl_node_new_child (gegl,
+                                  "operation", "gegl:crop",
+                                  NULL);
 
  color    = gegl_node_new_child (gegl,
                                   "operation", "gegl:color-overlay",
@@ -148,8 +150,9 @@ gegl_operation_meta_redirect (operation, "y", translate, "y");
 gegl_operation_meta_redirect (operation, "cover", medianfix, "alpha-percentile");
 
 
- gegl_node_link_many (input, median, gaussian, translate, out, color, opacity, medianfix, output, NULL);
+ gegl_node_link_many (input, median, gaussian, translate, out, color, opacity, medianfix, crop, output, NULL);
  gegl_node_connect (out, "aux", input, "output");
+ gegl_node_connect (crop, "aux", input, "output");
 
 
 }

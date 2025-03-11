@@ -101,9 +101,6 @@ static void        mantiuk06_matrix_subtract                  (const guint      
 static void        mantiuk06_matrix_multiply_const            (const guint                      n,
                                                                gfloat       *const              a,
                                                                const gfloat                     val);
-static void        mantiuk06_matrix_divide                    (const guint                      n,
-                                                               const gfloat *const              a,
-                                                               gfloat *const                    b);
 static gfloat      mantiuk06_matrix_dot_product               (const guint                      n,
                                                                const gfloat *const              a,
                                                                const gfloat *const              b);
@@ -405,18 +402,6 @@ mantiuk06_matrix_multiply_const (const guint         n,
   _OMP (omp parallel for schedule(static))
   for (i = 0; i < n; i++)
     a[i] *= val;
-}
-
-/* b = a[i] / b[i] */
-static inline void
-mantiuk06_matrix_divide (const guint         n,
-                         const gfloat *const a,
-                         gfloat       *const b)
-{
-  guint i;
-  _OMP (omp parallel for schedule(static))
-  for (i = 0; i < n; i++)
-      b[i] = a[i] / b[i];
 }
 
 
@@ -1619,7 +1604,9 @@ mantiuk06_operation_process (GeglOperation        *operation,
   const GeglRectangle *in_rect =
     gegl_operation_source_get_bounding_box (operation, "input");
 
-  if (in_rect && gegl_rectangle_is_infinite_plane (in_rect))
+  if (in_rect && (gegl_rectangle_is_infinite_plane (in_rect) ||
+                  in_rect->width < PYRAMID_MIN_PIXELS ||
+                  in_rect->height < PYRAMID_MIN_PIXELS))
     {
       gpointer in = gegl_operation_context_get_object (context, "input");
       gegl_operation_context_take_object (context, "output",
