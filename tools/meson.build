@@ -76,8 +76,8 @@ if gexiv2.found()
   )
 endif
 
-gen_loader = find_program('gen-loader.sh')
+gen_loader = find_program('gen-loader.py')
 gobj2dot   = find_program('gobj2dot.rb')
 
 
-meson.add_dist_script('dist-script.sh')
+meson.add_dist_script('dist-script.py')
