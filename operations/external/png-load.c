@@ -227,7 +227,7 @@ gegl_png_space (png_structp load_png_ptr,
     {
       const char *error = NULL;
       const Babl *space = babl_space_from_icc ((char*)profile, (int)proflen,
-                                 BABL_ICC_INTENT_RELATIVE_COLORIMETRIC, &error);
+                                 BABL_ICC_INTENT_DEFAULT, &error);
       if (error)
         g_warning ("unable to create babl space from icc: %s", error);
       return space;
@@ -587,6 +587,7 @@ get_bounding_box (GeglOperation *operation)
     {
       width = 0;
       height = 0;
+      format = babl_format ("R'G'B'A u8");
     }
 
   gegl_operation_set_format (operation, "output", format);
