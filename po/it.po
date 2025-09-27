@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  GEGL_0_2_0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-19 00:56+0200\n"
-"PO-Revision-Date: 2025-08-19 01:08+0200\n"
+"POT-Creation-Date: 2025-09-02 21:18+0200\n"
+"PO-Revision-Date: 2025-09-02 21:18+0200\n"
 "Last-Translator: Marco Ciampa <ciampix@posteo.net>\n"
 "Language-Team: italian <tp@lists.linux.it>\n"
 "Language: it\n"
@@ -689,12 +689,12 @@ msgstr "Nessuna (da usare con le opzioni di fusione di GIMP)"
 #: ../operations/common/bevel.c:63 ../operations/common/styles.c:202
 #: ../operations/common/styles.c:310 ../operations/common/styles.c:418
 msgid "Hard Light"
-msgstr "Alteluci"
+msgstr "Luce intensa"
 
 #: ../operations/common/bevel.c:65 ../operations/common/styles.c:59
 #: ../operations/common/styles.c:198 ../operations/common/styles.c:414
 msgid "Multiply"
-msgstr "Moltiplicatore"
+msgstr "Moltiplica"
 
 #: ../operations/common/bevel.c:67 ../operations/common/styles.c:206
 #: ../operations/common/styles.c:312 ../operations/common/styles.c:422
@@ -704,7 +704,7 @@ msgstr "Scansa colore"
 #: ../operations/common/bevel.c:69 ../operations/common/styles.c:204
 #: ../operations/common/styles.c:420
 msgid "Darken"
-msgstr "Inscurisci"
+msgstr "Scurisci"
 
 #: ../operations/common/bevel.c:71
 msgid "Lighten"
@@ -5001,8 +5001,8 @@ msgstr ""
 "Ciò indica alla smussatura di ignorare i dettagli dell'immagine se sotto di "
 "essa è presente una sovrapposizione di file immagine. Consente inoltre alla "
 "smussatura di funzionare meglio quando l'utente seleziona colori più scuri. "
-"L'effetto è evidente sullo smusso a smusso, ma influisce a malapena sullo "
-"smusso a smusso"
+"L'effetto è evidente sullo smusso a sbalzo, ma influisce a malapena sullo "
+"smusso a ciamfrino"
 
 #. This operation is extremely important for bevels with image file overlays
 #. Inner Glow GUI options begin here
@@ -5153,7 +5153,7 @@ msgstr "Profondità del rilievo della smussatura del contorno"
 
 #: ../operations/common/styles.c:440
 msgid "Outline Bevel elevation"
-msgstr "Elevazione smusso contorno "
+msgstr "Elevazione smusso contorno"
 
 #: ../operations/common/styles.c:441
 msgid "Emboss elevation for the outline bevel"
@@ -5193,11 +5193,11 @@ msgstr ""
 
 #: ../operations/common/styles.c:475
 msgid "Outline image opacity"
-msgstr "Contorna opacità immagine"
+msgstr "Opacità immagine contorno"
 
 #: ../operations/common/styles.c:476
 msgid "Outline image opacity adjustment"
-msgstr "Regolazione opacità contorno immagine"
+msgstr "Regolazione opacità dell'immagine del contorno"
 
 #: ../operations/common/styles.c:481
 msgid "Levels low output lighting for Outline Bevel"
@@ -5390,7 +5390,9 @@ msgstr "Forma vignetta"
 msgid ""
 "Defaults to 'black', you can use transparency here to erase portions of an "
 "image"
-msgstr "Valore predefinito 'black'; si può usare la trasparenza per cancellare porzioni dell'immagine"
+msgstr ""
+"Valore predefinito 'black'; si può usare la trasparenza per cancellare "
+"porzioni dell'immagine"
 
 #: ../operations/common/vignette.c:41
 msgid "How far out vignetting goes as portion of half image diagonal"
@@ -5623,7 +5625,7 @@ msgstr "Calcola una trasformazione di distanza"
 #: ../operations/common-cxx/focus-blur.c:30
 #: ../operations/common-cxx/lens-blur.cc:504
 msgid "Lens Blur"
-msgstr "Sfocatura lenti"
+msgstr "Sfocatura lente"
 
 #: ../operations/common-cxx/focus-blur.c:41
 msgid "Blur type"
@@ -5761,7 +5763,7 @@ msgstr "Usa i valori di maschera lineare"
 
 #: ../operations/common-cxx/lens-blur.cc:507
 msgid "Simulate out-of-focus lens blur"
-msgstr "Simula la sfocatura di lenti fuori fuoco"
+msgstr "Simula la sfocatura di una lente fuori fuoco"
 
 #: ../operations/common-cxx/piecewise-blend.cc:30
 msgid "Number of blend levels"
@@ -5858,19 +5860,19 @@ msgstr "Antialias usando l'algoritmo di estrapolazione bordi Scale3X"
 
 #: ../operations/common-gpl3+/apply-lens.c:36
 msgid "Lens refraction index"
-msgstr "Indice di rifrazione lenti"
+msgstr "Indice di rifrazione lente"
 
 #: ../operations/common-gpl3+/apply-lens.c:41
 msgid "Keep original surroundings"
-msgstr "Mantiene i dintorni originali"
+msgstr "Mantieni contorni originali"
 
 #: ../operations/common-gpl3+/apply-lens.c:42
 msgid "Keep image unchanged, where not affected by the lens."
-msgstr "Mantiene l'immagine intatta ove non influenzata dalle lenti."
+msgstr "Mantiene l'immagine intatta ove non influenzata dalla lente."
 
 #: ../operations/common-gpl3+/apply-lens.c:301
 msgid "Apply Lens"
-msgstr "Applica lenti"
+msgstr "Applica lente"
 
 #: ../operations/common-gpl3+/apply-lens.c:306
 msgid ""
@@ -6939,11 +6941,11 @@ msgstr "Regola la luminosità negli angoli"
 
 #: ../operations/common-gpl3+/lens-distortion.c:497
 msgid "Lens Distortion"
-msgstr "Distorsione lenti"
+msgstr "Distorsione lente"
 
 #: ../operations/common-gpl3+/lens-distortion.c:504
 msgid "Corrects barrel or pincushion lens distortion."
-msgstr "Corregge la distorsione lenti a barile o a cuscino."
+msgstr "Corregge la distorsione lente a barile o a cuscino."
 
 #: ../operations/common-gpl3+/lens-flare.c:27
 msgid "X position"
@@ -6963,11 +6965,11 @@ msgstr "Coordinate Y del centro dei riflessi"
 
 #: ../operations/common-gpl3+/lens-flare.c:510
 msgid "Lens Flare"
-msgstr "Riflesso lenti"
+msgstr "Riflesso lente"
 
 #: ../operations/common-gpl3+/lens-flare.c:515
 msgid "Adds a lens flare effect."
-msgstr "Aggiungi in effetto lenti."
+msgstr "Aggiunge un effetto lente."
 
 #: ../operations/common-gpl3+/linear-sinusoid.c:25
 msgid "X Period"
@@ -7322,7 +7324,9 @@ msgstr "Buffer esponente"
 msgid ""
 "Per pixel buffer for modulating the exponent parameter, expecting a scaling "
 "factor in range 0.0-1.0"
-msgstr " stile svg"
+msgstr ""
+"Buffer per pixel per la modulazione del parametro esponente, prevedendo un "
+"fattore di scala compreso tra 0.0 e 1.0"
 
 #: ../operations/common-gpl3+/oilify.c:628
 msgid "Oilify"
@@ -10306,8 +10310,7 @@ msgstr "Modello alfa d"
 
 #: ../operations/workshop/external/lens-correct.c:487
 msgid "Copies image performing lens distortion correction."
-msgstr ""
-"Copia le immagini eseguendo una correzione ad una distorsione da lenti."
+msgstr "Copia l'immagine correggendo la distorsione da lente."
 
 #: ../operations/workshop/external/line-profile.c:25
 msgid "X0"
