@@ -1,13 +1,16 @@
+workflow:
+  auto_cancel:
+    on_new_commit: interruptible
+
+
 include:
-  - project: 'Infrastructure/freedesktop-ci-templates'
-    file: 'templates/fedora.yml'
-    ref: master
+  - project: Infrastructure/freedesktop-ci-templates
+    file: templates/fedora.yml
 
-stages:
-  - "build docker"
-  - build
-
-.fedora image:
+.fedora:
+  extends: .fdo.distribution-image@fedora
+  interruptible: true
+  needs: ["docker-image"]
   variables:
     ###
     # IMPORTANT
@@ -20,20 +23,27 @@ stages:
     FDO_DISTRIBUTION_PACKAGES: >
       meson ninja-build gcc g++ git gettext glib2-devel libjpeg-turbo-devel
       libpng-devel json-glib-devel lcms2-devel diffutils shellcheck devscripts
-    FDO_UPSTREAM_REPO: gnome/gegl
+    FDO_UPSTREAM_REPO: $CI_PROJECT_PATH
 
-fedora image:
-  stage: "build docker"
+
+stages:
+  - dependencies
+  - build
+  - analysis
+
+
+docker-image:
   extends:
-    - .fedora image
+    - .fedora
     - .fdo.container-build@fedora
+  needs: []
+  stage: dependencies
+  variables:
+    GIT_STRATEGY: none
 
 fedora-x86_64:
-  extends:
-    - .fedora image
-    - .fdo.distribution-image@fedora
+  extends: .fedora
   stage: build
-  needs: ["fedora image"]
   script:
     - meson --buildtype debug
             --fatal-meson-warnings
@@ -43,16 +53,13 @@ fedora-x86_64:
   artifacts:
     name: "gegl-${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}"
     when: always
-    expire_in: 1 week
     paths:
       - "_build/meson-logs"
+    expire_in: 8 days
 
 meson-health:
-  extends:
-    - .fedora image
-    - .fdo.distribution-image@fedora
-  stage: build
-  needs: ["fedora image"]
+  extends: .fedora
+  stage: analysis
   script:
     - sh .gitlab/run_meson_health_diff.sh
   allow_failure: true
