@@ -10,7 +10,7 @@ project('poly2tri-c', 'c',
 )
 
 glib = dependency('glib-2.0')
-math = meson.get_compiler('c').find_library('m')
+math = meson.get_compiler('c').find_library('m', required: false)
 
 rootInclude = include_directories('.')
 
@@ -20,7 +20,7 @@ subdir('poly2tri-c/render')
 
 
 libpoly2tri_c = static_library('poly2tri-c',
-  link_with: [ libp2tc, libp2tc_refine, libp2tc_render, ],
+  link_whole: [ libp2tc, libp2tc_refine, libp2tc_render, ],
 )
 
 
