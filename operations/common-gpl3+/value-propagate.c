@@ -470,7 +470,7 @@ prepare (GeglOperation *operation)
 
   params = (VPParamsType *) o->user_data;
 
-  /* The op's directional paramaters are used in terms of which direction to
+  /* The op's directional parameters are used in terms of which direction to
    * propagate _to_, but offset is used for what neighbors a pixel may
    * propagate _from_. Therefore, directions are reversed between the two.
    */

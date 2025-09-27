@@ -344,7 +344,7 @@ gegl_path_curve(GeglProperties *o)
     findGCD(o->fixed_gear_teeth, o-> moving_gear_teeth);
   int steps = least_common_mult + 1;
 
-  // Extract paramters.
+  // Extract parameters.
   gfloat hole_percent = o->hole_percent;
   gfloat x_center = o->x;
   gfloat y_center = o->y;
