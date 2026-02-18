@@ -1,6 +1,14 @@
+#include "config.h"
 #include <errno.h>
 #include <string.h>
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
+#if !defined (HAVE_UNISTD_H) && defined(_WIN64)
+#include <io.h>
+#define access _access
+#define F_OK 0
+#endif
 
 #include <gegl.h>
 #include <glib.h>

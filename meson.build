@@ -1,8 +1,8 @@
 project('gegl',
   'c', 'cpp',
   license: 'GPL3+',
-  version: '0.4.63',
-  meson_version: '>=0.57.0',
+  version: '0.4.65',
+  meson_version: '>=0.59.0',
   default_options: [
     'c_std=gnu11',
     'cpp_std=c++14',
@@ -44,10 +44,11 @@ project_source_root = meson.current_source_dir()
 #
 # Core - required
 dep_ver = {
-  'babl'            : '>=0.1.112',
+  'babl'            : '>=0.1.116',
   'glib'            : '>=2.44.0',
   'json-glib'       : '>=1.0.0',
   'poly2tri-c'      : '>=0.0.0',
+  'libnsgif'        : '>=1.0.0',
 }
 
 # Core - optional
@@ -56,12 +57,21 @@ dep_ver += {
   'vapigen'         : '>=0.20.0',
 }
 
+# GEGL binary - required
+dep_ver += {
+  'libpng'          : '>=1.6.0',
+}
+
 # GEGL binary - optional
 dep_ver += {
   'gexiv2'          : '>=0.14.0',
-  'libpng'          : '>=1.6.0',
   'luajit'          : '>=2.0.4',
   'mrg'             : '>=0.0.0',
+}
+
+# Operations - required
+dep_ver += {
+  'libjpeg'         : '>=1.0.0',
 }
 
 # Operations - optional
@@ -73,7 +83,6 @@ dep_ver += {
   'jasper'          : '>=1.900.1',
   'lcms'            : '>=2.8',
   'lensfun'         : '>=0.2.5',
-  'libjpeg'         : '>=1.0.0',
   'libraw'          : '>=0.15.4',
   'librsvg'         : '>=2.40.6',
   'libspiro'        : '>=0.5.0',
@@ -180,17 +189,12 @@ lflags_common = []
 cflags_common += '-DHAVE_CONFIG_H'
 
 
-if buildtype == 'debugoptimized' or buildtype == 'debug'
-  cflags_common += '-DGEGL_ENABLE_DEBUG'
-endif
-
 cflags_common += [
   '-Winit-self',
   '-Wmissing-declarations',
   '-Wpointer-arith',
   '-Wno-unused-parameter',
-  '-Wno-cast-function-type',
-  '-Wno-implicit-function-declaration'
+  '-Wno-cast-function-type'
 ]
 cflags_c = [
   '-Wmissing-prototypes',
@@ -200,9 +204,14 @@ cflags_c = [
 
 # DEBUG SYMBOLS
 debugging_format = 'Disabled'
-if get_option('buildtype') == 'debug' or get_option('buildtype') == 'debugoptimized'
+if buildtype == 'debug' or buildtype == 'debugoptimized'
+  cflags_common += '-DGEGL_ENABLE_DEBUG'
+
   if not os_win32
     # DWARF symbols for GCC and LLDB on Unix
+    debugging_format = 'Native'
+  elif cc.get_argument_syntax() == 'msvc'
+    # CodeView symbols for DIA or DbgHelp debuggers and LLDB on Windows
     debugging_format = 'Native'
   elif os_win32 and get_option('win-debugging') == 'native' and cc.has_argument('-gcodeview') and cc.has_link_argument('-Wl,--pdb=') and cc.get_id() == 'clang'
     # CodeView symbols for DIA or DbgHelp debuggers and LLDB on Windows
@@ -230,11 +239,9 @@ if os_win32
     cflags_common += '-fansi-escape-codes'
   endif
 
-  if cc.get_id() == 'clang-cl' or cc.get_id() == 'msvc'
+  if cc.get_argument_syntax() == 'msvc'
     #Needed otherwise MSVC get angry with the headers provided by UCRT
     cflags_common += ['/D_USE_MATH_DEFINES']
-    #Supress recommendations about Microsoft-specific safe functions
-    cflags_common += ['/D_CRT_SECURE_NO_WARNINGS']
   endif
 endif #if os_win32
 
@@ -343,7 +350,7 @@ poly2tri_c = dependency('poly2tri-c',
   required: false,
 )
 
-libnsgif = dependency('libnsgif',
+libnsgif = dependency('libnsgif',     version: dep_ver.get('libnsgif'),
   fallback: ['libnsgif', 'libnsgif'],
 )
 
@@ -559,7 +566,7 @@ build_reference = get_option('gtk-doc') or build_gi_docgen
 # Install native debug data (.pdb) on Windows
 # Ideally meson should take care of it automatically.
 # See: https://github.com/mesonbuild/meson/issues/12977
-if os_win32 and debugging_format == 'Native'
+if os_win32 and debugging_format == 'Native' and cc.get_argument_syntax() != 'msvc'
   install_win_debug_script = find_program('./meson_install_win_debug.py')
   meson.add_install_script(install_win_debug_script)
 endif

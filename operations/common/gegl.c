@@ -80,8 +80,12 @@ property_string (error, _("Eeeeeek"), "")
 #define GEGL_OP_C_SOURCE gegl.c
 
 #include "gegl-op.h"
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
-
+#endif
+#ifdef _WIN32
+#include <direct.h>
+#endif
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -106,8 +110,11 @@ prepare (GeglOperation *operation)
 
   gegl_node_link_many (input, output, NULL);
   {
-     gchar cwd[81920]; // XXX: should do better
-     getcwd (cwd, sizeof(cwd));
+     gchar cwd[81920];
+     if (getcwd (cwd, sizeof(cwd)) == NULL)
+       {
+         g_warning ("Failed to get current working directory");
+       }
      gegl_create_chain (o->string, input, output, 0.0,
                         gegl_node_get_bounding_box (input).height, cwd,
                         &error);

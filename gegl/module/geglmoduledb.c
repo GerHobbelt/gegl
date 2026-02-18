@@ -33,10 +33,13 @@
 #define ARCH_SIMD
 #endif
 
-#ifdef __APPLE__ /* G_MODULE_SUFFIX is defined to .so instead of .dylib */
-#define MODULE_SUFFIX "dylib"
+ /* G_MODULE_SUFFIX is deprecated */
+#if !defined(_WIN32) && !defined(__APPLE__)
+#define MODULE_SUFFIX "so"
+#elif defined(_WIN32)
+#define MODULE_SUFFIX "dll"
 #else
-#define MODULE_SUFFIX G_MODULE_SUFFIX
+#define MODULE_SUFFIX "dylib"
 #endif
 
 enum
@@ -244,7 +247,11 @@ gegl_module_db_remove_duplicates (GeglModuleDB *db)
        while (p && p>expected && *p != 'x' ) p--;
        if (p && *p == 'x' && p[-1] == '-'){
          p--;
+#ifndef _WIN64
          strcpy (p, e);
+#else
+         strcpy_s (p, (e - p + 1), e);
+#endif
        }
        for (GList *l2 = db->to_load; l2; l2=l2->next)
        {
@@ -333,10 +340,10 @@ valid_module_name (const gchar *filename)
           return FALSE;
         }
     }
-#ifdef __APPLE__ /* G_MODULE_SUFFIX is defined to .so instead of .dylib */
+#ifdef __APPLE__
   if (! g_str_has_suffix (basename, ".dylib" ) || strstr (filename, ".dSYM"))
 #else
-  if (! g_str_has_suffix (basename, "." G_MODULE_SUFFIX))
+  if (! g_str_has_suffix (basename, "." MODULE_SUFFIX))
 #endif
     {
       g_free (basename);

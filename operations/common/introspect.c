@@ -19,7 +19,13 @@
 #include "config.h"
 #include <stdlib.h>
 #include <glib/gi18n-lib.h>
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
+#if !defined (HAVE_UNISTD_H) && defined(_WIN64)
+#include <io.h>
+#define close _close
+#endif
 
 
 #ifdef GEGL_PROPERTIES
@@ -60,7 +66,12 @@ gegl_introspect_load_cache (GeglProperties *op_introspect)
   /* Construct the .dot source */
   fd = g_mkstemp (dot_filename);
   dot_string = gegl_to_dot (GEGL_NODE (op_introspect->node));
-  write (fd, dot_string, strlen (dot_string));
+  if (write (fd, dot_string, strlen (dot_string)) < 0)
+    {
+      g_warning ("Error when writing temporary file: %s", g_strerror(errno));
+      close (fd);
+      goto cleanup;
+    }
   close (fd);
 
   /* The only point of using g_mkstemp() here is creating a new file and making
@@ -111,11 +122,12 @@ gegl_introspect_load_cache (GeglProperties *op_introspect)
   unlink (png_filename);
 
   /* Cleanup */
-  g_free (dot);
-  g_free (dot_string);
-  g_free (dot_cmd);
-  g_free (dot_filename);
-  g_free (png_filename);
+  cleanup:
+    g_free (dot);
+    g_free (dot_string);
+    g_free (dot_cmd);
+    g_free (dot_filename);
+    g_free (png_filename);
 }
 
 static void
