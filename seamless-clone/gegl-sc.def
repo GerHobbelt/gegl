@@ -5,3 +5,14 @@ EXPORTS
   gegl_sc_context_render
   gegl_sc_context_set_uvt_cache
   gegl_sc_context_update
+  gegl_sc_mesh_sampling_compute
+  gegl_sc_mesh_sampling_free
+  gegl_sc_outline_check_if_single
+  gegl_sc_outline_equals
+  gegl_sc_outline_find
+  gegl_sc_outline_free
+  gegl_sc_outline_length
+  gegl_sc_sample_list_compute
+  gegl_sc_sample_list_direct
+  gegl_sc_sample_list_free
+@p2t_exports@

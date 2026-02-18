@@ -1,7 +1,7 @@
 project('gegl',
   'c', 'cpp',
   license: 'GPL3+',
-  version: '0.4.65',
+  version: '0.4.67',
   meson_version: '>=0.59.0',
   default_options: [
     'c_std=gnu11',
@@ -278,6 +278,33 @@ if os_osx
   add_project_link_arguments(osx_ldflags, language : ['objc', 'c'])
   add_project_arguments('-xobjective-c', language : 'c')
 endif
+
+# Build relocatable GEGL
+relocatable = false
+if get_option('relocatable').auto()
+  if os_win32 or os_osx
+    relocatable = true
+  endif
+else
+  relocatable = get_option('relocatable').enabled()
+endif
+config.set('ENABLE_RELOCATABLE', relocatable)
+
+################################################################################
+# C/C++ language support in the compiler
+
+config.set(
+  'GEGL_GNUC_VARIADIC_MACROS',
+  cc.compiles(
+    '''
+#include <stdio.h>
+#define X(foo...)   printf(foo)
+#define Y(foo, ...) printf(foo, ##__VA_ARGS__)
+void main(void) { X ("%d", 42); Y ("%d"); }
+    ''',
+    name: 'GNU C variadic macros extension'
+  )
+)
 
 ################################################################################
 # Build Utilities
@@ -632,6 +659,34 @@ subdir('tests')
 subdir('perf')
 subdir('po')
 subdir('docs')
+
+
+if not os_win32 and not os_osx
+  # Verify .def files for Windows.
+  # Ironically we only check this on non-Windows platform, since the
+  # script expects .so libraries, and I'm not sure that the `nm` tool is
+  # available on Windows.
+  # On the other hand, it is how it always has been, since we used to
+  # only run this on dist step (which we historically run on a GNU/Linux
+  # machine). And it worked fine until now.
+  custom_target('check-def-files',
+    input: [
+      gegl_def,
+      gegl_npd_def,
+      gegl_sc_def,
+    ],
+    depends: [
+      gegl_lib,
+      gegl_npd_lib,
+      seamlessclone_lib
+    ],
+    output: [ 'check-def-files', ],
+    command: [
+      python, meson.project_source_root() / 'tools' / 'defcheck.py', '@INPUT@',
+    ],
+    build_by_default: true,
+  )
+endif
 
 
 if w3m.found()

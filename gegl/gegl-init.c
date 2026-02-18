@@ -66,6 +66,8 @@ DllMain (HINSTANCE hinstDLL,
 
 #ifdef __APPLE__
 #import <Foundation/Foundation.h>
+#include <dlfcn.h>
+#include <libgen.h>
 #endif
 
 #include "gegl-debug.h"
@@ -97,10 +99,14 @@ guint gegl_debug_flags = 0;
 #include "gegl-parallel-private.h"
 #include "gegl-cpuaccel.h"
 
-static gboolean  gegl_post_parse_hook (GOptionContext *context,
-                                       GOptionGroup   *group,
-                                       gpointer        data,
-                                       GError        **error);
+static gboolean      gegl_post_parse_hook      (GOptionContext *context,
+                                                GOptionGroup   *group,
+                                                gpointer        data,
+                                                GError        **error);
+static const gchar * gegl_find_relocatable_exe (void);
+#if defined(ENABLE_RELOCATABLE) && !defined(G_OS_WIN32) && !defined(__APPLE__)
+static gchar       * gegl_guess_libdir         (void);
+#endif
 
 
 static GeglConfig   *config = NULL;
@@ -243,6 +249,64 @@ gegl_init_get_prefix (void)
 
   [pool drain];
 #endif
+
+  if (prefix == NULL)
+    {
+      gchar *exe = g_strdup (gegl_find_relocatable_exe ());
+
+      if (exe)
+        {
+          char   *sep1, *sep2;
+          size_t  len;
+
+          len   = strlen (exe);
+          sep1  = strrchr (exe, G_DIR_SEPARATOR);
+          *sep1 = '\0';
+
+          sep2 = strrchr (exe, G_DIR_SEPARATOR);
+          if (sep2 != NULL)
+            {
+              while (g_strcmp0 (sep2 + 1, "bin") != 0 &&
+                     strstr (sep2 + 1, "lib") != sep2 + 1)
+                {
+                  *sep2 = '\0';
+                  sep2  = strrchr (exe, G_DIR_SEPARATOR);
+
+                  if (sep2 == NULL)
+                    break;
+                }
+
+              if (sep2 == NULL)
+                {
+                  while (strlen (exe) < len)
+                    exe[strlen (exe)] = G_DIR_SEPARATOR;
+
+                  /* This may happen when GEGL is loaded by uninstalled
+                   * binaries, such as build-time tools, in which case, this is
+                   * not an error, and we fallback to the build-time prefix.
+                   * We assume that relocatable builds are not relocated during
+                   * the build of a full bundle.
+                   * This is why we output a message on stderr, but this is not
+                   * a fatal error.
+                   */
+                  fprintf (stderr,
+                           "Relocatable builds require the executable to be installed in bin/ or lib*/ unlike: %s\n"
+                           "If this is a build-time tool, you may ignore this message.\n",
+                           exe);
+                  g_free (exe);
+                }
+              else
+                {
+                  *sep2 = '\0';
+                  prefix = exe;
+                }
+            }
+          else
+            {
+              g_free (exe);
+            }
+        }
+    }
 
   if (prefix == NULL)
     prefix = g_strdup (GEGL_PREFIX);
@@ -629,9 +693,15 @@ GSList *
 gegl_get_default_module_paths(void)
 {
   GSList *list = NULL;
-  gchar *module_path = NULL;
+  gchar  *module_path = NULL;
+#if defined(G_OS_WIN32)
+  gchar  *prefix;
+#elif defined(ENABLE_RELOCATABLE) && !defined(__APPLE__)
+  gchar  *prefix;
+  gchar  *libdir;
+#endif
 
-  // GEGL_PATH
+  /* GEGL_PATH */
   const gchar *gegl_path = g_getenv ("GEGL_PATH");
   if (gegl_path)
     {
@@ -639,16 +709,44 @@ gegl_get_default_module_paths(void)
       return list;
     }
 
-  // System library dir
-#ifdef G_OS_WIN32
-  {
-    gchar *prefix;
-    prefix = g_win32_get_package_installation_directory_of_module ( hLibGeglModule );
-    module_path = g_build_filename (prefix, "lib", GEGL_LIBRARY, NULL);
-    g_free(prefix);
-  }
+  /* System library dir */
+#if defined (__APPLE__)
+  Dl_info info;
+  /* The checked symbol must be exported in the libgegl*.dylib */
+  if (dladdr((const void *)gegl_get_default_module_paths, &info) && info.dli_fname)
+    {
+      char  dylib_path[PATH_MAX];
+      char *dylib_dir;
+  
+      /* Get the parent directory containing the .dylib (e.g. <foobar>\Frameworks\,
+         does not matter the parent dir, this is packaging-agnostic) */
+      strlcpy(dylib_path, info.dli_fname, sizeof(dylib_path));
+      dylib_dir = dirname(dylib_path);
+          
+      /* Construct the gegl dir on the parent dir (e.g. <foobar>\Frameworks\{GEGL_LIBRARY}) */
+      module_path = g_build_filename(dylib_dir, GEGL_LIBRARY, NULL);
+    }
+  else
+    {
+      g_critical ("Getting module path for relocatibility failed\n");
+      module_path = g_build_filename (LIBDIR, GEGL_LIBRARY, NULL);
+    }
+#elif defined(G_OS_WIN32)
+  prefix      = g_win32_get_package_installation_directory_of_module (hLibGeglModule);
+  module_path = g_build_filename (prefix, "lib", GEGL_LIBRARY, NULL);
+  g_free(prefix);
 #else
-  module_path = g_build_filename (LIBDIR, GEGL_LIBRARY, NULL);
+#if defined(ENABLE_RELOCATABLE)
+  prefix = gegl_init_get_prefix ();
+  libdir = gegl_guess_libdir ();
+  if (prefix && libdir)
+    module_path = g_build_filename (prefix, libdir, GEGL_LIBRARY, NULL);
+  g_free (prefix);
+  g_free (libdir);
+
+  if (! module_path)
+#endif
+    module_path = g_build_filename (LIBDIR, GEGL_LIBRARY, NULL);
 #endif
   list = g_slist_append (list, module_path);
 
@@ -810,3 +908,129 @@ gegl_get_debug_enabled (void)
   return FALSE;
 #endif
 }
+
+static const gchar *
+gegl_find_relocatable_exe (void)
+{
+#if ! defined(ENABLE_RELOCATABLE) || defined(_WIN32) || defined(__APPLE__)
+  return NULL;
+#else
+  static gchar *path           = NULL;
+  gchar        *sym_path;
+  FILE         *file;
+  char         *maps_line      = NULL;
+  size_t        maps_line_size = 0;
+
+  if (path)
+    return path;
+
+  sym_path = g_strdup ("/proc/self/exe");
+
+  while (1)
+    {
+      struct stat stat_buf;
+
+      path = g_file_read_link (sym_path, NULL);
+      g_free (sym_path);
+      if (! path)
+        break;
+
+      if (! g_path_is_absolute (path))
+        {
+          /* I don't think /proc/self/ symlinks will ever be relative, but just
+           * to be safe.
+           */
+          gchar *absolute_path = g_build_filename ("/proc/self", path, NULL);
+          g_free (path);
+          path = g_steal_pointer (&absolute_path);
+        }
+
+      /* Check whether the symlink's target is also a symlink.
+       * We want to get the final target.
+       */
+      if (stat (path, &stat_buf) == -1)
+        {
+          g_free (path);
+          path = NULL;
+          break;
+        }
+
+      if (! S_ISLNK (stat_buf.st_mode))
+        return path;
+
+      /* path is a symlink. Continue loop and resolve this. */
+      sym_path = path;
+    }
+
+  /* readlink() or stat() failed; this can happen when the program is
+   * running in Valgrind 2.2.
+   * Read from /proc/self/maps as fallback.
+   */
+
+  file = g_fopen ("/proc/self/maps", "rb");
+
+  g_return_val_if_fail (file != NULL, NULL);
+
+  /* The first entry with r-xp permission should be the executable name. */
+  while ((getline (&maps_line, &maps_line_size, file) != -1))
+    {
+      /* Extract the filename; it is always an absolute path. */
+      path = strchr (maps_line, '/');
+
+      /* Sanity check. */
+      if (path && strstr (maps_line, " r-xp "))
+        {
+          /* We found the executable name. */
+          path = g_strdup (path);
+          break;
+        }
+
+      path = NULL;
+    }
+  free (maps_line);
+
+  fclose (file);
+
+  g_return_val_if_fail (path != NULL, NULL);
+
+  return path;
+#endif
+}
+
+#if defined(ENABLE_RELOCATABLE) && !defined(G_OS_WIN32) && !defined(__APPLE__)
+/* Returns the relative libdir, which may be lib/ or lib64/ or again
+ * some subdirectory with multiarch.
+ */
+static gchar *
+gegl_guess_libdir (void)
+{
+  char   *libdir;
+  char   *rel_libdir;
+  char   *sep;
+  size_t  len;
+
+  libdir = g_strdup (LIBDIR);
+  len = strlen (libdir);
+
+  sep = strrchr (libdir, G_DIR_SEPARATOR);
+  while (sep != NULL && strstr (sep + 1, "lib") != sep + 1)
+    {
+      *sep = '\0';
+      sep = strrchr (libdir, G_DIR_SEPARATOR);
+    }
+
+  if (sep == NULL)
+    {
+      g_critical ("Relocatable builds require LIBDIR to start with 'lib' unlike: %s", LIBDIR);
+      return NULL;
+    }
+
+  while (strlen (libdir) < len)
+    libdir[strlen (libdir)] = G_DIR_SEPARATOR;
+
+  rel_libdir = g_strdup (sep + 1);
+  g_free (libdir);
+
+  return rel_libdir;
+}
+#endif
