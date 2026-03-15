@@ -1,7 +1,7 @@
 project('gegl',
   'c', 'cpp',
   license: 'GPL3+',
-  version: '0.4.67',
+  version: '0.4.69',
   meson_version: '>=0.59.0',
   default_options: [
     'c_std=gnu11',
@@ -273,7 +273,7 @@ add_project_link_arguments(lflags_common, language: [ 'c', 'cpp' ])
 # on OSX ObjC and C sources are mixed so adding objc to the linkflags
 
 if os_osx
-  add_languages('objc')
+  add_languages('objc', native: true)
   osx_ldflags = ['-Wl,-framework,Foundation', '-Wl,-framework,AppKit']
   add_project_link_arguments(osx_ldflags, language : ['objc', 'c'])
   add_project_arguments('-xobjective-c', language : 'c')
@@ -661,14 +661,11 @@ subdir('po')
 subdir('docs')
 
 
-if not os_win32 and not os_osx
-  # Verify .def files for Windows.
-  # Ironically we only check this on non-Windows platform, since the
-  # script expects .so libraries, and I'm not sure that the `nm` tool is
-  # available on Windows.
-  # On the other hand, it is how it always has been, since we used to
-  # only run this on dist step (which we historically run on a GNU/Linux
-  # machine). And it worked fine until now.
+if not os_osx and host_cpu_family != 'x86'
+  nm = find_program('nm', required: false)
+
+  # Verify .def files for Windows linking.
+  # We check this on non-Windows platform on CI, and on Windows itself.
   custom_target('check-def-files',
     input: [
       gegl_def,
@@ -680,6 +677,7 @@ if not os_win32 and not os_osx
       gegl_npd_lib,
       seamlessclone_lib
     ],
+    env: nm.found() ? { 'NM': nm.full_path() } : {},
     output: [ 'check-def-files', ],
     command: [
       python, meson.project_source_root() / 'tools' / 'defcheck.py', '@INPUT@',
@@ -745,6 +743,7 @@ summary(
     'Introspection'        : g_ir.found(),
     'Vala support'         : vapigen.found(),
     'Debug symbols format' : debugging_format,
+    'Relocatable'          : relocatable,
   }, section: 'Optional features'
 )
 summary(

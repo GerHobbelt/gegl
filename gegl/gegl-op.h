@@ -57,8 +57,16 @@
 
 G_BEGIN_DECLS
 
-typedef struct _GeglProperties  GeglProperties;
+/* In C++ mode, make struct names unique per operation to avoid ODR violations */
+#define GEGL_OP_STRUCT_NAME_(a, b) a##_##b
+#define GEGL_OP_STRUCT_NAME(a, b) GEGL_OP_STRUCT_NAME_(a, b)
+#ifdef __cplusplus
+typedef struct GEGL_OP_STRUCT_NAME(_GeglOp, GEGL_OP_NAME)   GeglOp;
+#else
 typedef struct _GeglOp   GeglOp;
+#endif
+
+typedef struct GEGL_OP_STRUCT_NAME(_GeglProperties, GEGL_OP_NAME)  GeglProperties;
 
 
 static void gegl_op_init_properties     (GeglOp   *self);
@@ -192,13 +200,21 @@ type_name##_register_type (GTypeModule *type_module)                    \
 
 
 #ifdef GEGL_OP_Parent
+#ifdef __cplusplus
+struct GEGL_OP_STRUCT_NAME(_GeglOp, GEGL_OP_NAME)
+#else
 struct _GeglOp
+#endif
 {
   GEGL_OP_Parent parent_instance;
   gpointer       properties;
 };
 
+#ifdef __cplusplus
+typedef struct GEGL_OP_STRUCT_NAME(GeglOpClass, GEGL_OP_NAME)
+#else
 typedef struct
+#endif
 {
   MKCLASS(GEGL_OP_Parent)  parent_class;
 } GeglOpClass;
@@ -358,7 +374,7 @@ static GType enum_name ## _get_type (void)               \
 
 /* Properties */
 
-struct _GeglProperties
+struct GEGL_OP_STRUCT_NAME(_GeglProperties, GEGL_OP_NAME)
 {
   gpointer user_data; /* for use by the op implementation */
 #define property_double(name, label, def_val)          gdouble     name;

@@ -153,7 +153,7 @@ export_png (GeglOperation       *operation,
       if (babl_format_get_n_components (babl) != 2)
         {
           png_color_type = PNG_COLOR_TYPE_RGB_ALPHA;
-#ifndef _WIN64
+#ifndef _UCRT
           strcpy (format_string, "R'G'B'A ");
 #else
           strcpy_s (format_string, sizeof(format_string), "R'G'B'A ");
@@ -162,7 +162,7 @@ export_png (GeglOperation       *operation,
       else
         {
           png_color_type = PNG_COLOR_TYPE_GRAY_ALPHA;
-#ifndef _WIN64
+#ifndef _UCRT
           strcpy (format_string, "Y'A ");
 #else
           strcpy_s (format_string, sizeof(format_string), "Y'A ");
@@ -172,7 +172,7 @@ export_png (GeglOperation       *operation,
       if (babl_format_get_n_components (babl) != 1)
         {
           png_color_type = PNG_COLOR_TYPE_RGB;
-#ifndef _WIN64
+#ifndef _UCRT
           strcpy (format_string, "R'G'B' ");
 #else
           strcpy_s (format_string, sizeof(format_string), "R'G'B' ");
@@ -181,7 +181,7 @@ export_png (GeglOperation       *operation,
       else
         {
           png_color_type = PNG_COLOR_TYPE_GRAY;
-#ifndef _WIN64
+#ifndef _UCRT
           strcpy (format_string, "Y' ");
 #else
           strcpy_s (format_string, sizeof(format_string), "Y' ");
@@ -335,7 +335,14 @@ export_png (GeglOperation       *operation,
   if (bit_depth > 8)
     png_set_swap (png);
 #endif
-  pixels = g_malloc0 (width * babl_format_get_bytes_per_pixel (format));
+  gsize row_bytes = 0;
+  const gsize bpp = babl_format_get_bytes_per_pixel (format);
+  if (!g_size_checked_mul (&row_bytes, (gsize)width, bpp))
+  {
+    g_warning ("png-save: refusing to allocate row buffer for width %u", (guint)width);
+    return -1;
+  }
+  pixels = g_malloc0 (row_bytes);
 
   for (i=0; i< height; i++)
     {

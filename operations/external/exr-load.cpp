@@ -182,12 +182,9 @@ fix_saturation_row (gfloat           *row_top,
                     gint              width,
                     gint              nc)
 {
-  static gint y=-1;
   gint x;
   const gfloat *neighbor1, *neighbor2, *neighbor3, *neighbor4;
   gfloat sMean, sMax, s;
-
-  y++;
 
   for (x=0; x<width; x++)
     {
@@ -566,13 +563,13 @@ query_exr (const gchar *path,
       if (ch.findChannel ("R") || ch.findChannel ("G") || ch.findChannel ("B"))
         {
           if (format_flags & COLOR_ALPHA)
-#ifndef _WIN64
+#ifndef _UCRT
             strcpy (format_string, "RaGaBa");
 #else
             strcpy_s (format_string, sizeof(format_string), "RaGaBa");
 #endif
           else
-#ifndef _WIN64
+#ifndef _UCRT
             strcpy (format_string, "RGB");
 #else
             strcpy_s (format_string, sizeof(format_string), "RGB");
@@ -590,13 +587,13 @@ query_exr (const gchar *path,
                (ch.findChannel("RY") || ch.findChannel("BY")))
         {
           if (format_flags & COLOR_ALPHA)
-#ifndef _WIN64
+#ifndef _UCRT
             strcpy (format_string, "RaGaBa");
 #else
             strcpy_s (format_string, sizeof(format_string), "RaGaBa");
 #endif
           else
-#ifndef _WIN64
+#ifndef _UCRT
             strcpy (format_string, "RGB");
 #else
             strcpy_s (format_string, sizeof(format_string), "RGB");
@@ -608,13 +605,13 @@ query_exr (const gchar *path,
       else if (ch.findChannel ("Y"))
         {
           if (format_flags & COLOR_ALPHA)
-#ifndef _WIN64
+#ifndef _UCRT
             strcpy (format_string, "Ya");
 #else
             strcpy_s (format_string, sizeof(format_string), "Ya");
 #endif
           else
-#ifndef _WIN64
+#ifndef _UCRT
             strcpy (format_string, "Y");
 #else
             strcpy_s (format_string, sizeof(format_string), "Y");

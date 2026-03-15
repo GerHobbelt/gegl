@@ -134,7 +134,7 @@ error_fn(png_structp png_ptr, png_const_charp msg)
 static gboolean
 check_valid_png_header(GInputStream *stream, GError **err)
 {
-  const size_t hdr_size=8;
+#define hdr_size 8
   gssize hdr_read_size;
   unsigned char header[hdr_size];
 
@@ -163,6 +163,7 @@ check_valid_png_header(GInputStream *stream, GError **err)
       g_set_error(err, error_quark(), LOAD_PNG_WRONG_HEADER, "wrong png header");
       return FALSE;
     }
+#undef hdr_size
   return TRUE;
 }
 
@@ -174,13 +175,13 @@ get_babl_format(int bit_depth, int color_type, const Babl *space)
    if (color_type & PNG_COLOR_TYPE_RGB)
       {
         if (color_type & PNG_COLOR_MASK_ALPHA)
-#ifndef _WIN64
+#ifndef _UCRT
           strcpy (format_string, "R'G'B'A ");
 #else
           strcpy_s (format_string, sizeof(format_string), "R'G'B'A ");
 #endif
         else
-#ifndef _WIN64
+#ifndef _UCRT
           strcpy (format_string, "R'G'B' ");
 #else
           strcpy_s (format_string, sizeof(format_string), "R'G'B' ");
@@ -189,13 +190,13 @@ get_babl_format(int bit_depth, int color_type, const Babl *space)
     else if ((color_type & PNG_COLOR_TYPE_GRAY) == PNG_COLOR_TYPE_GRAY)
       {
         if (color_type & PNG_COLOR_MASK_ALPHA)
-#ifndef _WIN64
+#ifndef _UCRT
           strcpy (format_string, "Y'A ");
 #else
           strcpy_s (format_string, sizeof(format_string), "Y'A ");
 #endif
         else
-#ifndef _WIN64
+#ifndef _UCRT
           strcpy (format_string, "Y' ");
 #else
           strcpy_s (format_string, sizeof(format_string), "Y' ");
@@ -204,13 +205,13 @@ get_babl_format(int bit_depth, int color_type, const Babl *space)
     else if (color_type & PNG_COLOR_TYPE_PALETTE)
       {
         if (color_type & PNG_COLOR_MASK_ALPHA)
-#ifndef _WIN64
+#ifndef _UCRT
           strcpy (format_string, "R'G'B'A ");
 #else
           strcpy_s (format_string, sizeof(format_string), "R'G'B'A ");
 #endif
         else
-#ifndef _WIN64
+#ifndef _UCRT
           strcpy (format_string, "R'G'B' ");
 #else
           strcpy_s (format_string, sizeof(format_string), "R'G'B' ");

@@ -19,7 +19,8 @@
 #include "config.h"
 #include <glib/gi18n-lib.h>
 
-#if !defined(HAVE_UNISTD_H) && defined(_WIN64)
+#if !defined(HAVE_UNISTD_H) && defined(_WIN32)
+#include <direct.h>
 #define getcwd(b,n) _getcwd(b,n)
 #endif
 
