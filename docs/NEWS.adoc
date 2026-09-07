@@ -1,4 +1,64 @@
-GEGL-0.4.70 2025-03-24
+GEGL-0.4.72 2026-09-07
+----------------------
+
+Build:
+~~~~~~
+ - build with pure MSVC as well as wasm
+ - Improvements to defcheck, 
+ - minimum meson version bumped to 0.60
+ - more CI integration, harmonized with gimp/babl
+
+Core:
+~~~~~
+ - use G_{BEGIN|END}_DECLS in all header declarations
+ - gegl_param_color_cmp, new function
+ - Avoid crashes in gegl_path
+
+Buffer:
+~~~~~~~
+ - refactoring, comments and documentation comments in GeglBufferIterator
+ - avoid duplicate, aliasing stack allocations
+
+OpenCL:
+~~~~~~~
+ - update headers to OpenCL 3.0
+ - use gmodule for loading, also on windows
+ - buffer access code refactored, unifying destruction code paths
+ - move kernels to operations part of directory hierarchy
+ - warn on console on initialization errors
+
+Ops:
+~~~~
+ - General: make more consistent use of title case (changing strings, affecting
+   translations)
+ - factor out common deps for ops in meson
+ - rgbe_load: bail if x or y dimension larger than max scanline width, also
+   further robustness for corrupt files.
+ - exp_combine: use public rather than private APIs, qsort rather than
+   g_sort_array,
+ - waterpixels, normal-map, gblur-1d: fix crashes due to stack allocations in
+   loop
+ - introspect: fix warnings in console
+ - ff-load, ff-save: disable by default
+ - rawbayer-load (in workshop, not built by default): avoid code execution
+ - normal-map: fix scratch buffer allocations
+ - sdl3-display: SDL3 variant of display op
+ - workshop/sharpen: new operation implementing the classic GIMP sharpen
+   filter.
+
+Contributors to this release, including translators:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Aefgh Threenine, Alan Mortensen, Anders Jonsson, aruius,
+Asier Saratsua Garmendia, Baurzhan Muftakhidinov, Bruno Lopes,Chao-Hsiung Liao,
+Dick Groskamp, DiGro, Ekaterine Papava, Jacob Boerema, Jehan,
+Kolbjørn Stuestøl, luming zh, Marco Ciampa, Martin, Ondřej Míchal,
+Øyvind Kolås, Rodrigo Lledó, Sabri Ünal, Saikeo Kavhanxay, Tal Regev, 
+Thomas Manni, WarisMaqbool, YOSHIDA Shigeto, Yuri Chornoivan, 
+and Марко Костић, 
+
+
+GEGL-0.4.70 2026-03-24
 ----------------------
 
 Core:
