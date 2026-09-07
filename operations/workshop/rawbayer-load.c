@@ -105,7 +105,7 @@ load_buffer (GeglProperties *op_raw_load)
                             GEGL_AUTO_ROWSTRIDE);
            g_free (buf);
          }
-       pclose (pfp);
+       fclose (pfp);
     }
 }
 
