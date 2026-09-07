@@ -149,7 +149,7 @@ process (GeglOperation       *operation,
   const Babl     *dist_format = babl_format ("Y u32");
   const Babl     *aux_format  = aux ? gegl_buffer_get_format (aux) : format;
   gint            bpp         = babl_format_get_bytes_per_pixel (format);
-  gint            aux_bpp     = babl_format_get_bytes_per_pixel (aux_format);
+  unsigned int    aux_bpp     = babl_format_get_bytes_per_pixel (aux_format);
   GeglBuffer     *dist;
   guint8          mask[64];
 
