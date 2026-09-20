@@ -123,8 +123,8 @@ foreach operation : operations
 
   gegl_operations += shared_module(libname,
     libsrcs,
-    dependencies: [ babl, gio, glib, gobject, math, libdeps, ],
-    include_directories: [ rootInclude, geglInclude, ],
+    dependencies: gegl_operations_common_deps + libdeps,
+    include_directories: geglOperationsInclude,
     link_with: [ gegl_lib, ],
     name_prefix: '',
     install: true,

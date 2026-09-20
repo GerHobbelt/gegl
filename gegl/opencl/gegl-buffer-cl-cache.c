@@ -76,7 +76,7 @@ free_cache_entry (gpointer data)
 {
   CacheEntry *entry = data;
 
-  GEGL_NOTE (GEGL_DEBUG_OPENCL, "Removing from cl-cache: %p %s {%d %d %d %d}",
+  GEGL_NOTE (GEGL_DEBUG_OPENCL, "Removing entry from OpenCL global cache: %p %s {%d %d %d %d}",
              entry->buffer,
              babl_get_name (gegl_buffer_get_format (entry->buffer)),
              entry->roi.x,
@@ -85,6 +85,7 @@ free_cache_entry (gpointer data)
              entry->roi.height);
 
   gegl_clReleaseMemObject (entry->tex);
+  g_object_unref (entry->buffer);
 
   g_slice_free (CacheEntry, data);
   cache_entries = g_list_remove (cache_entries, data);
@@ -152,6 +153,7 @@ gegl_buffer_cl_cache_new (GeglBuffer            *buffer,
   e->tex           = tex;
   e->valid         = TRUE;
   g_atomic_ref_count_init (&e->refcount);
+  g_object_ref (buffer);
 
   g_rec_mutex_lock (&cache_mutex);
 
@@ -190,19 +192,20 @@ _gegl_buffer_cl_cache_flush2 (GeglTileHandlerCache *cache,
 
           gegl_cl_color_babl (format, &size);
 
-          data = g_malloc(entry->roi.width * entry->roi.height * size);
+          data = gegl_clEnqueueMapBuffer (gegl_cl_get_command_queue (),
+                                          entry->tex, CL_TRUE, CL_MAP_READ,
+                                          0, entry->roi.width * entry->roi.height * size,
+                                          0, NULL, NULL, &cl_err);
+          CL_CHECK;
 
-          cl_err = gegl_clEnqueueReadBuffer(gegl_cl_get_command_queue(),
-                                            entry->tex, CL_TRUE, 0, entry->roi.width * entry->roi.height * size, data,
-                                            0, NULL, NULL);
-          /* tile-ize */
           gegl_buffer_set (entry->buffer, &entry->roi, 0, format, data, GEGL_AUTO_ROWSTRIDE);
 
-          g_atomic_ref_count_dec (&entry->refcount);
-
-          g_free(data);
-
+          cl_err = gegl_clEnqueueUnmapMemObject (gegl_cl_get_command_queue (),
+                                                 entry->tex, data,
+                                                 0, NULL, NULL);
           CL_CHECK;
+
+          g_atomic_ref_count_dec (&entry->refcount);
         }
     }
 

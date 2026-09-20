@@ -21,14 +21,8 @@ gegl_core_sources += custom_target('module_core.c',
 
 gegl_core = shared_module('gegl-core',
   gegl_core_sources,
-  include_directories: [ rootInclude, geglInclude, ],
-  dependencies: [
-    babl,
-    glib,
-    gmodule,
-    json_glib,
-    math,
-  ],
+  include_directories: geglOperationsInclude,
+  dependencies: gegl_operations_common_deps,
   link_with: [
     gegl_lib,
   ],

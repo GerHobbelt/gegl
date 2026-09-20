@@ -4,7 +4,7 @@ project('gegl',
   version: '0.4.71',
   meson_version: '>=0.60.0',
   default_options: [
-    'c_std=gnu11',
+    #'c_std=none', # c11 breaks Linux/GNU, gnu11 breaks Windows/MSVC, so set to none
     'cpp_std=c++14',
     'buildtype=debugoptimized',
   ],
@@ -136,9 +136,14 @@ config.set_quoted ('GETTEXT_PACKAGE',     '@0@'.format(gettext_package))
 # Libtool versionning
 interface_age = 1
 
-binary_age = 100 * minor_version + micro_version
-lt_current = binary_age - interface_age
-so_version  = '@0@.@1@.@2@'.format(0, lt_current, interface_age)
+binary_age  = 100 * minor_version + micro_version
+lt_current  = binary_age - interface_age
+lt_revision = interface_age
+
+#Computed differently but same as so_version of gimp meson.build
+so_version  = '@0@.@1@.@2@'.format(0, lt_current, lt_revision)
+#Same as darwin_versions of glib meson.build which also follows libtool versioning
+darwin_versions = [lt_current + 1, '@0@.@1@'.format(lt_current + 1, lt_revision)]
 
 ################################################################################
 # Host system detection
@@ -398,6 +403,11 @@ else
   g_ir = disabler()
 endif
 if g_ir.found()
+  g_ir_compiler = find_program('g-ir-compiler')
+  if os_osx
+    make_typelib = find_program('tools'/'make-mac-typelib.py')
+  endif
+
   vapigen   = dependency('vapigen',
     version: dep_ver.get('vapigen'),
     required: get_option('vapigen')
@@ -620,7 +630,7 @@ rootInclude = include_directories('.')
 argvs_extract = find_program('tools/argvs_extract.sh')
 
 subdir('libs/rgbe')
-subdir('opencl')
+subdir('operations/opencl')
 subdir('gegl')
 subdir('libs/npd')
 subdir('libs/ctx')

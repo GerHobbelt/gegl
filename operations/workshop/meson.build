@@ -1,3 +1,9 @@
+geglWorkshopInclude = [
+  rootInclude,
+  geglInclude,
+  seamlessInclude,
+]
+
 subdir('external')
 subdir('generated')
 
@@ -30,14 +36,8 @@ gegl_workshop_sources += custom_target('module_workshop.c',
 
 gegl_workshop = shared_module('gegl-workshop',
   gegl_workshop_sources,
-  include_directories: [ rootInclude, geglInclude],
-  dependencies: [
-    babl,
-    glib,
-    gmodule,
-    json_glib,
-    math,
-  ],
+  include_directories: geglOperationsInclude,
+  dependencies: gegl_operations_common_deps,
   link_with: [
     gegl_lib,
   ],

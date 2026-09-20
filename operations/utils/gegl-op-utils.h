@@ -12,30 +12,8 @@
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with GEGL; if not, see <https://www.gnu.org/licenses/>.
- *
- * Copyright 2012 Victor Oliveira (victormatheus@gmail.com)
  */
 
-#ifndef __GEGL_CL_TYPES_H__
-#define __GEGL_CL_TYPES_H__
+#pragma once
 
-#include <glib-object.h>
-
-#include "gegl-cl-version.h"
-#include "CL/opencl.h"
-
-G_BEGIN_DECLS
-
-struct _GeglClTexture
-{
-  cl_mem           data;
-  cl_image_format  format;
-  gint             width;
-  gint             height;
-};
-
-typedef struct _GeglClTexture GeglClTexture;
-
-G_END_DECLS
-
-#endif /* __GEGL_CL_TYPES_H__ */
+#include "gegl-op-utils-gio.h"

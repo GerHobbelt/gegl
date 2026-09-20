@@ -58,7 +58,6 @@ gegl_sources = files(
   'gegl-dot-visitor.c',
   'gegl-dot.c',
   'gegl-enums.c',
-  'gegl-gio.c',
   'gegl-init.c',
   'gegl-instrument.c',
   'gegl-introspection-support.c',
@@ -90,11 +89,6 @@ install_headers(gegl_headers,
 )
 
 gegl_ldflags = os_osx ? ['-framework', 'OpenCL'] : []
-
-opencl_dep = declare_dependency(
-  sources : [opencl_headers],
-)
-
 
 gegl_def = 'gegl-generic.def'
 if host_cpu_family == 'x86_64'
@@ -129,7 +123,7 @@ gegl_lib_args = {
     gio,
     math,
     gmodule,
-    opencl_dep,
+    gegl_operations_opencl_dep,
   ],
   'c_args': gegl_cflags,
 
@@ -137,6 +131,7 @@ gegl_lib_args = {
   'link_args': gegl_ldflags,
   'install': true,
   'version': so_version,
+  'darwin_versions': darwin_versions,
 }
 #FIXME: some symbols are unreliable on Windows GNU compilers. See: #445
 if cc.get_argument_syntax() == 'msvc'
@@ -180,6 +175,17 @@ if g_ir.found()
       export_packages: 'gegl-' + api_version,
       install: true,
     )
+  endif
+
+  if os_osx
+    custom_target('libgegl-macos-final-typelib.stamp',
+                  output: [ 'libgegl-macos-final-typelib.stamp' ],
+                  depends: [ gegl_gir ],
+                  command: [
+                    make_typelib, gegl_gir,
+                    meson.current_build_dir(), gegl_prefix, g_ir_compiler, 'nonreloc'
+                  ],
+                  build_by_default: true)
   endif
 
   if vapigen.found()

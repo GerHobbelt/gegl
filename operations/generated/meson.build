@@ -37,13 +37,8 @@ gegl_generated_sources += custom_target('module_generated_gpl3.c',
 
 gegl_generated = shared_module('gegl-generated',
   gegl_generated_sources,
-  include_directories: [ rootInclude, geglInclude, ],
-  dependencies: [
-    babl,
-    glib,
-    json_glib,
-    math,
-  ],
+  include_directories: geglOperationsInclude,
+  dependencies: gegl_operations_common_deps,
   link_with: [
     gegl_lib,
   ],
@@ -60,9 +55,9 @@ gegl_operations += gegl_generated
 if host_cpu_family == 'x86_64'
 
   gegl_generated_x86_64_v2 = shared_module('gegl-generated-x86_64-v2',
-    gegl_generated_sources, opencl_headers,
-    include_directories: [ rootInclude, geglInclude, ],
-    dependencies: [ babl, glib, json_glib, math, ],
+    gegl_generated_sources, gegl_operations_opencl_headers,
+    include_directories: geglOperationsInclude,
+    dependencies: gegl_operations_common_deps,
     link_with: [ gegl_lib, ],
     c_args: [ '-DGEGL_OP_BUNDLE' ] + x86_64_v2_flags,
     name_prefix: '',
@@ -72,9 +67,9 @@ if host_cpu_family == 'x86_64'
   gegl_operations += gegl_generated_x86_64_v2
   
   gegl_generated_x86_64_v3 = shared_module('gegl-generated-x86_64-v3',
-    gegl_generated_sources, opencl_headers,
-    include_directories: [ rootInclude, geglInclude, ],
-    dependencies: [ babl, glib, json_glib, math, ],
+    gegl_generated_sources, gegl_operations_opencl_headers,
+    include_directories: geglOperationsInclude,
+    dependencies: gegl_operations_common_deps,
     link_with: [ gegl_lib, ],
     c_args: [ '-DGEGL_OP_BUNDLE' ] + x86_64_v3_flags,
     name_prefix: '',
@@ -86,9 +81,9 @@ if host_cpu_family == 'x86_64'
 elif host_cpu_family == 'arm'
 
   gegl_generated_arm_neon = shared_module('gegl-generated-arm-neon',
-    gegl_generated_sources, opencl_headers,
-    include_directories: [ rootInclude, geglInclude, ],
-    dependencies: [ babl, glib, json_glib, math, ],
+    gegl_generated_sources, gegl_operations_opencl_headers,
+    include_directories: geglOperationsInclude,
+    dependencies: gegl_operations_common_deps,
     link_with: [ gegl_lib, ],
     c_args: [ '-DGEGL_OP_BUNDLE' ] + arm_neon_flags,
     name_prefix: '',
