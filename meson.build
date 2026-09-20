@@ -1,7 +1,7 @@
 project('gegl',
   'c', 'cpp',
   license: 'GPL3+',
-  version: '0.4.69',
+  version: '0.4.71',
   meson_version: '>=0.59.0',
   default_options: [
     'c_std=gnu11',
@@ -245,6 +245,10 @@ if os_win32
   endif
 endif #if os_win32
 
+if cc.get_id() == 'msvc'
+  cflags_common += ['/D__restrict__=__restrict']
+endif
+
 if buildtype == 'debugoptimized' or buildtype == 'release'
   cflags_common += cc.get_supported_arguments(['-ftree-vectorize'])
 endif
@@ -281,12 +285,12 @@ endif
 
 # Build relocatable GEGL
 relocatable = false
-if get_option('relocatable').auto()
+if get_option('relocatable-bundle') == 'platform-default'
   if os_win32 or os_osx
     relocatable = true
   endif
 else
-  relocatable = get_option('relocatable').enabled()
+  relocatable = (get_option('relocatable-bundle') == 'yes')
 endif
 config.set('ENABLE_RELOCATABLE', relocatable)
 

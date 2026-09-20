@@ -19,6 +19,11 @@
  */
 
 #include "config.h"
+
+#ifndef __PRETTY_FUNCTION__
+#define __PRETTY_FUNCTION__ __FUNCTION__
+#endif
+
 #ifdef HAVE_STRPTIME
 #define _XOPEN_SOURCE
 #include <time.h>
@@ -224,11 +229,19 @@ get_babl_format(int bit_depth, int color_type, const Babl *space)
 
     if (bit_depth <= 8)
       {
+#ifndef _UCRT
         strcat (format_string, "u8");
+#else
+        strcat_s (format_string, sizeof(format_string), "u8");
+#endif
       }
     else if(bit_depth == 16)
       {
+#ifndef _UCRT
         strcat (format_string, "u16");
+#else
+        strcat_s (format_string, sizeof(format_string), "u16");
+#endif
       }
     else
       {

@@ -1,9 +1,14 @@
+#include "config.h"
+
 #include <stdint.h>
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
 
 #include <babl/babl.h>
 
 #define CTX_PARSER               1
+#define CTX_MIPMAP               0
 #define CTX_PTY                  0
 #define CTX_FORMATTER            0
 #define CTX_EVENTS               0

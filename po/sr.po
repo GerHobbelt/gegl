@@ -2,33 +2,35 @@
 # Copyright (C) 2015 gegl's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gegl package.
 # Милош Поповић <gpopac@gmail.com>, 2015-2021.
+# Марко Костић <marko.m.kostic@gmail.com>, 2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gegl master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gegl/issues\n"
-"POT-Creation-Date: 2021-01-18 18:37+0000\n"
-"PO-Revision-Date: 2021-01-18 19:58+0100\n"
-"Last-Translator: Милош Поповић <gpopac@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gegl/issues/\n"
+"POT-Creation-Date: 2026-03-24 11:00+0000\n"
+"PO-Revision-Date: 2026-03-18 20:18+0100\n"
+"Last-Translator: Марко М. Костић <marko.m.kostic@gmail.com>\n"
 "Language-Team: Serbian <gnome-sr@googlegroups.com>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : n"
-"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
-"X-Generator: Gtranslator 3.38.0\n"
+"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
+"n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Poedit 3.9\n"
 
-#: bin/gegl.c:179
+#: bin/gegl.c:184
 #, c-format
 msgid "Unable to read file: %s"
 msgstr "Не могу да прочитам датотеку: %s"
 
-#: bin/gegl.c:227
+#: bin/gegl.c:232
+#, c-format
 msgid "Invalid graph, abort.\n"
 msgstr "Неисправан график, отказујем.\n"
 
-#: bin/gegl.c:390 bin/gegl-options.c:133
+#: bin/gegl.c:395 bin/gegl-options.c:133
 #, c-format
 msgid "Unknown GeglOption mode: %d"
 msgstr "Непознат режим ГеглОпције: %d"
@@ -146,11 +148,11 @@ msgstr ""
 "\tостало:   %s\n"
 "\t\n"
 
-#: bin/gegl-options.c:347
+#: bin/gegl-options.c:358
 msgid "Properties:"
 msgstr "Особине:"
 
-#: bin/gegl-options.c:457
+#: bin/gegl-options.c:468
 #, c-format
 msgid ""
 "\n"
@@ -165,7 +167,7 @@ msgstr ""
 "\n"
 "\n"
 
-#: bin/ui-core.c:4382 gegl/gegl-serialize.c:658
+#: bin/ui-core.c:4389 gegl/gegl-serialize.c:690
 #, c-format
 msgid "BablFormat \"%s\" does not exist."
 msgstr "Баблов формат „%s“ не постоји."
@@ -212,7 +214,7 @@ msgstr "Чутај/упиши"
 msgid "Nearest"
 msgstr "Најближе"
 
-#: gegl/buffer/gegl-buffer-enums.c:90 gegl/gegl-enums.c:119
+#: gegl/buffer/gegl-buffer-enums.c:90 gegl/gegl-enums.c:121
 #: operations/common-gpl3+/bump-map.c:33 operations/common-gpl3+/sinus.c:62
 #: operations/common-gpl3+/spiral.c:26
 #: operations/workshop/connected-components.c:44
@@ -271,134 +273,147 @@ msgstr "Аритметички кор"
 msgid "Arithmetic xor covariant"
 msgstr "Аритметички кор коваријансе"
 
-#: gegl/gegl-enums.c:66
+#: gegl/gegl-enums.c:42
+msgid "Blue Noise"
+msgstr "Плави шум"
+
+#: gegl/gegl-enums.c:43
+msgid "Blue Noise Covariant"
+msgstr "Коваријанта плавог шума"
+
+#: gegl/gegl-enums.c:68
 msgid "Euclidean"
 msgstr "Еуклидијанова"
 
-#: gegl/gegl-enums.c:67
+#: gegl/gegl-enums.c:69
 msgid "Manhattan"
 msgstr "Менхетнова"
 
-#: gegl/gegl-enums.c:68
+#: gegl/gegl-enums.c:70
 msgid "Chebyshev"
 msgstr "Чебишев"
 
-#: gegl/gegl-enums.c:93 operations/common/edge-sobel.c:27
+#: gegl/gegl-enums.c:95 operations/common/edge-sobel.c:27
 #: operations/common/noise-spread.c:29 operations/common/spherize.c:26
 #: operations/common/vignette.c:28 operations/common-cxx/focus-blur.c:37
 msgid "Horizontal"
 msgstr "Положено"
 
-#: gegl/gegl-enums.c:94 operations/common/edge-sobel.c:29
+#: gegl/gegl-enums.c:96 operations/common/edge-sobel.c:29
 #: operations/common/noise-spread.c:35 operations/common/spherize.c:27
 #: operations/common/vignette.c:29 operations/common-cxx/focus-blur.c:38
 msgid "Vertical"
 msgstr "Усправно"
 
-#: gegl/gegl-enums.c:118
+#: gegl/gegl-enums.c:120
 msgid "Float"
 msgstr "Плутајуће"
 
-#: gegl/gegl-enums.c:120
+#: gegl/gegl-enums.c:122
 msgid "Non-linear"
 msgstr "Нелинеарно"
 
-#: gegl/gegl-enums.c:121 operations/external/lcms-from-profile.c:31
+#: gegl/gegl-enums.c:123 operations/external/lcms-from-profile.c:31
 msgid "Perceptual"
 msgstr "Перцептивно"
 
-#: gegl/gegl-enums.c:122
+#: gegl/gegl-enums.c:124
 msgid "Linear-premultiplied"
 msgstr "Линеарно-предумножено"
 
-#: gegl/gegl-enums.c:123
+#: gegl/gegl-enums.c:125
 msgid "Perceptual-premultiplied"
 msgstr "Чулно-предумножено"
 
-#: gegl/gegl-enums.c:124
+#: gegl/gegl-enums.c:126
 msgid "Linear-premultiplied-if-alpha"
 msgstr "Линеарно-предумножено-ако-је-алфа"
 
-#: gegl/gegl-enums.c:125
+#: gegl/gegl-enums.c:127
 msgid "Perceptual-premultiplied-if-alpha"
 msgstr "Чулно-предумножено-ако-је-алфа"
 
-#: gegl/gegl-enums.c:126
+#: gegl/gegl-enums.c:128
 msgid "add-alpha"
 msgstr "додај-алфа"
 
-#: gegl/gegl-enums.c:150 operations/common/gaussian-blur.c:24
+#: gegl/gegl-enums.c:152 operations/common/gaussian-blur.c:24
 #: operations/common/gblur-1d.c:39
 msgid "Auto"
 msgstr "Аутоматски"
 
-#: gegl/gegl-enums.c:151
+#: gegl/gegl-enums.c:153
 msgid "Never"
 msgstr "Никада"
 
-#: gegl/gegl-enums.c:152
+#: gegl/gegl-enums.c:154
 msgid "Always"
 msgstr "Увек"
 
-#: gegl/gegl-init.c:212
+#: gegl/gegl-init.c:427
 msgid "Where GEGL stores its swap"
 msgstr "Где Гегл чува своју оставу"
 
-#: gegl/gegl-init.c:217
+#: gegl/gegl-init.c:432
 msgid "Compression algorithm used for data stored in the swap"
 msgstr ""
 "Алогоритам за компресију који се користи за податке сачуване у свап меморију"
 
-#: gegl/gegl-init.c:222
+#: gegl/gegl-init.c:437
 msgid "How much memory to (approximately) use for caching imagery"
 msgstr "Колико меморије се (отприлике) користи за оставу слика"
 
-#: gegl/gegl-init.c:227
+#: gegl/gegl-init.c:442
 msgid "Default size of tiles in GeglBuffers"
 msgstr "Подразумевана величина сличица за Геглову оставу"
 
-#: gegl/gegl-init.c:232
+#: gegl/gegl-init.c:447
 msgid "The count of pixels to compute simultaneously"
 msgstr "Бој пиксела који се прорачунавају истовремено"
 
-#: gegl/gegl-init.c:237
+#: gegl/gegl-init.c:452
 msgid ""
 "The quality of rendering, a value between 0.0 (fast) and 1.0 (reference)"
 msgstr "Квалитет исцртавања, вредност између 0,0 (брзо) и 1,0 (референтно)"
 
-#: gegl/gegl-init.c:242
+#: gegl/gegl-init.c:457
 msgid "The number of concurrent processing threads to use"
 msgstr "Број истовремених нити за обраду"
 
-#: gegl/gegl-init.c:247
+#: gegl/gegl-init.c:462
 msgid "Disable OpenCL"
 msgstr "Онемогући OpenCL"
 
-#: gegl/gegl-init.c:259
+#: gegl/gegl-init.c:474
 msgid "Show GEGL Options"
 msgstr "Прикажи могућности Гегла"
 
-#: gegl/gegl-serialize.c:296
+#: gegl/gegl-serialize.c:227 gegl/gegl-serialize.c:231
+#, c-format
+msgid "%s does not have a pad called %s"
+msgstr "%s нема прикључак под називом %s"
+
+#: gegl/gegl-serialize.c:323
 #, c-format
 msgid "unhandled path data %s:%s\n"
 msgstr "не могу да управљам подацима путање %s:%s\n"
 
-#: gegl/gegl-serialize.c:528
+#: gegl/gegl-serialize.c:559
 #, c-format
 msgid "op '%s' not found, partial matches: "
 msgstr "операција „%s“ није нађена, половична поклапања: "
 
-#: gegl/gegl-serialize.c:557
+#: gegl/gegl-serialize.c:588
 #, c-format
 msgid "%s has no %s property."
 msgstr "%s нема особину %s."
 
-#: gegl/gegl-serialize.c:563
+#: gegl/gegl-serialize.c:594
 #, c-format
 msgid "%s has no %s property, properties: "
 msgstr "%s нама особину %s, особине: "
 
-#: gegl/gegl-serialize.c:794
+#: gegl/gegl-serialize.c:826
 #, c-format
 msgid "No such op '%s'"
 msgstr "Нема такве радње „%s“"
@@ -429,6 +444,7 @@ msgid "Output pad for generated image buffer."
 msgstr "Излазна подлога за направљену оставу слике."
 
 #: gegl/operation/gegl-operation-composer3.c:86
+#: gegl/operation/gegl-operation-filter.c:96
 msgid "Input pad, for image buffer input."
 msgstr "Улазна подлога за слике у улазној остави."
 
@@ -442,11 +458,15 @@ msgstr "Улазна подлога резервне оставе слике."
 msgid "Second auxiliary image buffer input pad."
 msgstr "Друга улазна подлога резервне оставе слике."
 
+#: gegl/operation/gegl-operation-filter.c:95
+msgid "Input"
+msgstr "Улаз"
+
 #: operations/common/absolute.c:72
 msgid "Absolute"
 msgstr "Апсолутно"
 
-#: operations/common/absolute.c:76
+#: operations/common/absolute.c:77
 msgid ""
 "Makes each linear RGB component be the absolute of its value, "
 "fabs(input_value)"
@@ -593,9 +613,194 @@ msgstr ""
 "Јако изобличава боју слике применом тригонометријских функција за мапирање "
 "вредности боје."
 
+#: operations/common/alpha-clip.c:26 operations/common/alpha-clip.c:27
+#: operations/common/rgb-clip.c:26 operations/common/rgb-clip.c:27
+msgid "Clip low pixel values"
+msgstr "Исеци мале вредности пиксела"
+
+#: operations/common/alpha-clip.c:29 operations/common/rgb-clip.c:29
+msgid "Low limit"
+msgstr "Доња граница"
+
+#: operations/common/alpha-clip.c:32 operations/common/rgb-clip.c:32
+msgid "Pixels values lower than this limit will be set to it"
+msgstr "Вредности пиксела мање од ове ће бити постављене на ту вредност"
+
+#: operations/common/alpha-clip.c:35 operations/common/alpha-clip.c:36
+#: operations/common/rgb-clip.c:35 operations/common/rgb-clip.c:36
+msgid "Clip high pixel values"
+msgstr "Исеци велике вредности пиксела"
+
+#: operations/common/alpha-clip.c:38 operations/common/rgb-clip.c:38
+msgid "High limit"
+msgstr "Горња граница"
+
+#: operations/common/alpha-clip.c:41 operations/common/rgb-clip.c:41
+msgid "Pixels values higher than this limit will be set to it"
+msgstr "Вредности пиксела веће од ове ће бити постављене на ту вредност"
+
+#: operations/common/alpha-clip.c:196
+msgid "Clip Alpha"
+msgstr "Исеци алфу"
+
+#: operations/common/alpha-clip.c:200
+msgid "Keep alpha values inside a specific range"
+msgstr "Држи вредности алфе унутар одређеног опсега"
+
+#: operations/common/bevel.c:49
+msgid "Chamfer"
+msgstr "Заобљење"
+
+#: operations/common/bevel.c:51
+msgid "Bump"
+msgstr "Испупчење"
+
+#: operations/common/bevel.c:54
+msgid "Bevel type"
+msgstr "Врста косине"
+
+#: operations/common/bevel.c:57
+msgid "The family of bevel to use"
+msgstr "Породица косине за коришћење"
+
+#: operations/common/bevel.c:61
+msgid "None (for use with GIMPs blending options)"
+msgstr "Ништа (за коришћење са Гимповим опцијама стапања)"
+
+#: operations/common/bevel.c:63 operations/common/styles.c:202
+#: operations/common/styles.c:310 operations/common/styles.c:418
+msgid "Hard Light"
+msgstr "Оштро светло"
+
+#: operations/common/bevel.c:65 operations/common/styles.c:59
+#: operations/common/styles.c:198 operations/common/styles.c:414
+msgid "Multiply"
+msgstr "Помножи"
+
+#: operations/common/bevel.c:67 operations/common/styles.c:206
+#: operations/common/styles.c:312 operations/common/styles.c:422
+msgid "Color Dodge"
+msgstr "Избељивање боје"
+
+#: operations/common/bevel.c:69 operations/common/styles.c:204
+#: operations/common/styles.c:420
+msgid "Darken"
+msgstr "Затамни"
+
+#: operations/common/bevel.c:71
+msgid "Lighten"
+msgstr "Посветли"
+
+#: operations/common/bevel.c:73 operations/common/styles.c:200
+#: operations/common/styles.c:416
+#: operations/workshop/external/paint-select.cc:30
+msgid "Add"
+msgstr "Додај"
+
+#: operations/common/bevel.c:76 operations/common-gpl3+/sinus.c:67
+msgid "Blend mode"
+msgstr "Начин стапања"
+
+#: operations/common/bevel.c:79
+msgid ""
+"What blending mode the bevel's emboss will be. Light Map is a special blend "
+"mode that allows users to extract the filters output as a light map which "
+"should be put on a layer above or be used with Gimp's blending options."
+msgstr ""
+"Који ће бити режим стапања за косину. Светлосна мапа је посебан режим "
+"стапања који омогућава корисницима да извуку излаз филтера као светлосну "
+"мапу коју треба поставити на слој изнад или користити са Гимповим опцијама "
+"стапања."
+
+#: operations/common/bevel.c:81
+msgid "Distance map setting"
+msgstr "Подешавање мапе растојања"
+
+#: operations/common/bevel.c:83
+msgid ""
+"Distance Map is unique to chamfer bevel and has three settings that alter "
+"the structure of the chamfer."
+msgstr ""
+"Мапа растојања је јединствена за заобљена испупчења и има три подешавања "
+"која мењају структуру заобљења."
+
+#: operations/common/bevel.c:86 operations/common/bloom.c:35
+#: operations/common/box-blur.c:25 operations/common/c2g.c:28
+#: operations/common/edge-neon.c:47 operations/common/local-threshold.c:24
+#: operations/common/median-blur.c:42 operations/common/snn-mean.c:26
+#: operations/common/stress.c:27 operations/common/unsharp-mask.c:24
+#: operations/common/vignette.c:40 operations/common/wavelet-blur-1d.c:28
+#: operations/common/wavelet-blur.c:27 operations/common-cxx/focus-blur.c:85
+#: operations/common-cxx/lens-blur.cc:28
+#: operations/common-cxx/variable-blur.c:30
+#: operations/common-gpl3+/shadows-highlights.c:40
+#: operations/common-gpl3+/spiral.c:47 operations/common-gpl3+/supernova.c:44
+#: operations/common-gpl3+/whirl-pinch.c:46
+#: operations/external/matting-levin.c:29 operations/workshop/boxblur-1d.c:27
+#: operations/workshop/boxblur.c:24
+#: operations/workshop/external/spyrograph.c:63
+msgid "Radius"
+msgstr "Полупречник"
+
+#: operations/common/bevel.c:91
+msgid "Radius of softening for making bump of the shape."
+msgstr "Полупречник омекшавања за прављење испупчења облика."
+
+#: operations/common/bevel.c:94 operations/common-gpl3+/bump-map.c:56
+#: operations/common-gpl3+/emboss.c:40
+msgid "Elevation"
+msgstr "Висина"
+
+#: operations/common/bevel.c:95
+msgid "Elevation angle of the Bevel."
+msgstr "Угао висине за косину."
+
+#. An issue with this filter is that emboss depth= above 15 does nothing on chamfer bevel , but works great on bump bevel.
+#. so I made an extra node just for it that only updates emboss depth=, as a result depth and sharpness' are co-existing properties.
+#.
+#: operations/common/bevel.c:105 operations/common-gpl3+/bump-map.c:59
+#: operations/common-gpl3+/emboss.c:45
+#: operations/common-gpl3+/fractal-trace.c:66
+#: operations/common-gpl3+/texturize-canvas.c:44
+msgid "Depth"
+msgstr "Дубина"
+
+#: operations/common/bevel.c:106
+msgid "Emboss depth - Brings out depth and detail of the bump bevel."
+msgstr "Дубина утискивања - истиче дубину и детаље издигнутог испупчења."
+
+#: operations/common/bevel.c:110
+msgid "Light angle"
+msgstr "Угао светла"
+
+#: operations/common/bevel.c:111
+msgid "Direction of a light source illuminating and shading the bevel."
+msgstr "Смер извора светлости који осветљава и сенчи издизање."
+
+#: operations/common/bevel.c:294
+msgid "Bevel"
+msgstr "Косина"
+
+#: operations/common/bevel.c:296
+msgid ""
+"Two bevel effects in one place, Chamfer - which simulates lighting of "
+"chamfered 3D-edges, and Bump - the second make a 3D inflation effect by an "
+"emboss covering a blur. Both bevels benefit from color filled alpha defined "
+"shapes."
+msgstr ""
+"Два ефекта издизања на једном месту: „Заобљење“ — које симулира осветљење "
+"заобљених 3Д ивица, и „Испупчење“ — друго које прави ефекат 3Д надувавања "
+"помоћу утискивања које прекрива замућење. Оба издизања имају користи од "
+"облика дефинисаних алфом попуњеном бојом."
+
+#: operations/common/bevel.c:298
+msgid "Bevel..."
+msgstr "Косина…"
+
 #: operations/common/bilateral-filter.c:26
 #: operations/common/domain-transform.c:29 operations/common/dropshadow.c:46
-#: operations/common-cxx/focus-blur.c:45 operations/common-cxx/lens-blur.cc:25
+#: operations/common/inner-glow.c:58 operations/common-cxx/focus-blur.c:45
+#: operations/common-cxx/lens-blur.cc:29
 #: operations/common-gpl3+/gaussian-blur-selective.c:29
 #: operations/workshop/bilateral-filter-fast.c:43
 msgid "Blur radius"
@@ -624,15 +829,14 @@ msgstr "Двобочни филтер"
 
 #: operations/common/bilateral-filter.c:298
 msgid ""
-"Like a gaussian blur; but where the contribution for each neighbourhood "
-"pixel is also weighted by the color difference with the original center "
-"pixel. "
+"Like a gaussian blur; but where the contribution for each neighborhood pixel "
+"is also weighted by the color difference with the original center pixel."
 msgstr ""
-"Слично као Гаусово замућење, али је удео свак ог суседног пиксела такође "
-"пондерисан на основу разлике у боји у односу на оригинали пиксел у средини. "
+"Као Гаусово замућење; али где је допринос сваког суседног пиксела такође "
+"мерен разликом у боји у односу на изворни средишњи пиксел."
 
 #: operations/common/bloom.c:26 operations/common/threshold.c:25
-#: operations/common/threshold.c:127 operations/common/unsharp-mask.c:37
+#: operations/common/threshold.c:164 operations/common/unsharp-mask.c:37
 #: operations/common-gpl3+/red-eye-removal.c:31
 #: operations/common-gpl3+/wind.c:60 operations/external/matting-levin.c:33
 msgid "Threshold"
@@ -650,29 +854,13 @@ msgstr "Мекоћа"
 msgid "Glow-area edge softness"
 msgstr "Мекоћа ивице области сјаја"
 
-#: operations/common/bloom.c:35 operations/common/box-blur.c:25
-#: operations/common/c2g.c:28 operations/common/edge-neon.c:47
-#: operations/common/median-blur.c:42 operations/common/snn-mean.c:26
-#: operations/common/stress.c:27 operations/common/unsharp-mask.c:24
-#: operations/common/vignette.c:40 operations/common/wavelet-blur-1d.c:28
-#: operations/common/wavelet-blur.c:27 operations/common-cxx/focus-blur.c:85
-#: operations/common-cxx/lens-blur.cc:24
-#: operations/common-cxx/variable-blur.c:30
-#: operations/common-gpl3+/shadows-highlights.c:40
-#: operations/common-gpl3+/spiral.c:47 operations/common-gpl3+/supernova.c:44
-#: operations/common-gpl3+/whirl-pinch.c:46
-#: operations/external/matting-levin.c:29 operations/workshop/boxblur-1d.c:27
-#: operations/workshop/boxblur.c:24
-#: operations/workshop/external/spyrograph.c:63
-msgid "Radius"
-msgstr "Полупречник"
-
 #: operations/common/bloom.c:36 operations/common-gpl3+/softglow.c:26
 msgid "Glow radius"
 msgstr "Полупречник сјаја"
 
 #: operations/common/bloom.c:42 operations/common/noise-reduction.c:26
-#: operations/common-cxx/warp.cc:34 operations/common-gpl3+/wind.c:64
+#: operations/common-cxx/denoise-dct.cc:38 operations/common-cxx/warp.cc:34
+#: operations/common-gpl3+/wind.c:64
 msgid "Strength"
 msgstr "Снага"
 
@@ -688,11 +876,11 @@ msgstr "Ограничи експозицију"
 msgid "Don't over-expose highlights"
 msgstr "Немој да преекспонираш светле делове"
 
-#: operations/common/bloom.c:207
+#: operations/common/bloom.c:203
 msgid "Bloom"
 msgstr "Цветање"
 
-#: operations/common/bloom.c:209
+#: operations/common/bloom.c:206
 msgid "Add glow around bright areas"
 msgstr "Додаје сјај око светлих области"
 
@@ -707,9 +895,9 @@ msgstr ""
 msgid "Box Blur"
 msgstr "Квадратно замућење"
 
-#: operations/common/box-blur.c:406 operations/workshop/boxblur.c:76
-msgid "Blur resulting from averaging the colors of a square neighbourhood."
-msgstr "Замућење које настаје упросечавањем боја квадратног суседства."
+#: operations/common/box-blur.c:407 operations/workshop/boxblur.c:76
+msgid "Blur resulting from averaging the colors of a square neighborhood."
+msgstr "Замућење које настаје просечењем боја квадратног суседства."
 
 #. Here in the top of the file the properties of the operation is declared,
 #. *  this causes the declaration of a structure for containing the data.
@@ -736,11 +924,11 @@ msgstr "Осветљеност"
 msgid "Amount to increase brightness"
 msgstr "Одређује колико се повећава осветљеност"
 
-#: operations/common/brightness-contrast.c:159
+#: operations/common/brightness-contrast.c:165
 msgid "Brightness Contrast"
 msgstr "Осветљеност и контраст"
 
-#: operations/common/brightness-contrast.c:164
+#: operations/common/brightness-contrast.c:170
 #, no-c-format
 msgid ""
 "Changes the light level and contrast. This operation operates in linear "
@@ -761,7 +949,7 @@ msgstr "Место где се чува излаз Геглове оставе"
 
 #: operations/common/buffer-sink.c:27
 msgid "babl format"
-msgstr "Баблов формат"
+msgstr "бабл формат"
 
 #: operations/common/buffer-sink.c:28
 msgid ""
@@ -800,7 +988,7 @@ msgid ""
 "account when deciding which colors map to which gray values"
 msgstr ""
 "Суседи који се рачунају, тј. полупречник у пикселима који се корист приликом "
-"избора одређене мапе боја за одређене вредности сиве."
+"избора одређене мапе боја за одређене вредности сиве"
 
 #: operations/common/c2g.c:37 operations/common/stress.c:34
 msgid "Samples"
@@ -815,6 +1003,7 @@ msgstr "Број узорака за обраду по сваком понављ
 #: operations/common/noise-perlin.c:33 operations/common/noise-simplex.c:35
 #: operations/common/recursive-transform.c:36 operations/common/slic.c:38
 #: operations/common/stress.c:39 operations/common-gpl3+/fractal-explorer.c:55
+#: operations/workshop/shuffle-search.c:31
 msgid "Iterations"
 msgstr "Понављања"
 
@@ -834,7 +1023,7 @@ msgstr "Побољшај сенке"
 msgid "When enabled details in shadows are boosted at the expense of noise"
 msgstr "Када је укључено, детаљи у сенкама су појачани на рачун шума"
 
-#: operations/common/c2g.c:460
+#: operations/common/c2g.c:461
 msgid ""
 "Color to grayscale conversion, uses envelopes formed with the STRESS "
 "approach to perform local color-difference preserving grayscale generation."
@@ -883,7 +1072,9 @@ msgstr "Ширина пиксела ћелије по вертикали"
 
 #: operations/common/checkerboard.c:42 operations/common/grid.c:38
 #: operations/common/mirrors.c:46 operations/common/pixelize.c:51
+#: operations/common-gpl3+/bayer-matrix.c:73
 #: operations/common-gpl3+/bump-map.c:62
+#: operations/common-gpl3+/linear-sinusoid.c:81
 #: operations/seamless-clone/seamless-clone.c:26
 #: operations/seamless-clone/seamless-clone-compose.c:25
 msgid "Offset X"
@@ -895,7 +1086,9 @@ msgstr "Хоризонтални померај (у односу на ориги
 
 #: operations/common/checkerboard.c:48 operations/common/grid.c:44
 #: operations/common/mirrors.c:52 operations/common/pixelize.c:58
+#: operations/common-gpl3+/bayer-matrix.c:80
 #: operations/common-gpl3+/bump-map.c:68
+#: operations/common-gpl3+/linear-sinusoid.c:88
 #: operations/seamless-clone/seamless-clone.c:32
 #: operations/seamless-clone/seamless-clone-compose.c:31
 msgid "Offset Y"
@@ -942,9 +1135,9 @@ msgstr "Исцртај шару у облику шаховске табле"
 
 #: operations/common/color.c:24 operations/common/color.c:87
 #: operations/common/color-overlay.c:26 operations/common/dropshadow.c:67
-#: operations/common/grid.c:64 operations/common/long-shadow.c:83
-#: operations/common/rectangle.c:48 operations/common/vignette.c:36
-#: operations/common-gpl3+/color-to-alpha.c:29
+#: operations/common/grid.c:64 operations/common/inner-glow.c:80
+#: operations/common/long-shadow.c:83 operations/common/rectangle.c:48
+#: operations/common/vignette.c:36 operations/common-gpl3+/color-to-alpha.c:29
 #: operations/common-gpl3+/supernova.c:60
 #: operations/common-gpl3+/tile-paper.c:31
 #: operations/common-gpl3+/value-propagate.c:54 operations/external/text.c:37
@@ -969,11 +1162,17 @@ msgstr ""
 msgid "Grid size"
 msgstr "Величина мреже"
 
+#.
+#. property_double (imagehue, _("Hue rotation"),  0.0)
+#. description  (_("Hue adjustment"))
+#. value_range  (-180.0, 180.0)
+#. description (_("Hue rotation of the uploaded image file or whatever is on canvas"))
+#. ui_meta ("visible", "guichange {imageoutlinebevel}")
 #: operations/common/color-assimilation-grid.c:31
 #: operations/common/color-rotate.c:84 operations/common/fattal02.c:39
 #: operations/common/mantiuk06.c:33 operations/common/noise-hsv.c:34
-#: operations/common/saturation.c:384
-#: operations/external/lcms-from-profile.c:35
+#: operations/common/saturation.c:404 operations/common/styles.c:387
+#: operations/common/vibrance.c:30 operations/external/lcms-from-profile.c:35
 #: operations/workshop/selective-hue-saturation.c:38
 msgid "Saturation"
 msgstr "Засићеност"
@@ -981,7 +1180,7 @@ msgstr "Засићеност"
 #. FIXME: With a large angle, we lose AreaFilter's flavours
 #: operations/common/color-assimilation-grid.c:35
 #: operations/common/long-shadow.c:49 operations/common/motion-blur-linear.c:32
-#: operations/common/newsprint.c:159
+#: operations/common/newsprint.c:158
 #: operations/common-gpl3+/linear-sinusoid.c:65
 #: operations/common-gpl3+/motion-blur-circular.c:51
 #: operations/common-gpl3+/ripple.c:45
@@ -996,7 +1195,7 @@ msgstr "Дебљина линије"
 msgid "Color Assimilation Grid"
 msgstr "Мрежа за асимилацију боја"
 
-#: operations/common/color-assimilation-grid.c:147
+#: operations/common/color-assimilation-grid.c:148
 msgid ""
 "Turn image grayscale and overlay an oversaturated grid - through color "
 "assimilation happening in the human visual system, for some grid scales this "
@@ -1019,7 +1218,7 @@ msgstr ""
 "Развлачи хроминансу боја на највећи могући опсег, уз очување вредности "
 "нијансе и луминансе."
 
-#: operations/common/color-overlay.c:27
+#: operations/common/color-overlay.c:27 operations/common/inner-glow.c:81
 msgid "The color to paint over the input"
 msgstr "Боја за цртање преко улаза"
 
@@ -1055,11 +1254,11 @@ msgstr "sRGB"
 msgid "Use sRGB gamma instead of linear"
 msgstr "Користи sRGB вредност гаме уместо линеарне"
 
-#: operations/common/color-overlay.c:156
+#: operations/common/color-overlay.c:175
 msgid "Color Overlay"
 msgstr "Прекривање боје"
 
-#: operations/common/color-overlay.c:157
+#: operations/common/color-overlay.c:178
 msgid "Paint a color overlay over the input, preserving its transparency."
 msgstr "Омогућава цртање преко улазне слике, уз очување њене провидности."
 
@@ -1141,11 +1340,11 @@ msgstr "Вредност нијансе за подешавање сиве"
 msgid "Saturation value for above gray settings"
 msgstr "Вредности засићености за подешавање сиве"
 
-#: operations/common/color-rotate.c:409
+#: operations/common/color-rotate.c:435
 msgid "Color Rotate"
 msgstr "Ротација боје"
 
-#: operations/common/color-rotate.c:410
+#: operations/common/color-rotate.c:438
 msgid "Replace a range of colors with another"
 msgstr "Мења опсег боја другим бојама"
 
@@ -1166,11 +1365,11 @@ msgstr "Жељена температура"
 msgid "Corrected estimation of the temperature of the light source in Kelvin."
 msgstr "Коригована процена температуре светлости у Келвинима."
 
-#: operations/common/color-temperature.c:264
+#: operations/common/color-temperature.c:271
 msgid "Color Temperature"
 msgstr "Температура боје"
 
-#: operations/common/color-temperature.c:267
+#: operations/common/color-temperature.c:274
 msgid ""
 "Change the color temperature of the image, from an assumed original color "
 "temperature to an intended one."
@@ -1282,11 +1481,11 @@ msgstr "општа скала тежина"
 msgid "amount"
 msgstr "количина"
 
-#: operations/common/color-warp.c:311
+#: operations/common/color-warp.c:337
 msgid "Color warp"
 msgstr "Вртлог боја"
 
-#: operations/common/color-warp.c:313
+#: operations/common/color-warp.c:341
 msgid ""
 "Warps the colors of an image between colors with weighted distortion "
 "factors, color pairs which are black to black get ignored when constructing "
@@ -1565,7 +1764,7 @@ msgid "Alpha channel"
 msgstr "Алфа канал"
 
 #: operations/common/convolution-matrix.c:64
-#: operations/common-cxx/distance-transform.cc:46
+#: operations/common-cxx/distance-transform.cc:55
 #: operations/workshop/connected-components.c:41
 msgid "Normalize"
 msgstr "Нормализуј"
@@ -1643,66 +1842,67 @@ msgstr "Прикажи"
 msgid "Display the input buffer in a window."
 msgstr "Приказује улазну оставу унутар прозора."
 
-#: operations/common/dither.c:25
+#: operations/common/dither.c:31
 msgid "Red levels"
 msgstr "Нивои црвене"
 
-#: operations/common/dither.c:26
+#: operations/common/dither.c:32
 msgid "Number of levels for red channel"
 msgstr "Број нивоа за црвени канал"
 
-#: operations/common/dither.c:30
+#: operations/common/dither.c:36
 msgid "Green levels"
 msgstr "Нивои зелене"
 
-#: operations/common/dither.c:31
+#: operations/common/dither.c:37
 msgid "Number of levels for green channel"
 msgstr "Број нивоа за зелени канал"
 
-#: operations/common/dither.c:35
+#: operations/common/dither.c:41
 msgid "Blue levels"
 msgstr "Нивои плаве"
 
-#: operations/common/dither.c:36
+#: operations/common/dither.c:42
 msgid "Number of levels for blue channel"
 msgstr "Број нивоа за плави канал"
 
-#: operations/common/dither.c:40
+#: operations/common/dither.c:46
 msgid "Alpha levels"
 msgstr "Нивои алфе"
 
-#: operations/common/dither.c:41
+#: operations/common/dither.c:47
 msgid "Number of levels for alpha channel"
 msgstr "Број нивоа за алфа канал провидности"
 
-#: operations/common/dither.c:45
+#: operations/common/dither.c:51
 msgid "Dithering method"
 msgstr "Начин дидеринга"
 
-#: operations/common/dither.c:47
+#: operations/common/dither.c:53
 msgid "The dithering method to use"
 msgstr "Одређује који начин дидеринга се користи"
 
-#: operations/common/dither.c:49 operations/common/matting-global.c:28
+#: operations/common/dither.c:55 operations/common/matting-global.c:28
 #: operations/common/noise-cell.c:55 operations/common/noise-cie-lch.c:38
 #: operations/common/noise-hsv.c:40 operations/common/noise-hurl.c:37
 #: operations/common/noise-pick.c:38 operations/common/noise-rgb.c:55
 #: operations/common/noise-simplex.c:39 operations/common/noise-spread.c:41
 #: operations/common-gpl3+/cubism.c:42 operations/common-gpl3+/maze.c:65
-#: operations/common-gpl3+/mosaic.c:89 operations/common-gpl3+/noise-slur.c:40
+#: operations/common-gpl3+/mosaic.c:92 operations/common-gpl3+/noise-slur.c:40
 #: operations/common-gpl3+/noise-solid.c:61 operations/common-gpl3+/plasma.c:70
 #: operations/common-gpl3+/shift.c:35 operations/common-gpl3+/sinus.c:49
 #: operations/common-gpl3+/supernova.c:63
 #: operations/common-gpl3+/tile-paper.c:81 operations/common-gpl3+/wind.c:68
 #: operations/workshop/segment-kmeans.c:37
+#: operations/workshop/shuffle-search.c:59
 msgid "Random seed"
 msgstr "Насумично семе"
 
-#: operations/common/dither.c:661
+#: operations/common/dither.c:640
 msgid "Dither"
 msgstr "Дидер"
 
-#: operations/common/dither.c:664
+#: operations/common/dither.c:643
 msgid ""
 "Reduce the number of colors in the image, by reducing the levels per channel "
 "(colors and alpha). Different dithering methods can be specified to "
@@ -1738,7 +1938,7 @@ msgstr ""
 msgid "Smooth by Domain Transform"
 msgstr "Ублажи преображајем домена"
 
-#: operations/common/domain-transform.c:530
+#: operations/common/domain-transform.c:531
 msgid ""
 "An edge-preserving smoothing filter implemented with the Domain Transform "
 "recursive technique. Similar to a bilateral filter, but faster to compute."
@@ -1746,26 +1946,30 @@ msgstr ""
 "Филтер за умекшавање уз очување ивица који ради повратном техником "
 "ублажавања домена. Ради слично као двобочни филтер, само је бржи за рачунање."
 
-#: operations/common/dropshadow.c:27 operations/common/median-blur.c:27
-#: operations/common/pixelize.c:28 operations/common/vignette.c:26
+#: operations/common/dropshadow.c:27 operations/common/inner-glow.c:30
+#: operations/common/median-blur.c:27 operations/common/pixelize.c:28
+#: operations/common/styles.c:96 operations/common/vignette.c:26
 #: operations/common-cxx/focus-blur.c:35
 msgid "Square"
 msgstr "Квадрат"
 
-#: operations/common/dropshadow.c:28 operations/common/median-blur.c:28
-#: operations/common/newsprint.c:26 operations/common/vignette.c:25
+#: operations/common/dropshadow.c:28 operations/common/inner-glow.c:31
+#: operations/common/median-blur.c:28 operations/common/newsprint.c:26
+#: operations/common/styles.c:97 operations/common/vignette.c:25
 #: operations/common-cxx/focus-blur.c:34
 msgid "Circle"
 msgstr "Круг"
 
-#: operations/common/dropshadow.c:29 operations/common/median-blur.c:29
-#: operations/common/newsprint.c:27 operations/common/pixelize.c:26
+#: operations/common/dropshadow.c:29 operations/common/inner-glow.c:32
+#: operations/common/median-blur.c:29 operations/common/newsprint.c:27
+#: operations/common/pixelize.c:26 operations/common/styles.c:98
 #: operations/common/vignette.c:27 operations/common-cxx/focus-blur.c:36
 msgid "Diamond"
 msgstr "Дијамант"
 
-#: operations/common/dropshadow.c:32 operations/common/layer.c:36
-#: operations/common/rectangle.c:26 operations/common-gpl3+/plasma.c:40
+#: operations/common/dropshadow.c:32 operations/common/inner-glow.c:42
+#: operations/common/layer.c:36 operations/common/rectangle.c:26
+#: operations/common-gpl3+/plasma.c:40
 #: operations/common-gpl3+/polar-coordinates.c:52
 #: operations/common-gpl3+/spiral.c:35 operations/core/crop.c:25
 #: operations/transform/border-align.c:24 operations/transform/reflect.c:26
@@ -1776,12 +1980,14 @@ msgstr "Дијамант"
 msgid "X"
 msgstr "X"
 
-#: operations/common/dropshadow.c:33
+#: operations/common/dropshadow.c:33 operations/common/inner-glow.c:43
+#: operations/common/styles.c:145
 msgid "Horizontal shadow offset"
 msgstr "Хоризонтално померање сенке"
 
-#: operations/common/dropshadow.c:39 operations/common/layer.c:41
-#: operations/common/rectangle.c:31 operations/common-gpl3+/plasma.c:47
+#: operations/common/dropshadow.c:39 operations/common/inner-glow.c:49
+#: operations/common/layer.c:41 operations/common/rectangle.c:31
+#: operations/common-gpl3+/plasma.c:47
 #: operations/common-gpl3+/polar-coordinates.c:59
 #: operations/common-gpl3+/spiral.c:41 operations/core/crop.c:30
 #: operations/transform/border-align.c:30 operations/transform/reflect.c:30
@@ -1792,23 +1998,24 @@ msgstr "Хоризонтално померање сенке"
 msgid "Y"
 msgstr "Y"
 
-#: operations/common/dropshadow.c:40
+#: operations/common/dropshadow.c:40 operations/common/inner-glow.c:50
+#: operations/common/styles.c:154
 msgid "Vertical shadow offset"
 msgstr "Вертикално померање сенке"
 
-#: operations/common/dropshadow.c:53
+#: operations/common/dropshadow.c:53 operations/common/inner-glow.c:36
 msgid "Grow shape"
 msgstr "Увећај облик"
 
-#: operations/common/dropshadow.c:56
+#: operations/common/dropshadow.c:56 operations/common/inner-glow.c:39
 msgid "The shape to expand or contract the shadow in"
 msgstr "Облик на коме се шири или сужава сенка"
 
-#: operations/common/dropshadow.c:58
+#: operations/common/dropshadow.c:58 operations/common/inner-glow.c:66
 msgid "Grow radius"
 msgstr "Полупречник увећања"
 
-#: operations/common/dropshadow.c:65
+#: operations/common/dropshadow.c:65 operations/common/inner-glow.c:73
 msgid ""
 "The distance to expand the shadow before blurring; a negative value will "
 "contract the shadow instead"
@@ -1821,12 +2028,13 @@ msgstr ""
 msgid "The shadow's color (defaults to 'black')"
 msgstr "Боја сенке (подразумевано је црна)"
 
-#. It does make sense to sometimes have opacities > 1 (see GEGL logo
-#. * for example)
+#. We used to permit opacity values > 1.0, similar results can in many cases be
+#. * achieved with grow_radius.
 #.
-#: operations/common/dropshadow.c:74 operations/common/layer.c:33
-#: operations/common/opacity.c:25 operations/common/opacity.c:289
-#: operations/external/vector-fill.c:29 operations/external/vector-stroke.c:34
+#: operations/common/dropshadow.c:74 operations/common/inner-glow.c:75
+#: operations/common/layer.c:33 operations/common/opacity.c:25
+#: operations/common/opacity.c:289 operations/external/vector-fill.c:29
+#: operations/external/vector-stroke.c:34
 msgid "Opacity"
 msgstr "Непровидност"
 
@@ -1834,7 +2042,7 @@ msgstr "Непровидност"
 msgid "Dropshadow"
 msgstr "Бези сенку"
 
-#: operations/common/dropshadow.c:187
+#: operations/common/dropshadow.c:189
 msgid "Creates a dropshadow effect on the input buffer"
 msgstr "Прави ефекат сенке на улазној остави"
 
@@ -1859,7 +2067,7 @@ msgid "Performs edge detection using a Gaussian derivative method"
 msgstr "Налази ивице уз помоћ методе Гаусивог деривата"
 
 #: operations/common/edge-sobel.c:31
-msgid "Keep Sign"
+msgid "Keep sign"
 msgstr "Задржи знак"
 
 #: operations/common/edge-sobel.c:32
@@ -1870,11 +2078,11 @@ msgstr ""
 "Задржава негативне вредности у резултату; користи апсолутне вредности када "
 "је искључено."
 
-#: operations/common/edge-sobel.c:404
+#: operations/common/edge-sobel.c:397
 msgid "Sobel Edge Detection"
 msgstr "Собелово налажење ивица"
 
-#: operations/common/edge-sobel.c:407
+#: operations/common/edge-sobel.c:400
 msgid "Specialized direction-dependent edge detection"
 msgstr "Специјализовано налажење ивиза у зависности од смера"
 
@@ -1918,8 +2126,8 @@ msgstr "Ниво црне"
 msgid "Adjust the black level"
 msgstr "Подешава ниво црне"
 
-#: operations/common/exposure.c:30 operations/common/exposure.c:461
-#: operations/common/negative-darkroom.c:32
+#: operations/common/exposure.c:30 operations/common/exposure.c:476
+#: operations/common/negative-darkroom.c:29
 msgid "Exposure"
 msgstr "Експозиција"
 
@@ -1927,7 +2135,7 @@ msgstr "Експозиција"
 msgid "Relative brightness change in stops"
 msgstr "Релаивна промена светлине у блендама"
 
-#: operations/common/exposure.c:465
+#: operations/common/exposure.c:480
 msgid "Change exposure of an image in shutter speed stops"
 msgstr "Мења експозицију слике по корацима брзине затварача апарата"
 
@@ -1955,11 +2163,11 @@ msgstr "Шум"
 msgid "Gradient threshold for lowering detail enhancement"
 msgstr "Опсег прага за побољшање умањивања детаља"
 
-#: operations/common/fattal02.c:1356
+#: operations/common/fattal02.c:1361
 msgid "Fattal et al. 2002 Tone Mapping"
 msgstr "Фаталово мапирање тонова (Fattal и сар. 2002)"
 
-#: operations/common/fattal02.c:1360
+#: operations/common/fattal02.c:1365
 msgid ""
 "Adapt an image, which may have a high dynamic range, for presentation using "
 "a low dynamic range. This operator attenuates the magnitudes of local image "
@@ -2009,7 +2217,7 @@ msgstr "Одређује како се Гаусово језгро дискре�
 #: operations/common/gaussian-blur.c:57 operations/common/gblur-1d.c:60
 #: operations/common/map-absolute.c:26 operations/common/map-relative.c:30
 #: operations/common/median-blur.c:56 operations/common-gpl3+/displace.c:43
-#: operations/common-gpl3+/fractal-trace.c:67
+#: operations/common-gpl3+/fractal-trace.c:74
 #: operations/common-gpl3+/ripple.c:56 operations/transform/scale.c:102
 #: operations/workshop/external/voronoi-diagram.cc:38
 msgid "Abyss policy"
@@ -2066,7 +2274,7 @@ msgstr "1Д Гаусово замућење"
 #: operations/common/icc-save.c:25 operations/common/magick-load.c:26
 #: operations/common/open-buffer.c:25 operations/common/save.c:26
 #: operations/core/load.c:29 operations/external/exr-save.cc:24
-#: operations/external/ff-load.c:29 operations/external/ff-save.c:29
+#: operations/external/ff-load.c:30 operations/external/ff-save.c:30
 #: operations/external/gif-load.c:34 operations/external/jp2-load.c:25
 #: operations/external/jpg-load.c:24 operations/external/jpg-save.c:25
 #: operations/external/npy-save.c:31 operations/external/png-load.c:32
@@ -2096,20 +2304,20 @@ msgstr "Путања до датотеке са оставом (GeglBuffer) за
 msgid "GeglBuffer file writer."
 msgstr "Уписивање GeglBuffer датотеке."
 
-#: operations/common/gegl.c:68
+#: operations/common/gegl.c:73
 msgid "pipeline"
 msgstr "цевовод"
 
-#: operations/common/gegl.c:69
+#: operations/common/gegl.c:74
 msgid "[op [property=value] [property=value]] [[op] [property=value]"
 msgstr ""
 "[радња [особина=вредност] [особина=вредност]] [[радња] [особина=вредност]"
 
-#: operations/common/gegl.c:72
+#: operations/common/gegl.c:77
 msgid "Eeeeeek"
 msgstr "Упс!"
 
-#: operations/common/gegl.c:73
+#: operations/common/gegl.c:78
 msgid ""
 "There is a problem in the syntax or in the application of parsed property "
 "values. Things might mostly work nevertheless."
@@ -2117,11 +2325,11 @@ msgstr ""
 "Постоји проблем са синтаксом или унутар програма за обраду прослеђених "
 "вредности. Па ипак, програм можда може да ради без обзира на ово."
 
-#: operations/common/gegl.c:168
+#: operations/common/gegl.c:180
 msgid "GEGL graph"
 msgstr "Геглов график"
 
-#: operations/common/gegl.c:171
+#: operations/common/gegl.c:183
 msgid ""
 "Do a chain of operations, with key=value pairs after each operation name to "
 "set properties. And aux=[ source filter ] for specifying a chain with a "
@@ -2132,7 +2340,7 @@ msgstr ""
 "извор нешто везано за таблицу аукса."
 
 #: operations/common/grey.c:138
-msgid "Make Grey"
+msgid "Make Gray"
 msgstr "Направи сиво"
 
 #: operations/common/grey.c:141
@@ -2141,7 +2349,7 @@ msgstr "Претвара слику у црно-белу"
 
 #: operations/common/grid.c:50
 msgid "Line width"
-msgstr "Дужина линије "
+msgstr "Дужина линије"
 
 #: operations/common/grid.c:51
 msgid "Width of grid lines in pixels"
@@ -2168,8 +2376,8 @@ msgid "Grid renderer"
 msgstr "Исцртавање мреже"
 
 #: operations/common/high-pass.c:24
-msgid "Std. Dev."
-msgstr "Ст. дев."
+msgid "Standard deviation"
+msgstr "Стандардно одступање"
 
 #: operations/common/high-pass.c:31
 msgid "Contrast of high-pass"
@@ -2197,6 +2405,7 @@ msgid "Chroma adjustment"
 msgstr "Подешавања хроминансе"
 
 #: operations/common/hue-chroma.c:33 operations/common/noise-cie-lch.c:29
+#: operations/common/styles.c:392
 #: operations/workshop/selective-hue-saturation.c:42
 msgid "Lightness"
 msgstr "Осветљеност"
@@ -2280,7 +2489,7 @@ msgid ""
 "result. "
 msgstr ""
 "Упоређује да ли је улазна и излазна остава различита. Општа статистика се "
-"чува у поставкама, а слика визуелне разлике се прави као визуетлни резултат."
+"чува у поставкама, а слика визуелне разлике се прави као визуетлни резултат. "
 
 #: operations/common/image-gradient.c:27
 msgid "Magnitude"
@@ -2312,11 +2521,41 @@ msgstr "Прелив слике"
 msgid "Compute gradient magnitude and/or direction by central differences"
 msgstr "Рачуна количину прелива и/или смер на основу средњих разлика"
 
-#: operations/common/introspect.c:27
+#: operations/common/inner-glow.c:85
+msgid "Median fix for non-affected pixels on edges"
+msgstr "Поправка медијане за неутицајне пикселе на ивицама"
+
+#: operations/common/inner-glow.c:87
+msgid ""
+"Median Blur covers unaffected pixels. Making this slider too high will make "
+"it outline-like. So only slide it as high as you need to cover thin shape "
+"corners."
+msgstr ""
+"Медијано замућење прекрива неутицајне пикселе. Постављање овог клизача на "
+"превисоку вредност ће га учинити налик контури. Зато га померите само "
+"онолико колико вам је потребно да прекријете танке углове облика."
+
+#: operations/common/inner-glow.c:171
+msgid "Inner Glow"
+msgstr "Унутрашњи сјај"
+
+#: operations/common/inner-glow.c:173
+msgid ""
+"GEGL does an inner shadow glow effect; for more interesting use different "
+"blend mode than the default, Replace."
+msgstr ""
+"ГЕГЛ прави ефекат унутрашњег сјаја сенке, за занимљивији резултат користите "
+"другачији режим стапања од подразумеваног (Замени)."
+
+#: operations/common/inner-glow.c:175
+msgid "Inner Glow..."
+msgstr "Унутрашњи сјај…"
+
+#: operations/common/introspect.c:35
 msgid "Node"
 msgstr "Чвор"
 
-#: operations/common/introspect.c:205
+#: operations/common/introspect.c:224
 msgid "GEGL graph visualizer."
 msgstr "Геглов графички приказ."
 
@@ -2381,11 +2620,11 @@ msgstr "Извор"
 msgid "Source image file path (png, jpg, raw, svg, bmp, tif, ...)"
 msgstr "Путања до изворне слике (png, jpg, raw, svg, bmp, tif, ...)"
 
-#: operations/common/layer.c:240
+#: operations/common/layer.c:264
 msgid "Layer"
 msgstr "Слој"
 
-#: operations/common/layer.c:241
+#: operations/common/layer.c:267
 msgid "A layer in the traditional sense"
 msgstr "Слој у традиционалном смислу"
 
@@ -2421,13 +2660,14 @@ msgstr "Висок излаз"
 msgid "Highest luminance level in output"
 msgstr "Највиши ниво светлине на излазу"
 
-#: operations/common/levels.c:200 operations/common/posterize.c:24
+#: operations/common/levels.c:206 operations/common/posterize.c:24
 #: operations/common-cxx/piecewise-blend.cc:29
 #: operations/external/matting-levin.c:41
+#: operations/workshop/shuffle-search.c:48
 msgid "Levels"
 msgstr "Нивои"
 
-#: operations/common/levels.c:202
+#: operations/common/levels.c:208
 msgid "Remaps the intensity range of the image"
 msgstr "Преводи опсег интензитета слике у други опсег"
 
@@ -2440,20 +2680,20 @@ msgstr "X1"
 
 #: operations/common/linear-gradient.c:29
 #: operations/common/radial-gradient.c:26
-#: operations/common-gpl3+/fractal-trace.c:42
+#: operations/common-gpl3+/fractal-trace.c:44
 #: operations/workshop/external/line-profile.c:35
 msgid "Y1"
 msgstr "Y1"
 
 #: operations/common/linear-gradient.c:33
 #: operations/common/radial-gradient.c:27
-#: operations/common-gpl3+/fractal-trace.c:38
+#: operations/common-gpl3+/fractal-trace.c:39
 msgid "X2"
 msgstr "X2"
 
 #: operations/common/linear-gradient.c:37
 #: operations/common/radial-gradient.c:28
-#: operations/common-gpl3+/fractal-trace.c:46
+#: operations/common-gpl3+/fractal-trace.c:49
 msgid "Y2"
 msgstr "Y2"
 
@@ -2575,11 +2815,62 @@ msgstr ""
 msgid "Little Planet"
 msgstr "Мала планета"
 
-#: operations/common/little-planet.c:531
+#: operations/common/little-planet.c:532
 msgid "Do a stereographic/little planet transform of an equirectangular image."
 msgstr ""
 "Користи стереографску/малу планету на основу преображаја еквиправоугаоне "
 "слике."
+
+#: operations/common/local-threshold.c:25
+msgid ""
+"Standard deviation of gaussian neighborhood average for computing local "
+"contrast. If 0 is used a global threshold is used instead of one based on "
+"local contrast."
+msgstr ""
+"Стандардно одступање просека Гаусовог суседства за израчунавање локалног "
+"контраста. Ако се користи 0, користи се општи праг уместо оног заснованог на "
+"локалном контрасту."
+
+#: operations/common/local-threshold.c:32 operations/common-gpl3+/mosaic.c:89
+msgid "Antialiasing"
+msgstr "Умекшавање"
+
+#: operations/common/local-threshold.c:33
+msgid ""
+"Rough target of levels of accuracy for antialiasing, 1 to disable "
+"antialiasing."
+msgstr "Груби циљ нивоа тачности за умекшавање, 1 за онемогућавање умекшавања."
+
+#: operations/common/local-threshold.c:37
+msgid "Low"
+msgstr "Ниско"
+
+#: operations/common/local-threshold.c:38
+msgid ""
+"Thresholding level, 0.5 towards 0 to minimize shadows and towards 1.0 to "
+"minimize highlights."
+msgstr ""
+"Ниво прага, 0.5 ка 0 за умањење сенки и ка 1.0 за умањење светлих делова."
+
+#: operations/common/local-threshold.c:43
+msgid "Threshold level"
+msgstr "Ниво прага"
+
+#: operations/common/local-threshold.c:46 operations/common/threshold.c:30
+msgid "High"
+msgstr "Високо"
+
+#: operations/common/local-threshold.c:47
+msgid "Maximum values to include, above this gets set to 0."
+msgstr "Највеће вредности за укључивање, изнад овога се поставља на 0."
+
+#: operations/common/local-threshold.c:179
+msgid "Local Threshold"
+msgstr "Локални праг"
+
+#: operations/common/local-threshold.c:181
+msgid "Applies a threshold using the local neighborhood."
+msgstr "Примењује праг користећи локално суседство."
 
 #: operations/common/long-shadow.c:27
 msgid "Finite"
@@ -2662,11 +2953,11 @@ msgstr "Композиција"
 msgid "Output composition"
 msgstr "Излазна композиција"
 
-#: operations/common/long-shadow.c:1691
+#: operations/common/long-shadow.c:1646
 msgid "Long Shadow"
 msgstr "Дугачка сенка"
 
-#: operations/common/long-shadow.c:1695
+#: operations/common/long-shadow.c:1650
 msgid "Creates a long-shadow effect"
 msgstr "Прави ефекат дугачке сенке"
 
@@ -2677,7 +2968,7 @@ msgstr "Прави ефекат дугачке сенке"
 msgid "Path of file to load."
 msgstr "Путања до датотеке за учитавање."
 
-#: operations/common/magick-load.c:144
+#: operations/common/magick-load.c:171
 msgid "Image Magick wrapper using the png op."
 msgstr "Чаробњака за слике (Image Magick) за радње са png сликама."
 
@@ -2693,11 +2984,11 @@ msgstr "Детаљи"
 msgid "Level of emphasis on image gradient details"
 msgstr "Одређује колико пажње се посвећује детаљима прелива на слици"
 
-#: operations/common/mantiuk06.c:1654
+#: operations/common/mantiuk06.c:1642
 msgid "Mantiuk 2006 Tone Mapping"
 msgstr "Мантјуково мапирање тонова (Mantiuk 2006)"
 
-#: operations/common/mantiuk06.c:1658
+#: operations/common/mantiuk06.c:1646
 msgid ""
 "Adapt an image, which may have a high dynamic range, for presentation using "
 "a low dynamic range. This operator constrains contrasts across multiple "
@@ -2711,7 +3002,7 @@ msgstr ""
 msgid "Map Absolute"
 msgstr "Апсолутна мапа"
 
-#: operations/common/map-absolute.c:64
+#: operations/common/map-absolute.c:65
 msgid ""
 "sample input with an auxiliary buffer that contain absolute source "
 "coordinates"
@@ -2741,11 +3032,11 @@ msgid ""
 msgstr ""
 "узоркује улаз у резервну оставу која садржи релативне изворне координате"
 
-#: operations/common/matting-global.c:599
+#: operations/common/matting-global.c:601
 msgid "Matting Global"
 msgstr "Опште матирање"
 
-#: operations/common/matting-global.c:601
+#: operations/common/matting-global.c:603
 msgid ""
 "Given a sparse user supplied tri-map and an input image, create a foreground "
 "alpha matte. Set white as foreground, black as background for the tri-map. "
@@ -2830,11 +3121,11 @@ msgstr "Велика прецизност"
 msgid "Avoid clipping and quantization (slower)"
 msgstr "Избегни одсецање и квантизацију (спорије)"
 
-#: operations/common/median-blur.c:1003
+#: operations/common/median-blur.c:1000
 msgid "Median Blur"
 msgstr "Замућење медијаном"
 
-#: operations/common/median-blur.c:1006
+#: operations/common/median-blur.c:1003
 msgid ""
 "Blur resulting from computing the median color in the neighborhood of each "
 "pixel."
@@ -2930,11 +3221,11 @@ msgstr "Преламање илаза"
 msgid "Fill full output area"
 msgstr "Испуни целу излазну област"
 
-#: operations/common/mirrors.c:466
+#: operations/common/mirrors.c:480
 msgid "Kaleidoscopic Mirroring"
 msgstr "Калеидоскопско огледало"
 
-#: operations/common/mirrors.c:470
+#: operations/common/mirrors.c:484
 msgid "Create a kaleidoscope like effect."
 msgstr "Прави ефекат калеидоскопа."
 
@@ -2959,15 +3250,15 @@ msgid "Preserve luminosity"
 msgstr "Очувај светлину"
 
 #: operations/common/mono-mixer.c:26
-msgid "Red Channel Multiplier"
+msgid "Red channel multiplier"
 msgstr "Умножилац црвеног канала"
 
 #: operations/common/mono-mixer.c:30
-msgid "Green Channel Multiplier"
+msgid "Green channel multiplier"
 msgstr "Умножилац зеленог канала"
 
 #: operations/common/mono-mixer.c:34
-msgid "Blue Channel Multiplier"
+msgid "Blue channel multiplier"
 msgstr "Умножилац плавог канала"
 
 #: operations/common/mono-mixer.c:113
@@ -2998,41 +3289,41 @@ msgstr ""
 "Замућује пикселе у одређеном смеру, што изгледа као замућење настало "
 "померањем фото-апарата током дуге експозиције."
 
-#: operations/common/negative-darkroom.c:28
+#: operations/common/negative-darkroom.c:25
 msgid "Characteristic curve"
 msgstr "Карактеристична крива"
 
-#: operations/common/negative-darkroom.c:30
+#: operations/common/negative-darkroom.c:27
 msgid "Hardcoded characteristic curve and color data"
 msgstr "Уграђена карактеристична крива и подаци о боји"
 
-#: operations/common/negative-darkroom.c:33
+#: operations/common/negative-darkroom.c:30
 msgid "Base enlargement exposure"
 msgstr "Основно повећање екпозиције"
 
-#: operations/common/negative-darkroom.c:37
-msgid "Filter cyan"
-msgstr "Филтер плавичасте"
+#: operations/common/negative-darkroom.c:34
+msgid "Cyan filter"
+msgstr "Цијан филтер"
 
-#: operations/common/negative-darkroom.c:38
-msgid "Cyan exposure compensation for the negative image"
-msgstr "Компензација експозиције плавичасте за негатив слике"
+#: operations/common/negative-darkroom.c:35
+msgid "Cyan filter compensation for the negative image"
+msgstr "Компензација цијан филтера за негативну слику"
 
-#: operations/common/negative-darkroom.c:41
-msgid "Filter magenta"
-msgstr "Филтер љубичасте"
+#: operations/common/negative-darkroom.c:39
+msgid "Magenta filter"
+msgstr "Магента филтер"
 
-#: operations/common/negative-darkroom.c:42
-msgid "Magenta exposure compensation for the negative image"
-msgstr "Компензација експозиције љубичасте за негатив слике"
+#: operations/common/negative-darkroom.c:40
+msgid "Magenta filter compensation for the negative image"
+msgstr "Компензација магента филтера за негативну слику"
+
+#: operations/common/negative-darkroom.c:44
+msgid "Yellow filter"
+msgstr "Жути филтер"
 
 #: operations/common/negative-darkroom.c:45
-msgid "Filter yellow"
-msgstr "Филтер жуте"
-
-#: operations/common/negative-darkroom.c:46
-msgid "Yellow exposure compensation for the negative image"
-msgstr "Компензација експозиције жуте за негатив слике"
+msgid "Yellow filter compensation for the negative image"
+msgstr "Компензација жутог филтера за негативну слику"
 
 #: operations/common/negative-darkroom.c:49
 msgid "Clip base + fog"
@@ -3042,11 +3333,21 @@ msgstr "Одсеци основу + маглу"
 msgid "Clip base + fog to have a pure white output value"
 msgstr "Одсеци основу + маглу да би имали чисто белу излазну вредност"
 
-#: operations/common/negative-darkroom.c:52
-msgid "Density boost"
-msgstr "Појачање густине"
+#: operations/common/negative-darkroom.c:51
+msgid "Add base and fog"
+msgstr "Додај основу и маглу"
 
-#: operations/common/negative-darkroom.c:53
+#: operations/common/negative-darkroom.c:52
+msgid "Artificially reintroduce base and fog."
+msgstr "Вештачки поново уведи основу и маглу."
+
+#: operations/common/negative-darkroom.c:57
+msgid "Cyan density boost"
+msgstr "Појачање густине цијана"
+
+#: operations/common/negative-darkroom.c:58
+#: operations/common/negative-darkroom.c:63
+#: operations/common/negative-darkroom.c:68
 msgid ""
 "Boost paper density to take advantage of increased dynamic range of a "
 "monitor compared to a photographic paper"
@@ -3054,77 +3355,175 @@ msgstr ""
 "Појачава густину папира како би искористио предности већег динамичког опсега "
 "монитора у поређењу са фото-папиром"
 
-#: operations/common/negative-darkroom.c:56
+#: operations/common/negative-darkroom.c:62
+msgid "Density boost"
+msgstr "Појачање густине"
+
+#: operations/common/negative-darkroom.c:67
+msgid "Yellow density boost"
+msgstr "Појачање густине жуте"
+
+#: operations/common/negative-darkroom.c:72
+msgid "Contrast boost R"
+msgstr "Појачање контраста R"
+
+#: operations/common/negative-darkroom.c:73
+msgid ""
+"Increase red contrast for papers with fixed contrast (usually color papers)"
+msgstr ""
+"Повећај црвени контраст за папире са фиксним контрастом (обично папири у "
+"боји)"
+
+#: operations/common/negative-darkroom.c:77
+msgid "Contrast boost"
+msgstr "Појачање контраста"
+
+#: operations/common/negative-darkroom.c:78
+msgid "Increase contrast for papers with fixed contrast (usually color papers)"
+msgstr ""
+"Повећај контраст за папире са фиксним контрастом (обично папири у боји)"
+
+#: operations/common/negative-darkroom.c:82
+msgid "Contrast boost B"
+msgstr "Појачање контраста B"
+
+#: operations/common/negative-darkroom.c:83
+msgid ""
+"Increase blue contrast for papers with fixed contrast (usually color papers)"
+msgstr ""
+"Повећај плави контраст за папире са фиксним контрастом (обично папири у боји)"
+
+#: operations/common/negative-darkroom.c:88
 msgid "Dodge/burn multiplier"
 msgstr "Множење избељивања/спаљивања"
 
-#: operations/common/negative-darkroom.c:57
-msgid "The f-stop of dodge/burn for pure white/black auxillary input"
-msgstr ""
-"Отвор бленде алата за зибељивање/спаљивање за чисто бели/црни резервни улаз"
+#: operations/common/negative-darkroom.c:89
+msgid "The f-stop of dodge/burn for pure white/black auxiliary input"
+msgstr "Ф-број за избељивање/спаљивање за чисто бели/црни помоћни улаз"
 
-#: operations/common/negative-darkroom.c:60
+#: operations/common/negative-darkroom.c:93
 msgid "Enable preflashing"
 msgstr "Омогући предблиц"
 
-#: operations/common/negative-darkroom.c:61
+#: operations/common/negative-darkroom.c:94
 msgid "Show preflash controls"
 msgstr "Прикажи контроле предблица"
 
-#: operations/common/negative-darkroom.c:63
-msgid "Cyan preflash"
-msgstr "Плвичасти предблиц"
+#: operations/common/negative-darkroom.c:96
+msgid "Red preflash"
+msgstr "Црвено предблицање"
 
-#: operations/common/negative-darkroom.c:64
-msgid "Preflash the negative with cyan light to reduce contrast of the print"
-msgstr ""
-"Смањује контраст пред штампу користећи предблиц плавичасте боје на негативу"
+#: operations/common/negative-darkroom.c:97
+msgid "Preflash the negative with red light to reduce contrast of the print"
+msgstr "Предблицајте негатив црвеним светлом да бисте умањили контраст штампе"
 
-#: operations/common/negative-darkroom.c:68
-msgid "Magenta preflash"
-msgstr "Љубичасти предблиц"
+#: operations/common/negative-darkroom.c:101
+msgid "Green preflash"
+msgstr "Зелено предблицање"
 
-#: operations/common/negative-darkroom.c:69
-msgid ""
-"Preflash the negative with magenta light to reduce contrast of the print"
-msgstr ""
-"Смањује контраст пред штампу користећи предблиц љубичасте боје на негативу"
+#: operations/common/negative-darkroom.c:102
+msgid "Preflash the negative with green light to reduce contrast of the print"
+msgstr "Предблицајте негатив зеленим светлом да бисте умањили контраст штампе"
 
-#: operations/common/negative-darkroom.c:73
-msgid "Yellow preflash"
-msgstr "Жути предблиц"
+#: operations/common/negative-darkroom.c:106
+msgid "Blue preflash"
+msgstr "Плаво предблицање"
 
-#: operations/common/negative-darkroom.c:74
-msgid "Preflash the negative with yellow light to reduce contrast of the print"
-msgstr "Смањује контраст пред штампу користећи предблиц жуте боје на негативу"
+#: operations/common/negative-darkroom.c:107
+msgid "Preflash the negative with blue light to reduce contrast of the print"
+msgstr "Предблицајте негатив плавим светлом да бисте умањили контраст штампе"
 
-#: operations/common/negative-darkroom.c:312
+#: operations/common/negative-darkroom.c:111
+msgid "Illuminant adjustment"
+msgstr "Подешавање осветљења"
+
+#: operations/common/negative-darkroom.c:112
+msgid "Show illuminant controls"
+msgstr "Прикажи контроле осветљења"
+
+#: operations/common/negative-darkroom.c:113
+msgid "X multiplier"
+msgstr "X умножилац"
+
+#: operations/common/negative-darkroom.c:114
+msgid "Adjust the X tristimulus value for output"
+msgstr "Дотерајте X тристимулусну вредност за излаз"
+
+#: operations/common/negative-darkroom.c:117
+msgid "Z multiplier"
+msgstr "Z умножилац"
+
+#: operations/common/negative-darkroom.c:118
+msgid "Adjust the Z tristimulus value for output"
+msgstr "Дотерајте Z тристимулусну вредност за излаз"
+
+#: operations/common/negative-darkroom.c:437
 msgid "Negative Darkroom"
 msgstr "Мрачна соба за негатив"
 
-#: operations/common/negative-darkroom.c:314
-msgid "Simulate a negative film enlargement in an analog darkroom."
-msgstr "Симулира увећање негатива као у аналогној техници унутар тамне собе."
+#: operations/common/negative-darkroom.c:440
+msgid "Simulate a film enlargement in an analog darkroom."
+msgstr "Симулирајте увећање филма у аналогној мрачној соби."
 
 #: operations/common/negative-darkroom/negative-darkroom-curve-enum.c:2
+msgid "Kodak Professional Ultra Endura"
+msgstr "Kodak Professional Ultra Endura"
+
+#: operations/common/negative-darkroom/negative-darkroom-curve-enum.c:3
+msgid "Kodak Professional Portra Endura"
+msgstr "Kodak Professional Portra Endura"
+
+#: operations/common/negative-darkroom/negative-darkroom-curve-enum.c:4
+msgid "Kodak Professional Supra Endura"
+msgstr "Kodak Professional Supra Endura"
+
+#: operations/common/negative-darkroom/negative-darkroom-curve-enum.c:5
+msgid "Kodak Ektachrome Radiance III"
+msgstr "Kodak Ektachrome Radiance III"
+
+#: operations/common/negative-darkroom/negative-darkroom-curve-enum.c:6
 msgid "Fujicolor Crystal Archive Digital Pearl Paper"
 msgstr "Фуџијев кристална архива; дигитални, перласти папир"
 
-#: operations/common/negative-darkroom/negative-darkroom-curve-enum.c:3
+#: operations/common/negative-darkroom/negative-darkroom-curve-enum.c:7
 msgid "Ilford Ilfobrom Galerie FB 1"
 msgstr "Илфорд Илфобром галерија ФБ 1"
 
-#: operations/common/negative-darkroom/negative-darkroom-curve-enum.c:4
+#: operations/common/negative-darkroom/negative-darkroom-curve-enum.c:8
 msgid "Ilford Ilfobrom Galerie FB 2"
 msgstr "Илфорд Илфобром галерија ФБ 2"
 
-#: operations/common/negative-darkroom/negative-darkroom-curve-enum.c:5
+#: operations/common/negative-darkroom/negative-darkroom-curve-enum.c:9
 msgid "Ilford Ilfobrom Galerie FB 3"
 msgstr "Илфорд Илфобром галерија ФБ 3"
 
-#: operations/common/negative-darkroom/negative-darkroom-curve-enum.c:6
+#: operations/common/negative-darkroom/negative-darkroom-curve-enum.c:10
 msgid "Ilford Ilfobrom Galerie FB 4"
 msgstr "Илфорд Илфобром галерија ФБ 4"
+
+#: operations/common/negative-darkroom/negative-darkroom-curve-enum.c:11
+msgid "Ilford Multigrade IV RC Deluxe"
+msgstr "Ilford Multigrade IV RC Deluxe"
+
+#: operations/common/negative-darkroom/negative-darkroom-curve-enum.c:12
+msgid "Foma Fomabrom C"
+msgstr "Foma Fomabrom C"
+
+#: operations/common/negative-darkroom/negative-darkroom-curve-enum.c:13
+msgid "Foma Fomabrom N"
+msgstr "Foma Fomabrom N"
+
+#: operations/common/negative-darkroom/negative-darkroom-curve-enum.c:14
+msgid "Foma Fomabrom Sp"
+msgstr "Foma Fomabrom Sp"
+
+#: operations/common/negative-darkroom/negative-darkroom-curve-enum.c:15
+msgid "Foma Fomabrom S"
+msgstr "Foma Fomabrom S"
+
+#: operations/common/negative-darkroom/negative-darkroom-curve-enum.c:16
+msgid "Foma Fomabrom Variant III"
+msgstr "Foma Fomabrom варијанта III"
 
 #: operations/common/newsprint.c:25
 msgid "Line"
@@ -3290,53 +3689,53 @@ msgstr "Шара црне"
 msgid "Pattern"
 msgstr "Шара"
 
-#: operations/common/newsprint.c:139 operations/common/newsprint.c:148
+#: operations/common/newsprint.c:139 operations/common/newsprint.c:147
 msgid "Black period"
 msgstr "Период црне"
 
-#: operations/common/newsprint.c:142 operations/common/newsprint.c:154
-msgid "Angle offset for patterns"
-msgstr "Померај угла за шаре"
-
-#: operations/common/newsprint.c:147 operations/common-gpl3+/ripple.c:38
+#: operations/common/newsprint.c:146 operations/common-gpl3+/ripple.c:38
 #: operations/common-gpl3+/waves.c:39
 msgid "Period"
 msgstr "Период"
 
-#: operations/common/newsprint.c:150 operations/common/newsprint.c:160
+#: operations/common/newsprint.c:149 operations/common/newsprint.c:159
 msgid "Black angle"
 msgstr "Угао црне"
 
-#: operations/common/newsprint.c:162
+#: operations/common/newsprint.c:153
+msgid "Angle offset for patterns"
+msgstr "Померај угла за шаре"
+
+#: operations/common/newsprint.c:161
 msgid "Black pullout"
 msgstr "Извлачење црне"
 
-#: operations/common/newsprint.c:164
+#: operations/common/newsprint.c:163
 msgid "How much of common gray to pull out of CMY"
 msgstr "Колико уобичајене сиве извући из плавичасто-љубичасто-жуте"
 
-#: operations/common/newsprint.c:167
+#: operations/common/newsprint.c:166
 msgid "Anti-alias oversampling factor"
 msgstr "Фактор дотеривања прекоузорка"
 
-#: operations/common/newsprint.c:169
+#: operations/common/newsprint.c:168
 msgid "Number of samples that are averaged for antialiasing the result."
 msgstr "Број узорака за прављење просека који се користи за дотеривање."
 
-#: operations/common/newsprint.c:171 operations/common-gpl3+/plasma.c:36
+#: operations/common/newsprint.c:170 operations/common-gpl3+/plasma.c:36
 msgid "Turbulence"
 msgstr "Турбуленција"
 
 #. rename to wave-pinch or period-pinch?
-#: operations/common/newsprint.c:173
+#: operations/common/newsprint.c:172
 msgid "Color saturation dependent compression of period"
 msgstr "Компресија периода зависна од засићености боје"
 
-#: operations/common/newsprint.c:175
+#: operations/common/newsprint.c:174
 msgid "Blocksize"
 msgstr "Величина блока"
 
-#: operations/common/newsprint.c:177
+#: operations/common/newsprint.c:176
 msgid ""
 "Number of periods per tile, this tiling avoids high frequency anomaly that "
 "angle boost causes"
@@ -3344,11 +3743,11 @@ msgstr ""
 "Број периода по плочици, ово поплочавање избегава аномалије високе "
 "фреквенције које настају повећањем угла"
 
-#: operations/common/newsprint.c:179
-msgid "Angle Boost"
+#: operations/common/newsprint.c:178
+msgid "Angle boost"
 msgstr "Повећање угла"
 
-#: operations/common/newsprint.c:181
+#: operations/common/newsprint.c:180
 msgid ""
 "Multiplication factor for desired rotation of the local space for texture, "
 "the way this is computed makes it weak for desaturated colors and possibly "
@@ -3358,11 +3757,11 @@ msgstr ""
 "се израчунава чини овај алгоритам лошијим за незасићене боје, али вероватно "
 "бољим за боје."
 
-#: operations/common/newsprint.c:632
+#: operations/common/newsprint.c:662
 msgid "Newsprint"
 msgstr "Новинска штампа"
 
-#: operations/common/newsprint.c:636
+#: operations/common/newsprint.c:667
 msgid "Digital halftoning with optional modulations. "
 msgstr "Дигитално тонирање у две боје са додатним модулацијама. "
 
@@ -3425,7 +3824,7 @@ msgstr "Додај CIE Lch шум"
 
 #: operations/common/noise-cie-lch.c:198
 msgid "Randomize lightness, chroma and hue independently"
-msgstr "Насумично и засебно додаје светлину, хроминансу и нијансу."
+msgstr "Насумично и засебно додаје светлину, хроминансу и нијансу"
 
 #: operations/common/noise-hsv.c:37 operations/common/noise-rgb.c:42
 #: operations/generated/add.c:29 operations/generated/divide.c:29
@@ -3440,7 +3839,7 @@ msgstr "Додај HSV шум"
 
 #: operations/common/noise-hsv.c:280
 msgid "Randomize hue, saturation and value independently"
-msgstr "Насумично и засебно додаје нијансу, засићеност ивредност."
+msgstr "Насумично и засебно додаје нијансу, засићеност и вредност"
 
 #: operations/common/noise-hurl.c:31 operations/common/noise-pick.c:32
 #: operations/common-gpl3+/noise-slur.c:34
@@ -3458,7 +3857,7 @@ msgstr "Насумично измешај пикселе"
 
 #: operations/common/noise-hurl.c:249
 msgid "Completely randomize a fraction of pixels"
-msgstr "Прави потпуно насумични опсег пиксела."
+msgstr "Прави потпуно насумични опсег пиксела"
 
 #: operations/common/noise-perlin.c:30
 msgid "Z offset"
@@ -3485,11 +3884,11 @@ msgid ""
 "Controls the number of iterations; lower values give less plastic results"
 msgstr "Одређује број понављања; ниже вредности дају мање пластични резултат"
 
-#: operations/common/noise-reduction.c:455
+#: operations/common/noise-reduction.c:461
 msgid "Noise Reduction"
 msgstr "Уклањање шума"
 
-#: operations/common/noise-reduction.c:459
+#: operations/common/noise-reduction.c:465
 msgid "Anisotropic smoothing operation"
 msgstr "Анизотропско умекшање"
 
@@ -3562,11 +3961,11 @@ msgstr "Ширење по хоризонтали"
 msgid "Vertical spread amount"
 msgstr "Ширење по вертикали"
 
-#: operations/common/noise-spread.c:158
+#: operations/common/noise-spread.c:183
 msgid "Noise Spread"
 msgstr "Ширење шума"
 
-#: operations/common/noise-spread.c:161
+#: operations/common/noise-spread.c:186
 msgid "Move pixels around randomly"
 msgstr "Помери пикселе око насумичне вредности"
 
@@ -3575,7 +3974,7 @@ msgid "The amount by which to scale the height values"
 msgstr "Вредност на основу које се мења величина висине"
 
 #: operations/common/normal-map.c:35
-msgid "X Component"
+msgid "X component"
 msgstr "X компонента"
 
 #: operations/common/normal-map.c:38
@@ -3583,8 +3982,8 @@ msgid "The component used for the X coordinates"
 msgstr "Компонента која се користи за X координате"
 
 #: operations/common/normal-map.c:40
-msgid "Y Component"
-msgstr "Y компонената"
+msgid "Y component"
+msgstr "Y компонента"
 
 #: operations/common/normal-map.c:43
 msgid "The component used for the Y coordinates"
@@ -3607,7 +4006,7 @@ msgid "Flip the Y coordinates"
 msgstr "Изврће Y координате"
 
 #: operations/common/normal-map.c:51
-msgid "Full Z Range"
+msgid "Full Z range"
 msgstr "Читав Z опсег"
 
 #: operations/common/normal-map.c:52
@@ -3687,11 +4086,11 @@ msgstr "Поравнај"
 msgid "How to align items, 0.0 is start 0.5 middle and 1.0 end."
 msgstr "Како се равнају ставке, 0,0 је почетак 0,5 средина и 1,0 крај."
 
-#: operations/common/pack.c:182
+#: operations/common/pack.c:181
 msgid "Pack"
 msgstr "Паковање"
 
-#: operations/common/pack.c:184
+#: operations/common/pack.c:183
 msgid ""
 "Packs an image horizontally or vertically next to each other with optional "
 "gap, aux right of input."
@@ -3762,7 +4161,7 @@ msgstr "Вертикални однос величине пиксела унут
 #: operations/common/pixelize.c:75 operations/common-gpl3+/apply-lens.c:44
 #: operations/common-gpl3+/cubism.c:39
 #: operations/common-gpl3+/lens-distortion.c:57
-#: operations/common-gpl3+/tile-paper.c:76
+#: operations/common-gpl3+/maze.c:71 operations/common-gpl3+/tile-paper.c:76
 msgid "Background color"
 msgstr "Боја позадине"
 
@@ -3788,7 +4187,7 @@ msgstr "Постеризација"
 
 #: operations/common/posterize.c:146
 msgid "Reduces the number of levels in each color component of the image."
-msgstr "Умањује број нивоа сваке компоненте боје унутар слике"
+msgstr "Умањује број нивоа сваке компоненте боје унутар слике."
 
 #: operations/common/radial-gradient.c:124
 msgid "Radial Gradient"
@@ -3881,11 +4280,11 @@ msgstr "Убацује преображене слике једну испод �
 msgid "Mathematical method for reconstructing pixel values"
 msgstr "Математички метод за реконструкцију вредности пиксела"
 
-#: operations/common/recursive-transform.c:375
+#: operations/common/recursive-transform.c:379
 msgid "Recursive Transform"
 msgstr "Обрнути преображај"
 
-#: operations/common/recursive-transform.c:377
+#: operations/common/recursive-transform.c:382
 msgid "Apply a transformation recursively."
 msgstr "Рекурзивно примењује преображај слике."
 
@@ -3909,11 +4308,11 @@ msgstr "Светлосна адаптација"
 msgid "Adaptation to light variation across the image"
 msgstr "Адаптација на варирање светлости преко слике"
 
-#: operations/common/reinhard05.c:302
+#: operations/common/reinhard05.c:318
 msgid "Reinhard 2005 Tone Mapping"
 msgstr "Рејнхардово мапирање тонова (Reinhard 2005)"
 
-#: operations/common/reinhard05.c:306
+#: operations/common/reinhard05.c:323
 msgid ""
 "Adapt an image, which may have a high dynamic range, for presentation using "
 "a low dynamic range. This is an efficient global operator derived from "
@@ -3940,35 +4339,11 @@ msgstr "Ремапирај"
 msgid "stretch components of pixels individually based on luminance envelopes"
 msgstr "приказује индивидуалне компоненте пиксела на основу омотача светлине"
 
-#: operations/common/rgb-clip.c:25 operations/common/rgb-clip.c:26
-msgid "Clip low pixel values"
-msgstr "Исеци мале вредности пиксела"
-
-#: operations/common/rgb-clip.c:28
-msgid "Low limit"
-msgstr "Доња граница"
-
-#: operations/common/rgb-clip.c:31
-msgid "Pixels values lower than this limit will be set to it"
-msgstr "Вредности пиксела мање од ове ће бити постављене на ту вредност"
-
-#: operations/common/rgb-clip.c:34 operations/common/rgb-clip.c:35
-msgid "Clip high pixel values"
-msgstr "Исеци велике вредности пиксела"
-
-#: operations/common/rgb-clip.c:37
-msgid "High limit"
-msgstr "Горња граница"
-
-#: operations/common/rgb-clip.c:40
-msgid "Pixels values higher than this limit will be set to it"
-msgstr "Вредности пиксела веће од ове ће бити постављене на ту вредност"
-
-#: operations/common/rgb-clip.c:188
+#: operations/common/rgb-clip.c:212
 msgid "Clip RGB"
 msgstr "Одсеци RGB"
 
-#: operations/common/rgb-clip.c:191
+#: operations/common/rgb-clip.c:216
 msgid "Keep RGB pixels values inside a specific range"
 msgstr "Задржи RGB вредности пиксела унутар одређеног опсега"
 
@@ -3999,7 +4374,7 @@ msgstr ""
 "Поставите на „Изворно“ уколико нисте сигурни, пошто CIE простор може "
 "померити нијансу боје."
 
-#: operations/common/saturation.c:387
+#: operations/common/saturation.c:409
 msgid "Changes the saturation"
 msgstr "Мења засићеност"
 
@@ -4014,7 +4389,9 @@ msgstr "Путања за чување датотеке."
 msgid "Metadata"
 msgstr "Метаподаци"
 
-#: operations/common/save.c:29
+#: operations/common/save.c:29 operations/core/load.c:34
+#: operations/external/jpg-save.c:45 operations/external/png-load.c:37
+#: operations/external/png-save.c:35
 msgid "Object providing image metadata"
 msgstr "Објекат који обезбеђује метаподатке слике"
 
@@ -4063,11 +4440,11 @@ msgstr "Компактност"
 msgid "Cluster size"
 msgstr "Величина групе"
 
-#: operations/common/slic.c:455
+#: operations/common/slic.c:481
 msgid "Simple Linear Iterative Clustering"
 msgstr "Просто, линеарно груписање са понављањем"
 
-#: operations/common/slic.c:458
+#: operations/common/slic.c:484
 msgid "Superpixels based on k-means clustering"
 msgstr "Суперпиксели на основу груписања к-средина"
 
@@ -4079,17 +4456,17 @@ msgstr "Парови"
 msgid "Number of pairs; higher number preserves more acute features"
 msgstr "Број парова; већа бројка ће очувати прецизније потезе"
 
-#: operations/common/snn-mean.c:356
-msgid "Symmetric Nearest Neighbour"
-msgstr "Симетрични, најближи сусед"
+#: operations/common/snn-mean.c:383
+msgid "Symmetric Nearest Neighbor"
+msgstr "Симетрични најближи сусед"
 
-#: operations/common/snn-mean.c:359
+#: operations/common/snn-mean.c:386
 msgid ""
 "Noise reducing edge preserving blur filter based on Symmetric Nearest "
-"Neighbours"
+"Neighbors"
 msgstr ""
-"Филтер за уклањање шума уз очување ивица који се базира на симетричном, "
-"најближем суседу"
+"Филтер замућења који смањује шум и чува ивице заснован на симетричним "
+"најближим суседима"
 
 #: operations/common/spherize.c:25
 msgid "Radial"
@@ -4146,7 +4523,7 @@ msgstr ""
 msgid "Spherize"
 msgstr "Прављење сфере"
 
-#: operations/common/spherize.c:323
+#: operations/common/spherize.c:324
 msgid "Wrap image around a spherical cap"
 msgstr "Омотава слику око сферног поклопца"
 
@@ -4175,7 +4552,7 @@ msgstr ""
 "Када је омогућено побољшаће и подручја у сенкама - када је онемогућено "
 "добићете природнији резултат"
 
-#: operations/common/stress.c:267 operations/common/stress.c:271
+#: operations/common/stress.c:267 operations/common/stress.c:275
 msgid "Spatio Temporal Retinex-like Envelope with Stochastic Sampling"
 msgstr "Просторно-временски омот налик на Ретинекс са насумичним узорковањем"
 
@@ -4203,7 +4580,7 @@ msgstr ""
 msgid "Stretch Contrast"
 msgstr "Развлачење контраста"
 
-#: operations/common/stretch-contrast.c:585
+#: operations/common/stretch-contrast.c:586
 msgid ""
 "Scales the components of the buffer to be in the 0.0-1.0 range. This "
 "improves images that make poor use of the available contrast (little "
@@ -4216,7 +4593,7 @@ msgstr ""
 msgid "Stretch Contrast HSV"
 msgstr "Развлачење HSV контраста"
 
-#: operations/common/stretch-contrast-hsv.c:256
+#: operations/common/stretch-contrast-hsv.c:257
 msgid ""
 "Scales the components of the buffer to be in the 0.0-1.0 range. This "
 "improves images that make poor use of the available contrast (little "
@@ -4227,6 +4604,514 @@ msgstr ""
 "недовољно контраста (низак контраст, веома тамне или пресветле слике). Ова "
 "верзија се разликује од уобичајеног развлачења контраста по томе што ради у "
 "ХСВ окружењу и чува нијансу боја."
+
+#: operations/common/styles.c:29
+msgid "Color, Outline and Shadow"
+msgstr "Боја, контура и сенка"
+
+#: operations/common/styles.c:30
+msgid "Bevel and Inner Glow"
+msgstr "Косина и унутрашњи сјај"
+
+#: operations/common/styles.c:31
+msgid "Image upload and Outline Bevel"
+msgstr "Отпремање слике и косина контуре"
+
+#. List of all GUI options
+#. GUI Change list in GUI
+#: operations/common/styles.c:38
+msgid "Part of filter to be displayed"
+msgstr "Део филтера за приказ"
+
+#: operations/common/styles.c:41
+msgid "Display a different part of the GUI"
+msgstr "Прикажи други део графичког прочеља"
+
+#. Color Overlays GUI options begin here
+#: operations/common/styles.c:45
+msgid "Color overlay"
+msgstr "Прекривање боје"
+
+#: operations/common/styles.c:47
+msgid "Color overlay setting"
+msgstr "Подешавање прекривања боје"
+
+#: operations/common/styles.c:49
+msgid "Color policy"
+msgstr "Политика боје"
+
+#: operations/common/styles.c:50
+msgid "Change the blend mode of the color overlay"
+msgstr "Промени режим стапања прекривања боје"
+
+#: operations/common/styles.c:57
+msgid "No Color"
+msgstr "Без боје"
+
+#: operations/common/styles.c:61
+msgid "Solid Color"
+msgstr "Једнобојно"
+
+#. Outline's normal GUI options begin here
+#: operations/common/styles.c:67
+msgid "Enable Outline"
+msgstr "Омогући контуру"
+
+#: operations/common/styles.c:68
+msgid "Disable or enable the outline"
+msgstr "Онемогући или омогући контуру"
+
+#: operations/common/styles.c:71
+msgid "Outline opacity"
+msgstr "Непровидност контуре"
+
+#: operations/common/styles.c:74
+msgid "Opacity of the outline"
+msgstr "Непровидност контуре"
+
+#: operations/common/styles.c:78
+msgid "Outline X"
+msgstr "Контура X"
+
+#: operations/common/styles.c:79
+msgid "Horizontal outline offset"
+msgstr "Водоравни померај контуре"
+
+#: operations/common/styles.c:86
+msgid "Outline Y"
+msgstr "Контура Y"
+
+#: operations/common/styles.c:87
+msgid "Vertical outline offset"
+msgstr "Усправни померај контуре"
+
+#: operations/common/styles.c:101
+msgid "Outline grow shape"
+msgstr "Облик ширења контуре"
+
+#: operations/common/styles.c:104
+msgid "The shape to expand or contract the outline in"
+msgstr "Облик у коме се шири или скупља контура"
+
+#: operations/common/styles.c:108
+msgid "Outline blur radius"
+msgstr "Полупречник замућења контуре"
+
+#: operations/common/styles.c:114
+msgid "A mild blur for the outline"
+msgstr "Благо замућење контуре"
+
+#: operations/common/styles.c:118
+msgid "Outline grow radius"
+msgstr "Полупречник ширења контуре"
+
+#: operations/common/styles.c:125
+msgid "The distance to expand the outline"
+msgstr "Растојање за које се шири контура"
+
+#. Shadow's GUI options begin here
+#: operations/common/styles.c:130
+msgid "Outline’s color"
+msgstr "Боја контуре"
+
+#: operations/common/styles.c:131
+msgid "Color of the outline (defaults to 'black') "
+msgstr "Боја контуре (подразумевано је „black“) "
+
+#: operations/common/styles.c:136
+msgid "Shadow/Glow opacity"
+msgstr "Непровидност сенке/сјаја"
+
+#: operations/common/styles.c:140
+msgid "Shadow opacity which will also enable or disable the shadow glow effect"
+msgstr ""
+"Непровидност сенке која ће такође омогућити или онемогућити ефекат сјаја "
+"сенке"
+
+#: operations/common/styles.c:144
+msgid "Shadow/Glow X"
+msgstr "Сенка/сјај X"
+
+#: operations/common/styles.c:150
+msgid "Horizontal axis of the shadow glow"
+msgstr "Водоравна оса сјаја сенке"
+
+#: operations/common/styles.c:153
+msgid "Shadow/Glow Y"
+msgstr "Сенка/сјај Y"
+
+#: operations/common/styles.c:159
+msgid "Vertical axis of the shadow glow"
+msgstr "Усправна оса сјаја сенке"
+
+#: operations/common/styles.c:162
+msgid "Shadow/Glow’s color"
+msgstr "Боја сенке/сјаја"
+
+#. TRANSLATORS: the string 'black' should not be translated
+#: operations/common/styles.c:164
+msgid "The shadow’s color (defaults to 'black')"
+msgstr "Боја сенке (подразумева се 'black')"
+
+#: operations/common/styles.c:167
+msgid "Shadow/Glow grow radius"
+msgstr "Полупречник ширења сенке/сјаја"
+
+#: operations/common/styles.c:174
+msgid "The distance to expand the shadow before blurring."
+msgstr "Растојање за које се проширује сенка пре замућења."
+
+#: operations/common/styles.c:177
+msgid "Shadow/Glow blur radius"
+msgstr "Полупречник замућења сенке/сјаја"
+
+#: operations/common/styles.c:183
+msgid "The shadow’s blur range"
+msgstr "Опсег замућења сенке"
+
+#. Bevel's GUI options begin here
+#. This is the Bevel's ENUM List listed in the GUI
+#. This is the ENUM list for bevel's emboss blend modes
+#: operations/common/styles.c:191
+msgid "Enable Bevel"
+msgstr "Омогући косину"
+
+#: operations/common/styles.c:192
+msgid "Whether to add a bevel effect"
+msgstr "Да ли да се дода ефекат косине"
+
+#: operations/common/styles.c:209
+msgid "Bevel blend mode"
+msgstr "Режим стапања косине"
+
+#: operations/common/styles.c:210
+msgid "Blend mode of the bevel"
+msgstr "Режим стапања за косину"
+
+#: operations/common/styles.c:218
+msgid "Chamfer Bevel"
+msgstr "Заобљено косина"
+
+#: operations/common/styles.c:220
+msgid "Bump Bevel"
+msgstr "Испупчена косина"
+
+#: operations/common/styles.c:223
+msgid "Select Bevel"
+msgstr "Изабери косину"
+
+#: operations/common/styles.c:226
+msgid "Type of bevel "
+msgstr "Врста косине "
+
+#: operations/common/styles.c:232
+msgid "Bevel depth"
+msgstr "Дубина косине"
+
+#: operations/common/styles.c:233
+msgid "Emboss depth for the bevel"
+msgstr "Дубина издизања за косину"
+
+#: operations/common/styles.c:239
+msgid "Bevel elevation"
+msgstr "Уздигнуће косине"
+
+#: operations/common/styles.c:240
+msgid "Emboss elevation of the bevel"
+msgstr "Уздигнуће издизања за косину"
+
+#: operations/common/styles.c:247
+msgid "Bevel azimuth"
+msgstr "Азимут косине"
+
+#: operations/common/styles.c:248
+msgid "Emboss azimuth of the bevel"
+msgstr "Азимут издизања за косину"
+
+#: operations/common/styles.c:255
+msgid "Bevel radius (bump only)"
+msgstr "Полупречник косине (само за испупчење)"
+
+#: operations/common/styles.c:259
+msgid ""
+"Internal gaussian blur to inflate the bump bevel. This option does not work "
+"on chamfer"
+msgstr ""
+"Унутрашње Гаусово замућење за надувавање испупчене косине. Ова опција не "
+"ради на заобљењу"
+
+#: operations/common/styles.c:265
+msgid "Levels low output lighting for Bevel"
+msgstr "Низак излаз нивоа осветљења за косину"
+
+#: operations/common/styles.c:266
+msgid "Levels low output as a light adjustment for the bevel"
+msgstr "Низак излаз нивоа као подешавање светла за косину"
+
+#: operations/common/styles.c:274
+msgid "Levels high output lighting for Bevel"
+msgstr "Висок излаз нивоа осветљења за косину"
+
+#: operations/common/styles.c:275
+msgid "Levels high output as a light adjustment for the bevel"
+msgstr "Висок излаз нивоа као подешавање светла за косину"
+
+#: operations/common/styles.c:283
+msgid "Dark Bevel/ignore image mode"
+msgstr "Тамно косину / режим занемаривања слике"
+
+#: operations/common/styles.c:284
+msgid ""
+"This instructs the bevel to ignore image details if there is an image file "
+"overlay below it. It also allows bevel to work better when the user selects "
+"darker colors. The effect is noticeable on bump bevel but barely effects "
+"chamfer bevel"
+msgstr ""
+"Ово наводи косину да занемари детаље слике ако се испод њега налази "
+"прекривање датотеке слике. Такође омогућава косини да боље ради када "
+"корисник изабере тамније боје. Ефекат је приметан на испупченој косини, али "
+"једва утиче на заобљеној косини"
+
+#. This operation is extremely important for bevels with image file overlays
+#. Inner Glow GUI options begin here
+#: operations/common/styles.c:294
+msgid "Enable Inner Glow"
+msgstr "Омогући унутрашњи сјај"
+
+#: operations/common/styles.c:295
+msgid "Whether to add the inner glow effect"
+msgstr "Да ли додати ефекат унутрашњег сјаја"
+
+#: operations/common/styles.c:304
+msgid "Normal"
+msgstr "Обично"
+
+#: operations/common/styles.c:306
+msgid "Overlay"
+msgstr "Прекривање"
+
+#: operations/common/styles.c:308
+msgid "Screen"
+msgstr "Екран"
+
+#: operations/common/styles.c:314
+msgid "Plus"
+msgstr "Плус"
+
+#: operations/common/styles.c:317
+msgid "Blend mode of Inner Glow"
+msgstr "Режим стапања унутрашњег сјаја"
+
+#: operations/common/styles.c:323
+msgid "Inner Glow's blur radius"
+msgstr "Полупречник замућења унутрашњег сјаја"
+
+#: operations/common/styles.c:329
+msgid "Blur control of the inner glow"
+msgstr "Контрола замућења унутрашњег сјаја"
+
+#: operations/common/styles.c:333
+msgid "Inner Glow's grow radius"
+msgstr "Полупречник ширења унутрашњег сјаја"
+
+#: operations/common/styles.c:340
+msgid "The distance to expand the inner glow before blurring"
+msgstr "Растојање за ширење унутрашњег сјаја пре замућења"
+
+#: operations/common/styles.c:344
+msgid "Inner Glow's opacity"
+msgstr "Непровидност унутрашњег сјаја"
+
+#: operations/common/styles.c:347
+msgid "Opacity of the inner glow"
+msgstr "Непровидност унутрашњег сјаја"
+
+#: operations/common/styles.c:351
+msgid "Inner Glow's color"
+msgstr "Боја унутрашњег сјаја"
+
+#: operations/common/styles.c:352
+msgid "The color of the inner glow"
+msgstr "Боја унутрашњег сјаја"
+
+#: operations/common/styles.c:356
+msgid "Inner Glow's unmodified pixel fix"
+msgstr "Поправка неизмењених пиксела унутрашњег сјаја"
+
+#: operations/common/styles.c:358
+msgid "Cover pixels that inner glow might miss"
+msgstr "Покриј пикселе које унутрашњи сјај може да пропусти"
+
+#. Without this Inner Glow would miss many pixels around alpha defined shapes edges'
+#. Image file overlay GUI options begin here
+#: operations/common/styles.c:365
+msgid "Enable image upload"
+msgstr "Омогући отпремање слике"
+
+#: operations/common/styles.c:366 operations/common/styles.c:465
+msgid "Whether to enable or disable the image file upload."
+msgstr "Да ли омогућити или онемогућити отпремање датотеке слике."
+
+#: operations/common/styles.c:369
+msgid "Image file overlay"
+msgstr "Прекривање датотеком слике"
+
+#: operations/common/styles.c:370
+msgid ""
+"Upload an image file from your computer to be in the fill area. Allows (png, "
+"jpg, raw, svg, bmp, tif, ...)"
+msgstr ""
+"Отпремите датотеку слике са вашег рачунара која ће бити у области "
+"попуњавања. Дозвољава (png, jpg, raw, svg, bmp, tif, ...)"
+
+#: operations/common/styles.c:374
+msgid "Opacity of image file overlay"
+msgstr "Непровидност прекривања датотеком слике"
+
+#: operations/common/styles.c:377
+msgid "Opacity of the image file overlay that was uploaded. "
+msgstr "Непровидност отпремљеног прекривања датотеком слике. "
+
+#: operations/common/styles.c:388
+msgid ""
+"Saturation adjustment of the uploaded image file or whatever is on canvas"
+msgstr ""
+"Подешавање засићености отпремљене датотеке слике или било чега што је на "
+"платну"
+
+#: operations/common/styles.c:393
+msgid ""
+"Lightness adjustment of the uploaded image file or whatever is on canvas"
+msgstr ""
+"Подешавање светлине отпремљене датотеке слике или било чега што је на платну"
+
+#. Outline special options in GUI begin here
+#: operations/common/styles.c:398
+msgid "Enable advanced options on Outline (requires outline)"
+msgstr "Омогући напредне опције контуре (захтева контуру)"
+
+#: operations/common/styles.c:399
+msgid "Turn on advanced outline abilities"
+msgstr "Укључи напредне могућности контуре"
+
+#: operations/common/styles.c:404
+msgid "Enable Outline Bevel (requires advanced options)"
+msgstr "Омогући заобљеност контуре (захтева напредне опције)"
+
+#: operations/common/styles.c:405
+msgid "Turn on outlines ability to bevel"
+msgstr "Укључи могућност заобљавања контура"
+
+#: operations/common/styles.c:426
+msgid "Outline Bevel blend mode"
+msgstr "Режим стапања заобљености контуре"
+
+#: operations/common/styles.c:427
+msgid "Blend mode of the outline bevel"
+msgstr "Режим стапања заобљености контуре"
+
+#: operations/common/styles.c:434
+msgid "Outline Bevel depth"
+msgstr "Дубина контура косине"
+
+#: operations/common/styles.c:435
+msgid "Emboss depth for the outline bevel"
+msgstr "Дубина утискивања контуре косине"
+
+#: operations/common/styles.c:440
+msgid "Outline Bevel elevation"
+msgstr "Уздигнуће контуре косине"
+
+#: operations/common/styles.c:441
+msgid "Emboss elevation for the outline bevel"
+msgstr "Уздигнуће испупчења за контуру косине"
+
+#: operations/common/styles.c:447
+msgid "Outline Bevel azimuth"
+msgstr "Азимут контуре косине"
+
+#: operations/common/styles.c:448
+msgid "Emboss azimuth for the outline bevel"
+msgstr "Азимут испупчења за контуру косине"
+
+#: operations/common/styles.c:455
+msgid "Outline Bevel radius"
+msgstr "Полупречник контуре косине"
+
+#: operations/common/styles.c:456
+msgid "Internal gaussian blur to inflate the outline bevel"
+msgstr "Унутрашње Гаусово замућење за надувавање контуре косине"
+
+#: operations/common/styles.c:464
+msgid "Enable image upload on Outline (requires advanced options)"
+msgstr "Омогући отпремање слике на контури (захтева напредне опције)"
+
+#: operations/common/styles.c:469
+msgid "Outline image file overlay"
+msgstr "Прекривање датотеке слике контуре"
+
+#: operations/common/styles.c:470
+msgid ""
+"Upload an image file from your computer to be in the outline area. Allows "
+"(png, jpg, raw, svg, bmp, tif, ...)"
+msgstr ""
+"Отпремите датотеку слике са вашег рачунара која ће бити у области контуре. "
+"Дозвољава (png, jpg, raw, svg, bmp, tif, ...)"
+
+#: operations/common/styles.c:475
+msgid "Outline image opacity"
+msgstr "Непровидност слике контуре"
+
+#: operations/common/styles.c:476
+msgid "Outline image opacity adjustment"
+msgstr "Подешавање непровидности слике контуре"
+
+#: operations/common/styles.c:481
+msgid "Levels low output lighting for Outline Bevel"
+msgstr "Осветљење ниског излаза нивоа за контуру косине"
+
+#: operations/common/styles.c:482
+msgid "Levels low output as a light adjustment for the outline bevel"
+msgstr "Низак излаз нивоа као подешавање светла за контуру косине"
+
+#: operations/common/styles.c:489
+msgid "Levels high output lighting for Outline Bevel"
+msgstr "Осветљење високог излаза нивоа за контуру косине"
+
+#: operations/common/styles.c:490
+msgid "Levels high output as a light adjustment for the outline bevel"
+msgstr "Висок излаз нивоа као подешавање светла за контуру косине"
+
+#: operations/common/styles.c:498
+msgid "Outline Dark Bevel/ignore image mode"
+msgstr "Тамна контура косине / режим занемаривања слике"
+
+#: operations/common/styles.c:499
+msgid ""
+"This instructs the outline bevel to ignore image details if there is an "
+"image file overlay below it. It also allows outline bevel to work better "
+"when the user selects darker colors."
+msgstr ""
+"Ово говори контури косине да занемари детаље слике ако се испод ње налази "
+"прекривање датотеке слике. Такође омогућава контури косине да боље ради када "
+"корисник изабере тамније боје."
+
+#: operations/common/styles.c:1267
+msgid "GEGL Styles"
+msgstr "ГЕГЛ стилови"
+
+#: operations/common/styles.c:1270
+msgid ""
+"An engine to style text and add popular effects to alpha channel images. "
+"Effects include outline, bevel, shadow, and inner glow all in one place."
+msgstr ""
+"Погон за стилизовање текста и додавање популарних ефеката сликама са алфа "
+"каналом. Ефекти укључују контуру, косину, сенку и унутрашњи сјај, све на "
+"једном месту."
+
+#: operations/common/styles.c:1273
+msgid "Text Styling..."
+msgstr "Стилизовање текста..."
 
 #: operations/common/svg-huerotate.c:27 operations/common/svg-matrix.c:27
 #: operations/common/svg-saturate.c:25
@@ -4271,18 +5156,20 @@ msgid "SVG color matrix operation svg_saturate"
 msgstr "Радња SVG матрице боја svg_saturate"
 
 #: operations/common/threshold.c:28
-msgid ""
-"Scalar threshold level (overridden if an auxiliary input buffer is "
-"provided.)."
-msgstr "Скаларни ниво прага (преписује се уколико је дат улаз на ауксу)."
+msgid "Lowest value to be included."
+msgstr "Најнижа вредност која ће бити укључена."
 
-#: operations/common/threshold.c:131
+#: operations/common/threshold.c:33
+msgid "Highest value to be included as white."
+msgstr "Највиша вредност која ће бити укључена као бела."
+
+#: operations/common/threshold.c:169
 msgid ""
-"Thresholds the image to white/black based on either the global value set in "
-"the value property, or per pixel from the aux input."
+"Thresholds the image to white/black based on either the global values set in "
+"the value (low) and high properties, or per pixel from the aux input."
 msgstr ""
-"Претвара слику у црно-белу на основу опште вредности из поставки или на "
-"основу пиксела на аукс улазу."
+"Поставља праг слике на бело/црно на основу или општих вредности подешених у "
+"својствима вредности (ниска) и висока, или по пикселу из помоћног улаза."
 
 #: operations/common/tile.c:24
 msgid "Horizontal offset"
@@ -4332,11 +5219,11 @@ msgstr "Изражено као стандардна девијација, у п
 msgid "Scaling factor for unsharp-mask, the strength of effect"
 msgstr "Фактор размере оштрине маске, који одређује јачину ефекта"
 
-#: operations/common/unsharp-mask.c:147
+#: operations/common/unsharp-mask.c:144
 msgid "Sharpen (Unsharp Mask)"
 msgstr "Изоштри (маска оштрине)"
 
-#: operations/common/unsharp-mask.c:150
+#: operations/common/unsharp-mask.c:147
 msgid ""
 "Sharpen image, by adding difference to blurred image, a technique for "
 "sharpening originally used in darkrooms."
@@ -4355,6 +5242,22 @@ msgid ""
 msgstr ""
 "Изврће вредност компоненте, што даје слику са обрнутим осветљењем, "
 "задржавајући боје."
+
+#: operations/common/vibrance.c:24 operations/common/vibrance.c:77
+msgid "Vibrance"
+msgstr "Живост"
+
+#: operations/common/vibrance.c:25
+msgid "Vibrance (chroma) adjustment"
+msgstr "Подешавање живости (хроминансе)"
+
+#: operations/common/vibrance.c:31
+msgid "Saturation scale factor"
+msgstr "Фактор размере засићености"
+
+#: operations/common/vibrance.c:79
+msgid "Adjusts the saturation and vibrance of the image."
+msgstr "Подешава засићеност и живост слике."
 
 #: operations/common/vignette.c:32
 msgid "Vignette shape"
@@ -4400,8 +5303,8 @@ msgid ""
 "inf:1, this is applied after proportion is taken into account, to directly "
 "use squeeze factor as proportions, set proportion to 0.0."
 msgstr ""
-"Однос размере који се користи, -0,5 = 1:2, 0,0 = 1:1, 0,5 = 2:1, -1,0 = 1:"
-"бесконачно 1,0 = бесконачно:1, ово се примењује након што се узме у обзир "
+"Однос размере који се користи, -0,5 = 1:2, 0,0 = 1:1, 0,5 = 2:1, -1,0 = "
+"1:бесконачно 1,0 = бесконачно:1, ово се примењује након што се узме у обзир "
 "пропорција, а уколико желите да користите фактор стискања директно, "
 "поставите размеру на 0.0."
 
@@ -4445,9 +5348,8 @@ msgstr "Просторна независност"
 
 #: operations/common/waterpixels.c:49
 msgid ""
-"trade-off between superpixel regularity and adherence to object boundaries"
-msgstr ""
-"одређује колико ће пиксели бити независни или ће пријањати на границе објекта"
+"Trade-off between superpixel regularity and adherence to object boundaries"
+msgstr "Равнотежа између правилности суперпиксела и пријањања уз границе објекта"
 
 #: operations/common/waterpixels.c:52
 msgid "Superpixels color"
@@ -4478,11 +5380,11 @@ msgstr "заставица"
 msgid "Pointer to flag value for unlabelled pixels"
 msgstr "Показивач за означавање вредности неименованих пиксела"
 
-#: operations/common/watershed-transform.c:489
+#: operations/common/watershed-transform.c:490
 msgid "Watershed Transform"
 msgstr "Разводњени преображај"
 
-#: operations/common/watershed-transform.c:492
+#: operations/common/watershed-transform.c:493
 msgid ""
 "Labels propagation by watershed transformation. Output buffer will keep the "
 "input format. Unlabelled pixels are marked with a given flag value (by "
@@ -4536,45 +5438,62 @@ msgstr "Упиши у оставу"
 msgid "Write input data into an existing GEGL buffer destination surface."
 msgstr "Уписује улазне податке у већ постојећу циљну површину Геглове оставе."
 
-#: operations/common-cxx/distance-transform.cc:30
+#: operations/common-cxx/distance-transform.cc:31
+msgid "Above threshold"
+msgstr "Изнад прага"
+
+#: operations/common-cxx/distance-transform.cc:32
+msgid "Below threshold"
+msgstr "Испод прага"
+
+#: operations/common-cxx/distance-transform.cc:35
 #: operations/workshop/external/voronoi-diagram.cc:24
 msgid "Metric"
 msgstr "Мера"
 
-#: operations/common-cxx/distance-transform.cc:32
+#: operations/common-cxx/distance-transform.cc:37
 #: operations/workshop/external/voronoi-diagram.cc:27
 msgid "Metric to use for the distance calculation"
 msgstr "Мера која се користи за мерење раздаљине"
 
-#: operations/common-cxx/distance-transform.cc:34
+#: operations/common-cxx/distance-transform.cc:39
+msgid "Edge handling"
+msgstr "Руковање ивицама"
+
+#: operations/common-cxx/distance-transform.cc:41
+msgid "How areas outside the input are considered when calculating distance"
+msgstr ""
+"Како се разматрају области изван улаза приликом израчунавања удаљености"
+
+#: operations/common-cxx/distance-transform.cc:43
 msgid "Threshold low"
 msgstr "Доњи праг"
 
-#: operations/common-cxx/distance-transform.cc:37
+#: operations/common-cxx/distance-transform.cc:46
 msgid "Threshold high"
 msgstr "Горњи праг"
 
-#: operations/common-cxx/distance-transform.cc:40
-msgid "Grayscale Averaging"
-msgstr "Просек сиве"
+#: operations/common-cxx/distance-transform.cc:49
+msgid "Grayscale averaging"
+msgstr "Просек сивих тонова"
 
-#: operations/common-cxx/distance-transform.cc:41
+#: operations/common-cxx/distance-transform.cc:50
 msgid "Number of computations for grayscale averaging"
 msgstr "Број рачунања за упросечавање сиве"
 
-#: operations/common-cxx/distance-transform.cc:47
+#: operations/common-cxx/distance-transform.cc:56
 msgid "Normalize output to range 0.0 to 1.0."
 msgstr "Нормализуј излаз на опсег од 0.0 до 1.0."
 
-#: operations/common-cxx/distance-transform.cc:476
+#: operations/common-cxx/distance-transform.cc:532
 msgid "Distance Transform"
 msgstr "Растојање преображаја"
 
-#: operations/common-cxx/distance-transform.cc:479
+#: operations/common-cxx/distance-transform.cc:536
 msgid "Calculate a distance transform"
 msgstr "Рачуна растојање преображаја"
 
-#: operations/common-cxx/focus-blur.c:30 operations/common-cxx/lens-blur.cc:504
+#: operations/common-cxx/focus-blur.c:30 operations/common-cxx/lens-blur.cc:508
 msgid "Lens Blur"
 msgstr "Замућење сочива"
 
@@ -4586,23 +5505,23 @@ msgstr "Врста замућења"
 msgid "Out-of-focus blur radius"
 msgstr "Полупречних замућења померањем изван фокуса"
 
-#: operations/common-cxx/focus-blur.c:52 operations/common-cxx/lens-blur.cc:31
+#: operations/common-cxx/focus-blur.c:52 operations/common-cxx/lens-blur.cc:35
 msgid "Highlight factor"
 msgstr "Фактор осветљености"
 
-#: operations/common-cxx/focus-blur.c:53 operations/common-cxx/lens-blur.cc:32
+#: operations/common-cxx/focus-blur.c:53 operations/common-cxx/lens-blur.cc:36
 msgid "Relative highlight strength"
 msgstr "Релативна снага осветљења"
 
-#: operations/common-cxx/focus-blur.c:57 operations/common-cxx/lens-blur.cc:35
+#: operations/common-cxx/focus-blur.c:57 operations/common-cxx/lens-blur.cc:39
 msgid "Highlight threshold (low)"
 msgstr "Праг осветљења (доњи)"
 
-#: operations/common-cxx/focus-blur.c:61 operations/common-cxx/lens-blur.cc:39
+#: operations/common-cxx/focus-blur.c:61 operations/common-cxx/lens-blur.cc:43
 msgid "Highlight threshold"
 msgstr "Праг осветљења"
 
-#: operations/common-cxx/focus-blur.c:64 operations/common-cxx/lens-blur.cc:41
+#: operations/common-cxx/focus-blur.c:64 operations/common-cxx/lens-blur.cc:45
 msgid "Highlight threshold (high)"
 msgstr "Праг осветљења (горњи)"
 
@@ -4657,35 +5576,55 @@ msgstr "Висок квалитет"
 msgid "Generate more accurate and consistent output (slower)"
 msgstr "Прави тачнији и уједначенији излаз (спорије)"
 
-#: operations/common-cxx/focus-blur.c:320
+#: operations/common-cxx/focus-blur.c:317
 msgid "Focus Blur"
 msgstr "Замућење фокуса"
 
-#: operations/common-cxx/focus-blur.c:322
+#: operations/common-cxx/focus-blur.c:320
 msgid "Blur the image around a focal point"
 msgstr "Замућује слику око задате тачке интереса"
 
-#: operations/common-cxx/lens-blur.cc:46
+#: operations/common-cxx/denoise-dct.cc:33
+msgid "Patch size"
+msgstr "Величина закрпе"
+
+#: operations/common-cxx/denoise-dct.cc:36
+msgid "Size of patches used to denoise"
+msgstr "Величина закрпа које се користе за уклањање шума"
+
+#: operations/common-cxx/denoise-dct.cc:39
+msgid "Noise standard deviation"
+msgstr "Стандардно одступање шума"
+
+#: operations/common-cxx/denoise-dct.cc:486
+msgid "Denoise DCT"
+msgstr "Уклањање шума (DCT)"
+
+#: operations/common-cxx/denoise-dct.cc:488
+msgid "Denoising algorithm using a per-patch DCT thresholding"
+msgstr "Алгоритам за уклањање шума који користи DCT праг по закрпи"
+
+#: operations/common-cxx/lens-blur.cc:50
 msgid "Clip to input extents"
 msgstr "Одсеци на улазно подручје"
 
-#: operations/common-cxx/lens-blur.cc:47
+#: operations/common-cxx/lens-blur.cc:51
 msgid "Clip output to the input extents"
 msgstr "Одсеца излаз на подручје које је дато на улазу"
 
-#: operations/common-cxx/lens-blur.cc:49
+#: operations/common-cxx/lens-blur.cc:53
 #: operations/common-cxx/piecewise-blend.cc:38
 #: operations/common-cxx/variable-blur.c:37
 msgid "Linear mask"
 msgstr "Линеарна маска"
 
-#: operations/common-cxx/lens-blur.cc:50
+#: operations/common-cxx/lens-blur.cc:54
 #: operations/common-cxx/piecewise-blend.cc:39
 #: operations/common-cxx/variable-blur.c:38
 msgid "Use linear mask values"
 msgstr "Користи вредности линеарне маске"
 
-#: operations/common-cxx/lens-blur.cc:506
+#: operations/common-cxx/lens-blur.cc:511
 msgid "Simulate out-of-focus lens blur"
 msgstr "Симулира замућење када је субјекат ван фокуса објектива"
 
@@ -4701,7 +5640,7 @@ msgstr "Гама фактор за број нивоа стапања"
 msgid "Piecewise Blend"
 msgstr "Стапање по деловима"
 
-#: operations/common-cxx/piecewise-blend.cc:348
+#: operations/common-cxx/piecewise-blend.cc:349
 msgid "Blend a chain of inputs using a mask"
 msgstr "Стапање ланца улаза користећи маску"
 
@@ -4713,7 +5652,7 @@ msgstr "Највећи полупречник замућења"
 msgid "Variable Blur"
 msgstr "Променљиво замућење"
 
-#: operations/common-cxx/variable-blur.c:209
+#: operations/common-cxx/variable-blur.c:210
 msgid "Blur the image by a varying amount using a mask"
 msgstr "Различито замућује слику уз помоћ маске"
 
@@ -4770,15 +5709,15 @@ msgstr "Понашање радње"
 msgid "Warp"
 msgstr "Изобличавање"
 
-#: operations/common-cxx/warp.cc:988
+#: operations/common-cxx/warp.cc:989
 msgid "Compute a relative displacement mapping from a stroke"
 msgstr "Рачуна мапу релативног премештања потеза четкице"
 
-#: operations/common-gpl3+/antialias.c:277
+#: operations/common-gpl3+/antialias.c:293
 msgid "Scale3X Antialiasing"
 msgstr "Scale3X умекшавање"
 
-#: operations/common-gpl3+/antialias.c:281
+#: operations/common-gpl3+/antialias.c:298
 msgid "Antialias using the Scale3X edge-extrapolation algorithm"
 msgstr "Умекшавање користи алгоритам Scale3X за екстраполацију ивице"
 
@@ -4813,16 +5752,16 @@ msgid "Number of subdivisions"
 msgstr "Одређује број подеока"
 
 #: operations/common-gpl3+/bayer-matrix.c:29 operations/common-gpl3+/sinus.c:31
-msgid "X Scale"
-msgstr "X опсег"
+msgid "Scale X"
+msgstr "Размера X"
 
 #: operations/common-gpl3+/bayer-matrix.c:30
 msgid "Horizontal pattern scale"
 msgstr "Размера хоризонталне шаре"
 
 #: operations/common-gpl3+/bayer-matrix.c:36 operations/common-gpl3+/sinus.c:38
-msgid "Y Scale"
-msgstr "Y опсег"
+msgid "Scale Y"
+msgstr "Размера Y"
 
 #: operations/common-gpl3+/bayer-matrix.c:37
 msgid "Vertical pattern scale"
@@ -4849,7 +5788,7 @@ msgstr "270°"
 msgid "Pattern rotation angle"
 msgstr "Угао ротације шаре"
 
-#: operations/common-gpl3+/bayer-matrix.c:55 operations/transform/reflect.c:82
+#: operations/common-gpl3+/bayer-matrix.c:55 operations/transform/reflect.c:105
 msgid "Reflect"
 msgstr "Рефлектуј"
 
@@ -4873,7 +5812,7 @@ msgstr "Померај вредности"
 
 #: operations/common-gpl3+/bayer-matrix.c:68
 #: operations/common-gpl3+/linear-sinusoid.c:76
-#: operations/common-gpl3+/oilify.c:34 operations/common-gpl3+/sinus.c:71
+#: operations/common-gpl3+/oilify.c:35 operations/common-gpl3+/sinus.c:71
 msgid "Exponent"
 msgstr "Експонент"
 
@@ -4882,20 +5821,10 @@ msgstr "Експонент"
 msgid "Value exponent (logarithmic scale)"
 msgstr "Експонент вредности (логаритамска скала)"
 
-#: operations/common-gpl3+/bayer-matrix.c:73
-#: operations/common-gpl3+/linear-sinusoid.c:81
-msgid "X Offset"
-msgstr "X помак"
-
 #: operations/common-gpl3+/bayer-matrix.c:74
 #: operations/common-gpl3+/linear-sinusoid.c:82
 msgid "Offset for X axis"
 msgstr "Померај по X оси"
-
-#: operations/common-gpl3+/bayer-matrix.c:80
-#: operations/common-gpl3+/linear-sinusoid.c:88
-msgid "Y Offset"
-msgstr "Y помак"
 
 #: operations/common-gpl3+/bayer-matrix.c:81
 #: operations/common-gpl3+/linear-sinusoid.c:89
@@ -4950,16 +5879,6 @@ msgstr "Плочасто испупчење"
 msgid "Azimuth"
 msgstr "Азимут"
 
-#: operations/common-gpl3+/bump-map.c:56 operations/common-gpl3+/emboss.c:40
-msgid "Elevation"
-msgstr "Висина"
-
-#: operations/common-gpl3+/bump-map.c:59 operations/common-gpl3+/emboss.c:45
-#: operations/common-gpl3+/fractal-trace.c:60
-#: operations/common-gpl3+/texturize-canvas.c:44
-msgid "Depth"
-msgstr "Дубина"
-
 #: operations/common-gpl3+/bump-map.c:74
 msgid "Waterlevel"
 msgstr "Ниво воде"
@@ -4972,15 +5891,15 @@ msgstr "Ниво који треба да преставља потпуну пр
 msgid "Ambient lighting factor"
 msgstr "Утицај амбијенталног светла"
 
-#: operations/common-gpl3+/bump-map.c:448
-msgid "Height Map"
+#: operations/common-gpl3+/bump-map.c:472
+msgid "Height map"
 msgstr "Мапа висине"
 
-#: operations/common-gpl3+/bump-map.c:453
+#: operations/common-gpl3+/bump-map.c:476
 msgid "Bump Map"
 msgstr "Испупчење"
 
-#: operations/common-gpl3+/bump-map.c:455
+#: operations/common-gpl3+/bump-map.c:481
 msgid ""
 "This plug-in uses the algorithm described by John Schlag, \"Fast Embossing "
 "Effects on Raster Image Data\" in Graphics GEMS IV (ISBN 0-12-336155-9). It "
@@ -4992,11 +5911,12 @@ msgstr ""
 "0-12-336155-9). Користи слику из оставе која се примењује као испупчење на "
 "другој остави, а резултат је лепши ефекат клесања."
 
-#: operations/common-gpl3+/cartoon.c:28
+#: operations/common-gpl3+/cartoon.c:28 operations/common-gpl3+/oilify.c:28
+#: operations/common-gpl3+/photocopy.c:26
 msgid "Mask radius"
 msgstr "Полупречник маске"
 
-#: operations/common-gpl3+/cartoon.c:31
+#: operations/common-gpl3+/cartoon.c:31 operations/common-gpl3+/photocopy.c:32
 msgid "Percent black"
 msgstr "Проценат црне"
 
@@ -5012,7 +5932,7 @@ msgid ""
 msgstr ""
 "Симулира ефекат цртаног филма, који изгледа као цртеж црним фломастером "
 "накнадно осенчен помоћу боје. Ово се постиже појачавањем ивица и затамњењем "
-"области које су већ значајно тамније од њихових суседа."
+"области које су већ значајно тамније од њихових суседа"
 
 #. Red channel
 #: operations/common-gpl3+/channel-mixer.c:33
@@ -5089,17 +6009,17 @@ msgstr "Плава у плавом каналу"
 msgid "Set the blue amount for the blue channel"
 msgstr "Подешава количину плаве боје унутар плавог канала"
 
-#: operations/common-gpl3+/channel-mixer.c:267
+#: operations/common-gpl3+/channel-mixer.c:292
 msgid "Channel Mixer"
 msgstr "Миксер канала"
 
-#: operations/common-gpl3+/channel-mixer.c:269
+#: operations/common-gpl3+/channel-mixer.c:297
 msgid ""
 "Remix colors; by defining relative contributions from source components."
 msgstr "Меша боје изменом релативног доприноса сваке од боја из изворне слике."
 
 #: operations/common-gpl3+/color-exchange.c:31
-msgid "From Color"
+msgid "From color"
 msgstr "Из боје"
 
 #: operations/common-gpl3+/color-exchange.c:32
@@ -5107,7 +6027,7 @@ msgid "The color to change."
 msgstr "Боја коју желите да измените."
 
 #: operations/common-gpl3+/color-exchange.c:34
-msgid "To Color"
+msgid "To color"
 msgstr "У боју"
 
 #: operations/common-gpl3+/color-exchange.c:35
@@ -5115,7 +6035,7 @@ msgid "Replacement color."
 msgstr "Боја којом желите да замените другу боју."
 
 #: operations/common-gpl3+/color-exchange.c:37
-msgid "Red Threshold"
+msgid "Red threshold"
 msgstr "Праг црвене"
 
 #: operations/common-gpl3+/color-exchange.c:38
@@ -5123,7 +6043,7 @@ msgid "Red threshold of the input color"
 msgstr "Праг црвене за боју улаза"
 
 #: operations/common-gpl3+/color-exchange.c:41
-msgid "Green Threshold"
+msgid "Green threshold"
 msgstr "Праг зелене"
 
 #: operations/common-gpl3+/color-exchange.c:42
@@ -5131,18 +6051,18 @@ msgid "Green threshold of the input color"
 msgstr "Праг зелене за боју улаза"
 
 #: operations/common-gpl3+/color-exchange.c:45
-msgid "Blue Threshold"
+msgid "Blue threshold"
 msgstr "Праг плаве"
 
 #: operations/common-gpl3+/color-exchange.c:46
 msgid "Blue threshold of the input color"
 msgstr "Праг плаве за боју улаза"
 
-#: operations/common-gpl3+/color-exchange.c:244
+#: operations/common-gpl3+/color-exchange.c:267
 msgid "Exchange color"
 msgstr "Замена боје"
 
-#: operations/common-gpl3+/color-exchange.c:248
+#: operations/common-gpl3+/color-exchange.c:272
 msgid ""
 "Exchange one color with another, optionally setting a threshold to convert "
 "from one shade to another."
@@ -5170,19 +6090,19 @@ msgstr "Праг непровидности"
 msgid "The limit above which colors remain opaque."
 msgstr "Ограничење изнад кога ће боја остати потпуно непровидна."
 
-#: operations/common-gpl3+/color-to-alpha.c:285
+#: operations/common-gpl3+/color-to-alpha.c:283
 msgid "Color to Alpha"
 msgstr "Боја у алфу"
 
-#: operations/common-gpl3+/color-to-alpha.c:291
+#: operations/common-gpl3+/color-to-alpha.c:289
 msgid "Convert a specified color to transparency, works best with white."
 msgstr "Претвара изабрану боју у провидност. Најбоље ради са белом."
 
-#: operations/common-gpl3+/cubism.c:30 operations/common-gpl3+/mosaic.c:42
+#: operations/common-gpl3+/cubism.c:30 operations/common-gpl3+/mosaic.c:45
 msgid "Tile size"
 msgstr "Величина плочице"
 
-#: operations/common-gpl3+/cubism.c:31 operations/common-gpl3+/mosaic.c:43
+#: operations/common-gpl3+/cubism.c:31 operations/common-gpl3+/mosaic.c:46
 msgid "Average diameter of each tile (in pixels)"
 msgstr "Просечна величина сваке плочице (у пикселима)"
 
@@ -5432,6 +6352,22 @@ msgstr "X координата за померај центра"
 msgid "Y coordinate of the displacement center"
 msgstr "Y координата за померај од центра"
 
+#: operations/common-gpl3+/displace.c:190
+msgid "Horizontal/Radial"
+msgstr "Водоравно/Радијално"
+
+#: operations/common-gpl3+/displace.c:191
+msgid "Horizontal or radial per pixel input"
+msgstr "Водоравни или радијални улаз по пикселу"
+
+#: operations/common-gpl3+/displace.c:199
+msgid "Vertical/Angular"
+msgstr "Усправно/Угаоно"
+
+#: operations/common-gpl3+/displace.c:200
+msgid "Vertical or angular per pixel input"
+msgstr "Усправни или угаони улаз по пикселу"
+
 #: operations/common-gpl3+/displace.c:479
 msgid "Displace"
 msgstr "Померај"
@@ -5509,7 +6445,7 @@ msgid "Bumpmap (preserve original colors)"
 msgstr "Брдовит терен (очувај оригиналне боје)"
 
 #: operations/common-gpl3+/emboss.c:30
-msgid "Emboss Type"
+msgid "Emboss type"
 msgstr "Врста испупчења"
 
 #: operations/common-gpl3+/emboss.c:32
@@ -5540,11 +6476,11 @@ msgstr "Резолуција у пикселима"
 msgid "Limit line width"
 msgstr "Ограничи ширину линије"
 
-#: operations/common-gpl3+/engrave.c:201
+#: operations/common-gpl3+/engrave.c:220
 msgid "Engrave"
 msgstr "Гравура"
 
-#: operations/common-gpl3+/engrave.c:205
+#: operations/common-gpl3+/engrave.c:225
 msgid "Simulate an antique engraving"
 msgstr "Симулира античку гравуру"
 
@@ -5708,51 +6644,51 @@ msgstr ""
 msgid "X1 value, position"
 msgstr "X1 вредност, место"
 
-#: operations/common-gpl3+/fractal-trace.c:39
+#: operations/common-gpl3+/fractal-trace.c:40
 msgid "X2 value, position"
 msgstr "X2 вредност, место"
 
-#: operations/common-gpl3+/fractal-trace.c:43
+#: operations/common-gpl3+/fractal-trace.c:45
 msgid "Y1 value, position"
 msgstr "Y1 вредност, место"
 
-#: operations/common-gpl3+/fractal-trace.c:47
+#: operations/common-gpl3+/fractal-trace.c:50
 msgid "Y2 value, position"
 msgstr "Y2 вредност, место"
 
-#: operations/common-gpl3+/fractal-trace.c:50
+#: operations/common-gpl3+/fractal-trace.c:54
 msgid "JX"
 msgstr "JX"
 
-#: operations/common-gpl3+/fractal-trace.c:51
+#: operations/common-gpl3+/fractal-trace.c:55
 msgid "Julia seed X value, position"
 msgstr "Јулија семе X вредност, место"
 
-#: operations/common-gpl3+/fractal-trace.c:55
+#: operations/common-gpl3+/fractal-trace.c:60
 msgid "JY"
 msgstr "JY"
 
-#: operations/common-gpl3+/fractal-trace.c:56
+#: operations/common-gpl3+/fractal-trace.c:61
 msgid "Julia seed Y value, position"
 msgstr "Јулија семе Y вредност, место"
 
-#: operations/common-gpl3+/fractal-trace.c:63
+#: operations/common-gpl3+/fractal-trace.c:70
 msgid "Bailout length"
 msgstr "Дужина спашавања"
 
-#: operations/common-gpl3+/fractal-trace.c:69
+#: operations/common-gpl3+/fractal-trace.c:76
 msgid "How to deal with pixels outside of the input buffer"
 msgstr "Одређује шта да се ради са пикселима који су изван оставе"
 
-#: operations/common-gpl3+/fractal-trace.c:175
+#: operations/common-gpl3+/fractal-trace.c:182
 msgid "Unsupported fractal type"
 msgstr "Није подржан тип фрактала"
 
-#: operations/common-gpl3+/fractal-trace.c:272
+#: operations/common-gpl3+/fractal-trace.c:279
 msgid "Fractal Trace"
 msgstr "Праћење фрактала"
 
-#: operations/common-gpl3+/fractal-trace.c:277
+#: operations/common-gpl3+/fractal-trace.c:284
 msgid "Transform the image with the fractals"
 msgstr "Преображава слику уз помоћ фрактала"
 
@@ -5796,11 +6732,11 @@ msgstr "Врста илузије"
 msgid "Type of illusion"
 msgstr "Одређује врсту илузије"
 
-#: operations/common-gpl3+/illusion.c:271
+#: operations/common-gpl3+/illusion.c:278
 msgid "Illusion"
 msgstr "Илузије"
 
-#: operations/common-gpl3+/illusion.c:275
+#: operations/common-gpl3+/illusion.c:283
 msgid "Superimpose many altered copies of the image."
 msgstr "Склапање гомиле промењених копија слике."
 
@@ -5825,12 +6761,12 @@ msgid "Rescale overall image size"
 msgstr "Промени целокупну величину слике"
 
 #: operations/common-gpl3+/lens-distortion.c:46
-msgid "Effect centre offset in X"
-msgstr "Центар ефекта, X померај"
+msgid "Effect center offset in X"
+msgstr "Померај средишта дејства по X оси"
 
 #: operations/common-gpl3+/lens-distortion.c:50
-msgid "Effect centre offset in Y"
-msgstr "Центар ефекта, Y померај"
+msgid "Effect center offset in Y"
+msgstr "Померај средишта дејства по Y оси"
 
 #: operations/common-gpl3+/lens-distortion.c:53
 msgid "Brighten"
@@ -5873,48 +6809,48 @@ msgid "Adds a lens flare effect."
 msgstr "Додаје ефекат одсјаја објектива."
 
 #: operations/common-gpl3+/linear-sinusoid.c:25
-msgid "X Period"
-msgstr "X период"
+msgid "Period X"
+msgstr "Период X"
 
 #: operations/common-gpl3+/linear-sinusoid.c:26
 msgid "Period for X axis"
 msgstr "Период за X осу"
 
 #: operations/common-gpl3+/linear-sinusoid.c:32
-msgid "Y Period"
-msgstr "Y период"
+msgid "Period Y"
+msgstr "Период Y"
 
 #: operations/common-gpl3+/linear-sinusoid.c:33
 msgid "Period for Y axis"
 msgstr "Период за Y осу"
 
 #: operations/common-gpl3+/linear-sinusoid.c:39
-msgid "X Amplitude"
-msgstr "X аплитуда"
+msgid "Amplitude X"
+msgstr "Амплитуда X"
 
 #: operations/common-gpl3+/linear-sinusoid.c:40
 msgid "Amplitude for X axis (logarithmic scale)"
 msgstr "Амплитуда за X осу (логаритамска скала)"
 
 #: operations/common-gpl3+/linear-sinusoid.c:45
-msgid "Y Amplitude"
-msgstr "Y амплитуда"
+msgid "Amplitude Y"
+msgstr "Амплитуда Y"
 
 #: operations/common-gpl3+/linear-sinusoid.c:46
 msgid "Amplitude for Y axis (logarithmic scale)"
 msgstr "Амплитуда за Y осу (логаритамска скала)"
 
 #: operations/common-gpl3+/linear-sinusoid.c:51
-msgid "X Phase"
-msgstr "X фаза"
+msgid "Phase X"
+msgstr "Фаза X"
 
 #: operations/common-gpl3+/linear-sinusoid.c:52
 msgid "Phase for X axis"
 msgstr "Фаза за X осу"
 
 #: operations/common-gpl3+/linear-sinusoid.c:58
-msgid "Y Phase"
-msgstr "Y фаза"
+msgid "Phase Y"
+msgstr "Фаза Y"
 
 #: operations/common-gpl3+/linear-sinusoid.c:59
 msgid "Phase for Y axis"
@@ -5957,16 +6893,12 @@ msgid "Maze algorithm type"
 msgstr "Лавиринтни алгоритам"
 
 #: operations/common-gpl3+/maze.c:67
-msgid "Foreground Color"
-msgstr "Боја четкице"
+msgid "Foreground color"
+msgstr "Боја прочеља"
 
 #: operations/common-gpl3+/maze.c:68
 msgid "The foreground color"
 msgstr "Боја четкице"
-
-#: operations/common-gpl3+/maze.c:71
-msgid "Background Color"
-msgstr "Боја позадине"
 
 #: operations/common-gpl3+/maze.c:72
 msgid "The background color"
@@ -5980,115 +6912,112 @@ msgstr "Лавиринт"
 msgid "Draw a labyrinth"
 msgstr "Исцртај лаивринт"
 
-#: operations/common-gpl3+/mosaic.c:32
+#: operations/common-gpl3+/mosaic.c:35
 msgid "Squares"
 msgstr "Квадрати"
 
-#: operations/common-gpl3+/mosaic.c:33
+#: operations/common-gpl3+/mosaic.c:36
 msgid "Hexagons"
 msgstr "Шестоугаоници"
 
-#: operations/common-gpl3+/mosaic.c:34
+#: operations/common-gpl3+/mosaic.c:37
 msgid "Octagons"
 msgstr "Осмоугаоници"
 
-#: operations/common-gpl3+/mosaic.c:35
+#: operations/common-gpl3+/mosaic.c:38
 msgid "Triangles"
 msgstr "Троуглови"
 
-#: operations/common-gpl3+/mosaic.c:38
+#: operations/common-gpl3+/mosaic.c:41
 msgid "Tile geometry"
 msgstr "Облик плочице"
 
-#: operations/common-gpl3+/mosaic.c:40
+#: operations/common-gpl3+/mosaic.c:43
 msgid "What shape to use for tiles"
 msgstr "Одређује облик у коме ће бити плочице"
 
-#: operations/common-gpl3+/mosaic.c:48
+#: operations/common-gpl3+/mosaic.c:51 operations/common-gpl3+/tile-glass.c:34
+#: operations/common-gpl3+/tile-paper.c:47
 msgid "Tile height"
 msgstr "Висина плочице"
 
-#: operations/common-gpl3+/mosaic.c:49
+#: operations/common-gpl3+/mosaic.c:52
 msgid "Apparent height of each tile (in pixels)"
 msgstr "Оквирна величина сваке плочице (у пикселима)"
 
-#: operations/common-gpl3+/mosaic.c:53
+#: operations/common-gpl3+/mosaic.c:56
 msgid "Tile neatness"
 msgstr "Савршеност плочице"
 
-#: operations/common-gpl3+/mosaic.c:54
+#: operations/common-gpl3+/mosaic.c:57
 msgid "Deviation from perfectly formed tiles"
 msgstr "Одступање од савршено направљене плочице"
 
-#: operations/common-gpl3+/mosaic.c:57
+#: operations/common-gpl3+/mosaic.c:60
 msgid "Tile color variation"
 msgstr "Одступања у боји плочице"
 
-#: operations/common-gpl3+/mosaic.c:58
+#: operations/common-gpl3+/mosaic.c:61
 msgid "Magnitude of random color variations"
 msgstr "Размера насумичног варирања боје"
 
-#: operations/common-gpl3+/mosaic.c:61
+#: operations/common-gpl3+/mosaic.c:64
 msgid "Color averaging"
 msgstr "Просек боје"
 
-#: operations/common-gpl3+/mosaic.c:62
+#: operations/common-gpl3+/mosaic.c:65
 msgid "Tile color based on average of subsumed pixels"
 msgstr "Боја плочице на основу просека подскупа пиксела"
 
-#: operations/common-gpl3+/mosaic.c:64
+#: operations/common-gpl3+/mosaic.c:67
 msgid "Rough tile surface"
 msgstr "Храпава површина плочице"
 
-#: operations/common-gpl3+/mosaic.c:65
+#: operations/common-gpl3+/mosaic.c:68
 msgid "Surface characteristics"
 msgstr "Особине површи"
 
-#: operations/common-gpl3+/mosaic.c:67
+#: operations/common-gpl3+/mosaic.c:70
 msgid "Allow splitting tiles"
 msgstr "Дозволи дељење плочица"
 
-#: operations/common-gpl3+/mosaic.c:68
+#: operations/common-gpl3+/mosaic.c:71
 msgid "Allows splitting tiles at hard edges"
 msgstr "Омогућава дељење плочица на јасним ивицама"
 
-#: operations/common-gpl3+/mosaic.c:70
+#: operations/common-gpl3+/mosaic.c:73
 msgid "Tile spacing"
 msgstr "Размакнутост плочица"
 
-#: operations/common-gpl3+/mosaic.c:71
+#: operations/common-gpl3+/mosaic.c:74
 msgid "Inter-tile spacing (in pixels)"
 msgstr "Размак између плочица (у пикселима)"
 
-#: operations/common-gpl3+/mosaic.c:76
+#: operations/common-gpl3+/mosaic.c:79
 msgid "Joints color"
 msgstr "Боја спојева"
 
-#: operations/common-gpl3+/mosaic.c:78
+#: operations/common-gpl3+/mosaic.c:81
 msgid "Light color"
 msgstr "Боја светлости"
 
-#: operations/common-gpl3+/mosaic.c:80
+#: operations/common-gpl3+/mosaic.c:83
 msgid "Light direction"
 msgstr "Положај светлости"
 
-#: operations/common-gpl3+/mosaic.c:81
+#: operations/common-gpl3+/mosaic.c:84
 msgid "Direction of light-source (in degrees)"
 msgstr "Смер извора светлости (у степенима)"
 
-#: operations/common-gpl3+/mosaic.c:86
-msgid "Antialiasing"
-msgstr "Умекшавање"
-
-#: operations/common-gpl3+/mosaic.c:87
+#: operations/common-gpl3+/mosaic.c:90
 msgid "Enables smoother tile output"
 msgstr "Омогућава мекши изглед плочица на излазу"
 
-#: operations/common-gpl3+/mosaic.c:2468
+#: operations/common-gpl3+/mosaic.c:2474
 msgid "Mosaic"
 msgstr "Мозаик"
 
-#: operations/common-gpl3+/mosaic.c:2472
+#: operations/common-gpl3+/mosaic.c:2478
 msgid ""
 "Mosaic is a filter which transforms an image into what appears to be a "
 "mosaic, composed of small primitives, each of constant color and of an "
@@ -6131,16 +7060,16 @@ msgid "Randomly slide some pixels downward (similar to melting)"
 msgstr "Насумично спушта неке пикселе на доле (налик на топљење)"
 
 #: operations/common-gpl3+/noise-solid.c:36
-msgid "X Size"
-msgstr "Величина по X"
+msgid "X size"
+msgstr "X величина"
 
 #: operations/common-gpl3+/noise-solid.c:37
 msgid "Horizontal texture size"
 msgstr "Величин хоризонталне текстуре"
 
 #: operations/common-gpl3+/noise-solid.c:43
-msgid "Y Size"
-msgstr "Величина по Y"
+msgid "Y size"
+msgstr "Y величина"
 
 #: operations/common-gpl3+/noise-solid.c:44
 msgid "Vertical texture size"
@@ -6148,7 +7077,7 @@ msgstr "Величина вертикалне текстуре"
 
 #: operations/common-gpl3+/noise-solid.c:51
 msgid "Detail level"
-msgstr "ниво детаља"
+msgstr "Ниво детаља"
 
 #: operations/common-gpl3+/noise-solid.c:56
 msgid "Create a tileable output"
@@ -6170,10 +7099,6 @@ msgstr "Тврдокорни шум"
 msgid "Create a random cloud-like texture"
 msgstr "Прави насумичну текстуру налик на облаке"
 
-#: operations/common-gpl3+/oilify.c:28 operations/common-gpl3+/photocopy.c:26
-msgid "Mask Radius"
-msgstr "Полупречник маске"
-
 #: operations/common-gpl3+/oilify.c:29
 msgid ""
 "Radius of circle around pixel, can also be scaled per pixel by a buffer on "
@@ -6182,7 +7107,7 @@ msgstr ""
 "Полупречник круга око пиксела, може бити увећано/умањено према пикселу на "
 "основу оставе на ауксу."
 
-#: operations/common-gpl3+/oilify.c:35
+#: operations/common-gpl3+/oilify.c:36
 msgid ""
 "Exponent for processing; controls smoothness - can be scaled per pixel with "
 "a buffer on the aux2 pad."
@@ -6190,27 +7115,27 @@ msgstr ""
 "Експонент за обраду; одређује углађивање - може бити увећано/умањено према "
 "пикселу на основу оставе у ауксу."
 
-#: operations/common-gpl3+/oilify.c:38
+#: operations/common-gpl3+/oilify.c:40
 msgid "Number of intensities"
 msgstr "Број интензитета"
 
-#: operations/common-gpl3+/oilify.c:39
+#: operations/common-gpl3+/oilify.c:41
 msgid "Histogram size"
 msgstr "Величина хистограма"
 
-#: operations/common-gpl3+/oilify.c:42
-msgid "Intensity Mode"
-msgstr "Режим хистограма"
+#: operations/common-gpl3+/oilify.c:44
+msgid "Intensity mode"
+msgstr "Режим интензитета"
 
-#: operations/common-gpl3+/oilify.c:43
+#: operations/common-gpl3+/oilify.c:45
 msgid "Use pixel luminance values"
 msgstr "Користи вредност светлине пиксела"
 
-#: operations/common-gpl3+/oilify.c:522
+#: operations/common-gpl3+/oilify.c:612
 msgid "Mask radius buffer"
 msgstr "Остава маске полупречника"
 
-#: operations/common-gpl3+/oilify.c:523
+#: operations/common-gpl3+/oilify.c:613
 msgid ""
 "Per pixel buffer for modulating the mask radius, expecting a scaling factor "
 "in range 0.0-1.0"
@@ -6218,11 +7143,11 @@ msgstr ""
 "Остава по пикселу за модулацију маске полупречника, очекује фактор увећања у "
 "опсегу од 0,0 до 1,0"
 
-#: operations/common-gpl3+/oilify.c:524
+#: operations/common-gpl3+/oilify.c:616
 msgid "Exponent buffer"
 msgstr "Остава експонента"
 
-#: operations/common-gpl3+/oilify.c:525
+#: operations/common-gpl3+/oilify.c:617
 msgid ""
 "Per pixel buffer for modulating the exponent parameter, expecting a scaling "
 "factor in range 0.0-1.0"
@@ -6230,20 +7155,16 @@ msgstr ""
 "Остава по пикселу за модулацију експонента, очекује фактор увећања у опсегу "
 "од 0,0 до 1,0"
 
-#: operations/common-gpl3+/oilify.c:534
+#: operations/common-gpl3+/oilify.c:628
 msgid "Oilify"
 msgstr "Уљане боје"
 
-#: operations/common-gpl3+/oilify.c:537
+#: operations/common-gpl3+/oilify.c:631
 msgid "Emulate an oil painting"
 msgstr "Прави ефекат сликања уљем на платну"
 
-#: operations/common-gpl3+/photocopy.c:32
-msgid "Percent Black"
-msgstr "Проценат црне"
-
 #: operations/common-gpl3+/photocopy.c:35
-msgid "Percent White"
+msgid "Percent white"
 msgstr "Проценат беле"
 
 #: operations/common-gpl3+/photocopy.c:329
@@ -6313,7 +7234,7 @@ msgstr "Почетна тачка за координате полара"
 
 #: operations/common-gpl3+/polar-coordinates.c:66
 msgid "Choose middle"
-msgstr "изабери средину"
+msgstr "Изабери средину"
 
 #: operations/common-gpl3+/polar-coordinates.c:67
 msgid "Let origin point to be the middle one"
@@ -6439,7 +7360,7 @@ msgstr "Сенке и светлост"
 msgid "Perform shadows and highlights correction"
 msgstr "Примењује корекције сенки и светлих делова"
 
-#: operations/common-gpl3+/shadows-highlights-correction.c:363
+#: operations/common-gpl3+/shadows-highlights-correction.c:364
 msgid "Lighten shadows and darken highlights"
 msgstr "Посветљавење сенки и затамњивање светлих делова"
 
@@ -6449,7 +7370,7 @@ msgstr "Померај"
 
 #: operations/common-gpl3+/shift.c:27
 msgid "Maximum amount to shift"
-msgstr "највећа количина за померање"
+msgstr "Највећа количина за померање"
 
 #: operations/common-gpl3+/shift.c:31
 msgid "Shift direction"
@@ -6457,7 +7378,7 @@ msgstr "Смер померања"
 
 #: operations/common-gpl3+/shift.c:148
 msgid "Shift each row or column of pixels by a random amount"
-msgstr "Помера сваки ред или колону пиксела за насумичну вредност."
+msgstr "Помера сваки ред или колону пиксела за насумичну вредност"
 
 #: operations/common-gpl3+/sinus.c:32
 msgid "Scale value for x axis"
@@ -6494,10 +7415,6 @@ msgstr "Уколико је изабрано, шаблон ће бити виш�
 #: operations/common-gpl3+/sinus.c:63
 msgid "Bilinear"
 msgstr "Дволинеарно"
-
-#: operations/common-gpl3+/sinus.c:67
-msgid "Blend Mode"
-msgstr "Начин стапања"
 
 #: operations/common-gpl3+/sinus.c:72
 msgid "Power used to stretch the blend"
@@ -6663,19 +7580,14 @@ msgstr ""
 
 #: operations/common-gpl3+/tile-glass.c:28
 #: operations/common-gpl3+/tile-paper.c:40
-msgid "Tile Width"
+msgid "Tile width"
 msgstr "Ширина плочице"
 
-#: operations/common-gpl3+/tile-glass.c:34
-#: operations/common-gpl3+/tile-paper.c:47
-msgid "Tile Height"
-msgstr "Висина плочице"
-
-#: operations/common-gpl3+/tile-glass.c:233
+#: operations/common-gpl3+/tile-glass.c:228
 msgid "Tile Glass"
 msgstr "Стакло плочице"
 
-#: operations/common-gpl3+/tile-glass.c:238
+#: operations/common-gpl3+/tile-glass.c:233
 msgid "Simulate distortion caused by rectangular glass tiles"
 msgstr ""
 "Симулира изобличење настало какво се јавља на правоугаоним стакленим "
@@ -6956,7 +7868,7 @@ msgstr "Стега за изобличавање"
 
 #: operations/common-gpl3+/waves.c:54
 msgid "Limit deformation in the image area."
-msgstr "Ограничава изобличење унутар области слике"
+msgstr "Ограничава изобличење унутар области слике."
 
 #: operations/common-gpl3+/waves.c:195
 msgid "Waves"
@@ -6990,7 +7902,7 @@ msgstr "Увртање и штипање"
 msgid "Distort an image by whirling and pinching"
 msgstr "Изобличава слику увртањем и штипањем"
 
-#: operations/common-gpl3+/wind.c:28 operations/common-gpl3+/wind.c:590
+#: operations/common-gpl3+/wind.c:28 operations/common-gpl3+/wind.c:586
 msgid "Wind"
 msgstr "Ветар"
 
@@ -7000,7 +7912,7 @@ msgstr "Експлозија"
 
 #: operations/common-gpl3+/wind.c:33
 msgid "Left"
-msgstr "лево"
+msgstr "Лево"
 
 #: operations/common-gpl3+/wind.c:34
 msgid "Right"
@@ -7031,7 +7943,7 @@ msgid "Direction of the effect"
 msgstr "Смер ефекта"
 
 #: operations/common-gpl3+/wind.c:55
-msgid "Edge Affected"
+msgid "Edge affected"
 msgstr "Обрађена ивица"
 
 #: operations/common-gpl3+/wind.c:58
@@ -7046,7 +7958,7 @@ msgstr "Веће вредности ће ограничити ефекат на 
 msgid "Higher values increase the magnitude of the effect"
 msgstr "Веће вредности ће повећати размеру ефекта"
 
-#: operations/common-gpl3+/wind.c:594
+#: operations/common-gpl3+/wind.c:590
 msgid "Wind-like bleed effect"
 msgstr "Ефекат налик на облик настао ветром"
 
@@ -7182,17 +8094,17 @@ msgid ""
 msgstr ""
 "поставља простор боја са којим ће наредни формати бабла у цевоводу бити "
 "направљени, а ICC профил потенцијално уметнут у спољном управнику боја, "
-"подешавајући показивач на преписивање формата у ниски особина и ауксу."
+"подешавајући показивач на преписивање формата у ниски особина и ауксу. "
 
-#: operations/core/crop.c:45 operations/transform/reset-origin.c:75
+#: operations/core/crop.c:45 operations/transform/reset-origin.c:95
 msgid "Reset origin"
 msgstr "Поништи почетно"
 
-#: operations/core/crop.c:298
+#: operations/core/crop.c:304
 msgid "Crop"
 msgstr "Исецање"
 
-#: operations/core/crop.c:299
+#: operations/core/crop.c:307
 msgid ""
 "Crops a buffer, if the aux pad is connected the bounding box of the node "
 "connected is used. When the crop area is configured to 0x0 at 0,0 and "
@@ -7215,12 +8127,7 @@ msgstr "Адреса"
 msgid "URI of file to load."
 msgstr "Адреса до датотеке за учитавање."
 
-#: operations/core/load.c:34 operations/external/jpg-save.c:45
-#: operations/external/png-load.c:37 operations/external/png-save.c:35
-msgid "Object to supply image metadata"
-msgstr "Објекат из кога се достављају метаподаци слике"
-
-#: operations/core/load.c:374
+#: operations/core/load.c:372
 msgid ""
 "Multipurpose file loader, that uses other native handlers, and fallback "
 "conversion using Image Magick's convert."
@@ -7244,206 +8151,206 @@ msgstr "путања до датотеке за упис."
 msgid "tile size to use."
 msgstr "величина плочице за употребу."
 
-#: operations/external/ff-load.c:30
+#: operations/external/ff-load.c:31
 msgid "Path of video file to load"
 msgstr "Путања или видео датотека за учитавање"
 
-#: operations/external/ff-load.c:32
+#: operations/external/ff-load.c:33
 msgid "Frame number"
 msgstr "Број кадра"
 
-#: operations/external/ff-load.c:36 operations/external/gif-load.c:38
+#: operations/external/ff-load.c:37 operations/external/gif-load.c:38
 msgid "frames"
 msgstr "кадрова"
 
-#: operations/external/ff-load.c:37
+#: operations/external/ff-load.c:38
 msgid ""
 "Number of frames in video, updates at least when first frame has been "
 "decoded."
 msgstr "Број кадрова унутар видеа, ажурира се бар када се декодира први кадар."
 
-#: operations/external/ff-load.c:41
+#: operations/external/ff-load.c:42
 msgid "audio_sample_rate"
 msgstr "audio_sample_rate"
 
-#: operations/external/ff-load.c:42
+#: operations/external/ff-load.c:43
 msgid "audio_channels"
 msgstr "audio_channels"
 
-#: operations/external/ff-load.c:44
+#: operations/external/ff-load.c:45
 msgid "frame-rate"
 msgstr "frame-rate"
 
-#: operations/external/ff-load.c:45
+#: operations/external/ff-load.c:46
 msgid "Frames per second, permits computing time vs frame"
 msgstr "Број кадрова по секунди, дозвољава рачунање времена наспрам кадра"
 
-#: operations/external/ff-load.c:49
+#: operations/external/ff-load.c:50
 msgid "video-codec"
 msgstr "video-codec"
 
-#: operations/external/ff-load.c:50
+#: operations/external/ff-load.c:51
 msgid "audio-codec"
 msgstr "audio-codec"
 
-#: operations/external/ff-load.c:52 operations/external/ff-save.c:32
+#: operations/external/ff-load.c:53 operations/external/ff-save.c:33
 msgid "audio"
 msgstr "audio"
 
-#: operations/external/ff-load.c:806
+#: operations/external/ff-load.c:885
 msgid "FFmpeg Frame Loader"
 msgstr "FFmpeg учитавање кадрова"
 
-#: operations/external/ff-load.c:808
+#: operations/external/ff-load.c:887
 msgid "FFmpeg video frame importer."
 msgstr "Учитавање видео кадрова помоћу програма FFmpeg."
 
-#: operations/external/ff-save.c:30 operations/external/png-save.c:27
+#: operations/external/ff-save.c:31 operations/external/png-save.c:27
 #: operations/external/ppm-save.c:26 operations/external/rgbe-save.c:27
 msgid "Target path and filename, use '-' for stdout."
 msgstr "Циљна путања и назив датотеке, користите „-“ за стандардни излаз."
 
-#: operations/external/ff-save.c:33
+#: operations/external/ff-save.c:34
 msgid "Audio codec"
 msgstr "Звучни кодек"
 
-#: operations/external/ff-save.c:34
+#: operations/external/ff-save.c:35
 msgid ""
 "Audio codec to use, or auto to use a good default based on container format."
 msgstr ""
 "Звучни кодек који се користи или аутоматски избор који ће одабрати добар "
 "кодек на основу формата."
 
-#: operations/external/ff-save.c:35
+#: operations/external/ff-save.c:36
 msgid "audio sample rate"
 msgstr "број узорака звука у секунди"
 
-#: operations/external/ff-save.c:36
+#: operations/external/ff-save.c:37
 msgid "-1 means autodetect on first audio fragment"
 msgstr "-1 да аутоматски одреди на основу првог дела са звуком"
 
-#: operations/external/ff-save.c:38
+#: operations/external/ff-save.c:39
 msgid "audio bitrate in kb/s"
 msgstr "број битова звука у kb/s"
 
-#: operations/external/ff-save.c:39 operations/external/ff-save.c:47
+#: operations/external/ff-save.c:40 operations/external/ff-save.c:48
 msgid "Target encoded video bitrate in kb/s"
 msgstr "Број битова за кодирање циљног видеа дат као kb/s"
 
-#: operations/external/ff-save.c:41
+#: operations/external/ff-save.c:42
 msgid "Frames/second"
 msgstr "Кадрова по секунди"
 
-#: operations/external/ff-save.c:44
+#: operations/external/ff-save.c:45
 msgid "Video codec"
 msgstr "Видео кодек"
 
-#: operations/external/ff-save.c:45
+#: operations/external/ff-save.c:46
 msgid ""
 "Video codec to use, or auto to use a good default based on container format."
 msgstr ""
 "Видео кодек који се користи или аутоматски избор који ће одабрати добар "
 "кодек на основу формата."
 
-#: operations/external/ff-save.c:46
+#: operations/external/ff-save.c:47
 msgid "video bitrate in kb/s"
 msgstr "број битова видеа у kb/s"
 
-#: operations/external/ff-save.c:48
+#: operations/external/ff-save.c:49
 msgid "Video bufsize"
 msgstr "Величина оставе видеа"
 
-#: operations/external/ff-save.c:50
+#: operations/external/ff-save.c:51
 msgid "Container format"
 msgstr "Формат контејнера"
 
-#: operations/external/ff-save.c:51
+#: operations/external/ff-save.c:52
 msgid "Container format to use, or auto to autodetect based on file extension."
 msgstr ""
 "Формат контејнера који се користи или аутоматски избор који ће одабрати "
 "контејнер на основу екстензије."
 
-#: operations/external/ff-save.c:54
+#: operations/external/ff-save.c:55
 msgid "global quality"
 msgstr "глобални квалитет"
 
-#: operations/external/ff-save.c:55
+#: operations/external/ff-save.c:58
 msgid "noise reduction"
 msgstr "смањење шума"
 
-#: operations/external/ff-save.c:56
+#: operations/external/ff-save.c:59
 msgid "scenechange threshold"
 msgstr "праг за промену сцене"
 
-#: operations/external/ff-save.c:57
+#: operations/external/ff-save.c:60
 msgid "video bitrate min"
 msgstr "најмањи број битова видеа"
 
-#: operations/external/ff-save.c:58
+#: operations/external/ff-save.c:61
 msgid "video bitrate max"
 msgstr "највећи број битова видеа"
 
-#: operations/external/ff-save.c:59
+#: operations/external/ff-save.c:62
 msgid "video bitrate tolerance"
 msgstr "толеранција броја битова видеа"
 
-#: operations/external/ff-save.c:61
+#: operations/external/ff-save.c:65
 msgid "keyint-min"
 msgstr "keyint-min"
 
-#: operations/external/ff-save.c:62
+#: operations/external/ff-save.c:66
 msgid "trellis"
 msgstr "trellis"
 
-#: operations/external/ff-save.c:63
+#: operations/external/ff-save.c:67
 msgid "qmin"
 msgstr "qmin"
 
-#: operations/external/ff-save.c:64
+#: operations/external/ff-save.c:68
 msgid "qmax"
 msgstr "qmax"
 
-#: operations/external/ff-save.c:65
+#: operations/external/ff-save.c:69
 msgid "max_qdiff"
 msgstr "max_qdiff"
 
-#: operations/external/ff-save.c:66
+#: operations/external/ff-save.c:70
 msgid "me_range"
 msgstr "me_range"
 
-#: operations/external/ff-save.c:67
+#: operations/external/ff-save.c:71
 msgid "max_b_frames"
 msgstr "max_b_frames"
 
-#: operations/external/ff-save.c:68
+#: operations/external/ff-save.c:72
 msgid "gop-size"
 msgstr "gop-size"
 
-#: operations/external/ff-save.c:69
+#: operations/external/ff-save.c:73
 msgid "qcompress"
 msgstr "qcompress"
 
-#: operations/external/ff-save.c:70
+#: operations/external/ff-save.c:74
 msgid "qblur"
 msgstr "qblur"
 
-#: operations/external/ff-save.c:71
+#: operations/external/ff-save.c:75
 msgid "i-quant-factor"
 msgstr "i-quant-factor"
 
-#: operations/external/ff-save.c:72
+#: operations/external/ff-save.c:76
 msgid "i-quant-offset"
 msgstr "i-quant-offset"
 
-#: operations/external/ff-save.c:73
+#: operations/external/ff-save.c:77
 msgid "me-subpel-quality"
 msgstr "me-subpel-quality"
 
-#: operations/external/ff-save.c:1135
+#: operations/external/ff-save.c:1262
 msgid "FFmpeg Frame Saver"
 msgstr "Чување FFmpeg кадрова"
 
-#: operations/external/ff-save.c:1137
+#: operations/external/ff-save.c:1264
 msgid "FFmpeg video output sink"
 msgstr "Циљ излаза FFmpeg видеа"
 
@@ -7467,11 +8374,11 @@ msgstr "интервал-кадар"
 msgid "Delay in ms for last decoded frame"
 msgstr "Интервал у ms за последњи декодирани кадар"
 
-#: operations/external/gif-load.c:239
+#: operations/external/gif-load.c:248
 msgid "GIF File Loader"
 msgstr "Учитавање GIF датотеке"
 
-#: operations/external/gif-load.c:241
+#: operations/external/gif-load.c:250
 msgid "GIF image loader."
 msgstr "Учитавање GIF слике."
 
@@ -7758,7 +8665,7 @@ msgstr "Када је избрано „TRUE“ (тачно), модел нећ�
 msgid "Sampler used internally"
 msgstr "Узоркивач се користи интерно"
 
-#: operations/external/npd.c:256
+#: operations/external/npd.c:258
 msgid "Performs n-point image deformation"
 msgstr "Користи алат за кривљење слике помоћу N тачака"
 
@@ -7844,7 +8751,7 @@ msgstr "Геглов вектор (GeglVector) који предстваља п�
 msgid "Render Path"
 msgstr "Исцртавање путање"
 
-#: operations/external/path.c:588
+#: operations/external/path.c:591
 msgid "Renders a brush stroke"
 msgstr "Исцртава потез четкице"
 
@@ -7919,11 +8826,11 @@ msgstr ""
 msgid "URI for file to load."
 msgstr "Адреса датотеке за учитавање."
 
-#: operations/external/png-load.c:652
+#: operations/external/png-load.c:689
 msgid "PNG File Loader"
 msgstr "Учитавање PNG датотеке"
 
-#: operations/external/png-load.c:654
+#: operations/external/png-load.c:691
 msgid "PNG image loader."
 msgstr "Учитава PNG датотеку."
 
@@ -7944,11 +8851,11 @@ msgstr "Дубина битова"
 msgid "8 and 16 are the currently accepted values."
 msgstr "Тренутно су дозвољене вредности од 8 и 16 битова."
 
-#: operations/external/png-save.c:418
+#: operations/external/png-save.c:449
 msgid "PNG File Saver"
 msgstr "Чување PNG датотеке"
 
-#: operations/external/png-save.c:420
+#: operations/external/png-save.c:451
 msgid "PNG image saver, using libpng"
 msgstr "Чува PNG датотеку помоћу библиотеке libpng"
 
@@ -7956,11 +8863,11 @@ msgstr "Чува PNG датотеку помоћу библиотеке libpng"
 msgid "URI of image to load."
 msgstr "Адреса до слике за учитавање."
 
-#: operations/external/ppm-load.c:460
+#: operations/external/ppm-load.c:474
 msgid "PPM File Loader"
 msgstr "Учитавање PPM датотеке"
 
-#: operations/external/ppm-load.c:462
+#: operations/external/ppm-load.c:476
 msgid "PPM image loader."
 msgstr "Учитава PPM датотеку."
 
@@ -7968,11 +8875,11 @@ msgstr "Учитава PPM датотеку."
 msgid "Raw format"
 msgstr "Сирови формат"
 
-#: operations/external/ppm-save.c:190
+#: operations/external/ppm-save.c:201
 msgid "PPM File Saver"
 msgstr "Чување PPM датотеке"
 
-#: operations/external/ppm-save.c:193
+#: operations/external/ppm-save.c:204
 msgid "PPM image saver (Portable pixmap saver.)"
 msgstr "Чува PPM датотеку (покретни пиксмап сервер)"
 
@@ -8004,7 +8911,7 @@ msgstr "Простор боја"
 msgid "Color space to use for loaded data"
 msgstr "Простор боја који се користи за учитане податке"
 
-#: operations/external/raw-load.c:281
+#: operations/external/raw-load.c:285
 msgid "libraw File Loader"
 msgstr "Учитавање libraw датотеке"
 
@@ -8037,11 +8944,11 @@ msgstr "Сачувај у GdkPixbuf"
 msgid "Store image in a GdkPixbuf."
 msgstr "Сачувај слику у GdkPixbuf."
 
-#: operations/external/sdl2-display.c:196
+#: operations/external/sdl2-display.c:197
 msgid "SDL2 Display"
 msgstr "SDL2 екран"
 
-#: operations/external/sdl2-display.c:199
+#: operations/external/sdl2-display.c:200
 msgid ""
 "Displays the input buffer in an SDL2 window (restricted to one display op/"
 "process, due to SDL2 implementation issues)."
@@ -8057,11 +8964,11 @@ msgstr "Наслов иконице"
 msgid "Icon to be used for output window"
 msgstr "Иконица која се користи за излазни прозор"
 
-#: operations/external/sdl-display.c:168
+#: operations/external/sdl-display.c:169
 msgid "SDL Display"
 msgstr "SDL екран"
 
-#: operations/external/sdl-display.c:171
+#: operations/external/sdl-display.c:172
 msgid ""
 "Displays the input buffer in an SDL window (restricted to one display op/"
 "process, due to SDL implementation issues)."
@@ -8079,12 +8986,12 @@ msgstr "Ширина исцртане слике"
 msgid "Height for rendered image"
 msgstr "Висина исцртане слике"
 
-#: operations/external/svg-load.c:291
+#: operations/external/svg-load.c:308
 msgid "SVG File Loader"
 msgstr "Учитавање SVG датотеке"
 
 #. not hidden because it has extra API
-#: operations/external/svg-load.c:293
+#: operations/external/svg-load.c:310
 msgid "Load an SVG file using librsvg"
 msgstr "Учитава SVG датотеку помоћу библиотеке librsvg"
 
@@ -8165,7 +9072,7 @@ msgstr "Исцртана висина у пикселима. (само за чи
 msgid "Render Text"
 msgstr "Исцртан текст"
 
-#: operations/external/text.c:386
+#: operations/external/text.c:387
 msgid "Display a string of text using pango and cairo."
 msgstr "Прикажи ниску текста помоћу Панга и Каира."
 
@@ -8181,11 +9088,11 @@ msgstr "Директоријум датотеке са сликом (подда�
 msgid "Object to receive image metadata"
 msgstr "Објекат за добијање метаподатака слике"
 
-#: operations/external/tiff-load.c:1034
+#: operations/external/tiff-load.c:1036
 msgid "TIFF File Loader"
 msgstr "Учитавање TIFF датотеке"
 
-#: operations/external/tiff-load.c:1036
+#: operations/external/tiff-load.c:1038
 msgid "TIFF image loader using libtiff"
 msgstr "Учитавање TIFF датотеке помоћу библиотеке libtiff"
 
@@ -8200,8 +9107,9 @@ msgid "use floating point"
 msgstr "помична тачка"
 
 #: operations/external/tiff-save.c:31
-msgid "floating point -1 means auto, 0 means integer 1 meant float."
-msgstr "помична тачна -1 за аутоматски, 0 за цели број и 1 за децимални број."
+msgid "floating point -1 means auto, 0 means integer, 1 means float."
+msgstr ""
+"покретни зарез -1 значи самостално, 0 значи цео број, 1 значи плутајући."
 
 #: operations/external/tiff-save.c:825
 msgid "TIFF File Saver"
@@ -8213,7 +9121,7 @@ msgstr "Чување TIFF датотеке помоћу библиотеке lib
 
 #: operations/external/v4l.c:27
 msgid "Path to v4l device"
-msgstr "Путања до v4l уређаја "
+msgstr "Путања до v4l уређаја"
 
 #: operations/external/v4l.c:34 operations/workshop/external/v4l2.c:30
 msgid "Frame"
@@ -8260,11 +9168,11 @@ msgstr "како се одређује опсег попуњава (nonzero|even
 msgid "svg style description of transform."
 msgstr "опис свг стила за преображај."
 
-#: operations/external/vector-fill.c:322
+#: operations/external/vector-fill.c:320
 msgid "Fill Path"
 msgstr "Путања за попуњавање"
 
-#: operations/external/vector-fill.c:325
+#: operations/external/vector-fill.c:323
 msgid "Renders a filled region"
 msgstr "Исцртава попуњену област"
 
@@ -8586,15 +9494,15 @@ msgstr "Усправно поравнање 0,0 означава врх, 0,5 с�
 msgid "Border Align"
 msgstr "Поравнање граница"
 
-#: operations/transform/border-align.c:182
+#: operations/transform/border-align.c:183
 msgid ""
 "Aligns box of input rectangle with border of compositing target or aux' "
-"bounding-box border, if aux pad is not connectd the op tries to figure out "
+"bounding-box border, if aux pad is not connected the op tries to figure out "
 "which bounding box' border applies."
 msgstr ""
-"Равна оквир улазног правоугаоника са циљном границом или границом оквира "
-"аукса, уколико аукс није повезан или радња покушава да схвате на који се "
-"оквир односи граница."
+"Поравнава оквир улазног правоугаоника са ивицом мете за слагање или са "
+"ивицом граничног оквира помоћног улаза (aux), ако помоћни улаз није повезан, "
+"операција покушава да одреди која ивица граничног оквира се примењује."
 
 #: operations/transform/reflect.c:27
 msgid "Direction vector's X component"
@@ -8604,15 +9512,15 @@ msgstr "Смер X компоненте вектора"
 msgid "Direction vector's Y component"
 msgstr "Смер Y компоненте вектора"
 
-#: operations/transform/reflect.c:84
+#: operations/transform/reflect.c:109
 msgid ""
 "Reflect an image about a line, whose direction is specified by the vector "
 "that is defined by the x and y properties. "
 msgstr ""
 "Пресликава слику око линије, чији је смер одређен вектором који је пак "
-"одређен вредностима x и y."
+"одређен вредностима x и y. "
 
-#: operations/transform/reset-origin.c:77
+#: operations/transform/reset-origin.c:99
 msgid "Translate top-left to 0,0."
 msgstr "Преведи горњи-леви у 0,0."
 
@@ -8624,11 +9532,11 @@ msgstr "Степени"
 msgid "Angle to rotate (counter-clockwise)"
 msgstr "Угао за ротацију (улево)"
 
-#: operations/transform/rotate.c:71
+#: operations/transform/rotate.c:92
 msgid "Rotate"
 msgstr "Ротација"
 
-#: operations/transform/rotate.c:75
+#: operations/transform/rotate.c:96
 msgid "Rotate the buffer around the specified origin."
 msgstr "Ротира оставу око изабраног почетка."
 
@@ -8645,11 +9553,11 @@ msgstr "Игнорисано. Увек користи центар за улаз
 msgid "origin-y"
 msgstr "почетак-y"
 
-#: operations/transform/rotate-on-center.c:146
+#: operations/transform/rotate-on-center.c:165
 msgid "Rotate on center"
 msgstr "Ротирај из центра"
 
-#: operations/transform/rotate-on-center.c:150
+#: operations/transform/rotate-on-center.c:169
 msgid "Rotate the buffer around its center, taking care of possible offsets."
 msgstr "Ротира оставу око њеног центра, водећи рачуна о могућим померајима."
 
@@ -8661,11 +9569,11 @@ msgstr "Хоризонтални фактор увећања"
 msgid "Vertical scale factor"
 msgstr "Вертикални фактор увећања"
 
-#: operations/transform/scale-ratio.c:72
+#: operations/transform/scale-ratio.c:94
 msgid "Scale ratio"
 msgstr "Промена размере"
 
-#: operations/transform/scale-ratio.c:76
+#: operations/transform/scale-ratio.c:98
 msgid "Scales the buffer according to a ratio."
 msgstr "Мења величину оставе у зависности од размере."
 
@@ -8687,11 +9595,11 @@ msgstr "Промена величине"
 msgid "Scales the buffer according to a size."
 msgstr "Мења величину оставе у зависности од величине."
 
-#: operations/transform/scale-size-keepaspect.c:102
+#: operations/transform/scale-size-keepaspect.c:122
 msgid "Scale size keep aspect"
 msgstr "Промена величине чува размеру"
 
-#: operations/transform/scale-size-keepaspect.c:105
+#: operations/transform/scale-size-keepaspect.c:126
 msgid "Scales the buffer to a size, preserving aspect ratio"
 msgstr "Мења величину оставе на задату величину уз чување размере"
 
@@ -8703,11 +9611,11 @@ msgstr "Количина стрижења по хоризонтали"
 msgid "Vertical shear amount"
 msgstr "Количина стрижења по вертикали"
 
-#: operations/transform/shear.c:70
+#: operations/transform/shear.c:91
 msgid "Shear"
 msgstr "Острижи"
 
-#: operations/transform/shear.c:74
+#: operations/transform/shear.c:95
 msgid "Shears the buffer. "
 msgstr "Стриже оставу. "
 
@@ -8751,11 +9659,11 @@ msgstr "Хоризонтално превођење"
 msgid "Vertical translation"
 msgstr "Вертикално превођење"
 
-#: operations/transform/translate.c:74
+#: operations/transform/translate.c:94
 msgid "Translate"
 msgstr "Преведи"
 
-#: operations/transform/translate.c:77
+#: operations/transform/translate.c:98
 msgid ""
 "Repositions the buffer (with subpixel precision), if integer coordinates are "
 "passed a fast-path without resampling is used"
@@ -8818,11 +9726,11 @@ msgstr "Слој са ивицом"
 
 #: operations/workshop/band-tune.c:41
 msgid ""
-"Features size for edge band, used to compensate for loos of edges in detail "
+"Features size for edge band, used to compensate for loss of edges in detail "
 "pass."
 msgstr ""
-"Величина за слој са ивицом, користи се за компензацију отицања ивица у "
-"кораку који обрађује детаље."
+"Величина карактеристика за рубну траку, користи се за надокнаду губитка "
+"ивица у пролазу са детаљима."
 
 #: operations/workshop/band-tune.c:45
 msgid ""
@@ -8862,11 +9770,11 @@ msgstr "Ублаживање"
 msgid "Level of smoothness"
 msgstr "Одређује количину умекшавања"
 
-#: operations/workshop/bilateral-filter-fast.c:501
+#: operations/workshop/bilateral-filter-fast.c:505
 msgid "Bilateral Box Filter"
 msgstr "Двобочна филтер кутија"
 
-#: operations/workshop/bilateral-filter-fast.c:503
+#: operations/workshop/bilateral-filter-fast.c:508
 msgid ""
 "A fast approximation of bilateral filter, using a box-filter instead of a "
 "gaussian blur."
@@ -8883,8 +9791,8 @@ msgid "1D Box Blur"
 msgstr "1Д квадратно замућење"
 
 #: operations/workshop/boxblur-1d.c:467
-msgid "Blur resulting from averaging the colors of a row neighbourhood."
-msgstr "Замућење које настаје упросечавањем боја суседних редова."
+msgid "Blur resulting from averaging the colors of a row neighborhood."
+msgstr "Замућење које настаје усредњавањем боја суседних редова."
 
 #: operations/workshop/boxblur.c:75
 msgid "BoxBlur"
@@ -8922,7 +9830,7 @@ msgstr "Нормализује излаз на опсег [основа,осно
 msgid "Connected Components"
 msgstr "Повезане компоненте"
 
-#: operations/workshop/connected-components.c:289
+#: operations/workshop/connected-components.c:284
 msgid ""
 "Fills each connected region of the input, separated from the rest of the "
 "input by a given color, with a unique color."
@@ -8988,7 +9896,7 @@ msgstr "Lua грешка"
 
 #: operations/workshop/external/gluas.c:34
 msgid "Parse/compile error, if any."
-msgstr "Грешка у обради/компајлирању, уколико постоји"
+msgstr "Грешка у обради/компајлирању, уколико постоји."
 
 #: operations/workshop/external/gluas.c:38
 msgid "A stored lua script on disk implementing an operation."
@@ -9011,12 +9919,8 @@ msgid ""
 "Pixel level filter/composer scripting prototyping with lua. See http://"
 "pippin.gimp.org/image-processing/ for further details."
 msgstr ""
-"Филтер/компајлер, скрипте на нивоу пиксела са lua. Погледајте http://pippin."
-"gimp.org/image-processing/ за више детаља."
-
-#: operations/workshop/external/paint-select.cc:30
-msgid "Add"
-msgstr "Додај"
+"Филтер/компајлер, скрипте на нивоу пиксела са lua. Погледајте http://"
+"pippin.gimp.org/image-processing/ за више детаља."
 
 #: operations/workshop/external/paint-select.cc:31
 msgid "Subtract"
@@ -9043,12 +9947,10 @@ msgid "region-y"
 msgstr "регион-y"
 
 #: operations/workshop/external/paint-select.cc:48
-#| msgid "Line width"
 msgid "region-width"
 msgstr "ширина-региона"
 
 #: operations/workshop/external/paint-select.cc:51
-#| msgid "Line height"
 msgid "region-height"
 msgstr "висина-региона"
 
@@ -9185,7 +10087,7 @@ msgstr "Алфа c модел"
 msgid "Model alpha d"
 msgstr "Алфа d модел"
 
-#: operations/workshop/external/lens-correct.c:486
+#: operations/workshop/external/lens-correct.c:487
 msgid "Copies image performing lens distortion correction."
 msgstr "Копира слику за спровођење исправки изобличења објектива."
 
@@ -9248,18 +10150,15 @@ msgstr "Спирограф"
 
 #: operations/workshop/external/spyrograph.c:28
 msgid "EPITROCHOID"
-msgstr "ЕПИТРОХОИД\t"
+msgstr "ЕПИТРОХОИД"
 
 #: operations/workshop/external/spyrograph.c:31
-msgid "Curve Type"
-msgstr "Врста кривуље"
-
 #: operations/workshop/external/spyrograph.c:34
 msgid "Curve type"
 msgstr "Врста кривуље"
 
 #: operations/workshop/external/spyrograph.c:36
-msgid "Fixed Gear Teeth"
+msgid "Fixed gear teeth"
 msgstr "Зубци фиксног зупчаника"
 
 #: operations/workshop/external/spyrograph.c:37
@@ -9267,7 +10166,7 @@ msgid "Number of teeth in fixed gear."
 msgstr "Број зубаца на фиксном зупчанику."
 
 #: operations/workshop/external/spyrograph.c:40
-msgid "Moving Gear Teeth"
+msgid "Moving gear teeth"
 msgstr "Зубци помичног зупчаника"
 
 #: operations/workshop/external/spyrograph.c:41
@@ -9281,7 +10180,7 @@ msgstr ""
 "зупчаницима."
 
 #: operations/workshop/external/spyrograph.c:46
-msgid "Hole Percent"
+msgid "Hole percent"
 msgstr "Проценат рупе"
 
 #: operations/workshop/external/spyrograph.c:47
@@ -9352,7 +10251,7 @@ msgstr "Одређује да ли су ивице слике засејане"
 msgid "Voronoi Diagram"
 msgstr "Вернојев дијаграм"
 
-#: operations/workshop/external/voronoi-diagram.cc:531
+#: operations/workshop/external/voronoi-diagram.cc:533
 msgid "Paints each non-seed pixel with the color of the nearest seed pixel."
 msgstr "Боји сваки незасејани пиксел у боју најближег засејаног пиксела."
 
@@ -9457,10 +10356,10 @@ msgid ""
 "returned 16bit numbers (the pnm loader is apparently buggy)"
 msgstr ""
 "Учитавање сирове слике, који прослеђује наредбе у dcraw. Омогућава употребу "
-"сирове бајерову мрежу у виду сивих тонова. Уколико је формат датотеке ."
-"rawbayer користи овај начин учитавања уместо оног који је уобичајен за "
-"dcraw. Уколико је формат датотеке .rawbayerS пребациће добијене 16. битне "
-"бројеве (пошто пнм читање тренутно има пуно грешака)"
+"сирове бајерову мрежу у виду сивих тонова. Уколико је формат "
+"датотеке .rawbayer користи овај начин учитавања уместо оног који је "
+"уобичајен за dcraw. Уколико је формат датотеке .rawbayerS пребациће добијене "
+"16. битне бројеве (пошто пнм читање тренутно има пуно грешака)"
 
 #: operations/workshop/segment-kmeans.c:27
 #: operations/workshop/segment-kmeans.c:28
@@ -9511,215 +10410,92 @@ msgstr "Селективна нијанса-засићеност"
 msgid "Selective adjust Hue, Saturation and Lightness"
 msgstr "Селективно подешавање нијансе, засићености и светлине"
 
-#~ msgid "Resilient"
-#~ msgstr "Еластично"
+#: operations/workshop/shuffle-search.c:32
+msgid "How many times to run optimization"
+msgstr "Број покретања оптимизације"
 
-#~ msgid "Red bits"
-#~ msgstr "Црвени битови"
+#: operations/workshop/shuffle-search.c:38
+msgid "Chance"
+msgstr "Шанса"
 
-#~ msgid "Green bits"
-#~ msgstr "Зелени битови"
+#: operations/workshop/shuffle-search.c:39
+msgid "Chance of doing optimization"
+msgstr "Шанса за обављање оптимизације"
 
-#~ msgid "Blue bits"
-#~ msgstr "Плави битови"
+#: operations/workshop/shuffle-search.c:45
+msgid "Phase"
+msgstr "Фаза"
 
-#~ msgid "Alpha bits"
-#~ msgstr "Алфа битови"
+#: operations/workshop/shuffle-search.c:49
+msgid "Only used if no aux image is provided"
+msgstr "Користи се само ако није достављена помоћна (aux) слика"
 
-#~ msgid "Dithering strategy"
-#~ msgstr "Начин дизеринга"
+#: operations/workshop/shuffle-search.c:53
+msgid "Center bias"
+msgstr "Тежња средишта"
 
-#~ msgid "Color Reduction"
-#~ msgstr "Умањење броја боја"
+#: operations/workshop/shuffle-search.c:592
+msgid "Optimize Dither"
+msgstr "Оптимизуј дидер"
 
-#~ msgid "Chessboard"
-#~ msgstr "Шаховска"
+#: operations/workshop/shuffle-search.c:595
+msgid ""
+"Shuffles pixels, and quantization with neighbors to optimize dither, by "
+"shuffling neighboring pixels."
+msgstr ""
+"Меша пикселе и врши квантизацију са суседима како би оптимизовао дидер "
+"мешањем суседних пиксела."
 
-#~ msgid "Offset value added"
-#~ msgstr "Додата вредност помака"
+#~ msgid "Std. Dev."
+#~ msgstr "Ст. дев."
 
-#~ msgid ""
-#~ "Optional parameter to override the automatic selection of blur filter"
-#~ msgstr ""
-#~ "Опциони параметар који се користи уместо аутоматски изабраног филтера "
-#~ "замућења"
+#~ msgid "X Scale"
+#~ msgstr "X опсег"
 
-#~ msgid ""
-#~ "Each result pixel is the average of the neighbouring pixels weighted by a "
-#~ "normal distribution with specified standard deviation."
-#~ msgstr ""
-#~ "Сваки крајњи пиксел је просек суседних пиксела пондерисана нормалном "
-#~ "расподелом са изабраном стандардном девијацијом."
+#~ msgid "Y Scale"
+#~ msgstr "Y опсег"
 
-#~ msgid "Holdness"
-#~ msgstr "Постојаност"
+#~ msgid "X Offset"
+#~ msgstr "X помак"
 
-#~ msgid ""
-#~ "Render a stereographic mapping, a tilt value of 90, which means looking "
-#~ "at nadir provides a good default value."
-#~ msgstr ""
-#~ "Исцртава слику стереографсим мапирањем, при чему тилт вредност 90 даје "
-#~ "добру почетну вредност."
+#~ msgid "Y Offset"
+#~ msgstr "Y помак"
 
-#~ msgid "Image resampling method to use"
-#~ msgstr "Начин узорковања"
+#~ msgid "X Period"
+#~ msgstr "X период"
 
-#~ msgid "Converts the input image to sepia"
-#~ msgstr "Претвара слику у сепија тонове"
+#~ msgid "Y Period"
+#~ msgstr "Y период"
 
-#~ msgid "Standard Deviation"
-#~ msgstr "Стандардно одступање"
+#~ msgid "X Amplitude"
+#~ msgstr "X аплитуда"
 
-#~ msgid "Explicit cache of results at this point of graph."
-#~ msgstr "Експлицитна остава резултата у овој тачки графикона."
+#~ msgid "Y Amplitude"
+#~ msgstr "Y амплитуда"
 
-#~ msgid "An explicit caching node"
-#~ msgstr "Експлицитни чвор у остави"
+#~ msgid "X Phase"
+#~ msgstr "X фаза"
 
-#~ msgid "Clone a buffer"
-#~ msgstr "Клонирај оставу"
+#~ msgid "Y Phase"
+#~ msgstr "Y фаза"
 
-#~ msgid "Crop a buffer"
-#~ msgstr "Исецање оставе"
+#~ msgid "Background Color"
+#~ msgstr "Боја позадине"
 
-#~ msgid "Pixbuf location"
-#~ msgstr "Место Пиксбафа"
+#~ msgid "X Size"
+#~ msgstr "Величина по X"
 
-#~ msgid "The location where to store the output GdkPixbuf."
-#~ msgstr "Место где се чува излазни GdkPixbuf."
+#~ msgid "Y Size"
+#~ msgstr "Величина по Y"
 
-#~ msgid ""
-#~ "SVG blend operation multiply (<code>d = cA * cB +  cA * (1 - aB) + cB * "
-#~ "(1 - aA)</code>)"
-#~ msgstr ""
-#~ "СВГ стапање радњом multiply (<code>d = cA * cB +  cA * (1 - aB) + cB * (1 "
-#~ "- aA)</code>)"
+#~ msgid "Mask Radius"
+#~ msgstr "Полупречник маске"
 
-#~ msgid "Transforms the group (used by svg)."
-#~ msgstr "Преображава групу (користи га свг)."
+#~ msgid "Percent Black"
+#~ msgstr "Проценат црне"
 
-#~ msgid ""
-#~ "A general purpose filter/composer implementation proxy for the lua "
-#~ "programming language."
-#~ msgstr ""
-#~ "Филтер/састављач опште намене за примену посредника за луа програмски "
-#~ "језик."
+#~ msgid "Tile Height"
+#~ msgstr "Висина плочице"
 
-#~ msgid ""
-#~ "Horizontally stack inputs, (in \"output\" \"aux\" is placed to the right "
-#~ "of \"input\")"
-#~ msgstr ""
-#~ "Хоризонтално ређа улазе, (и „излазу“ је „аукс“ постављен десно од „улаза“)"
-
-#~ msgid "Proof"
-#~ msgstr "Потврда"
-
-#~ msgid "Separate and proof"
-#~ msgstr "Раздвајање и потврда"
-
-#~ msgid "Ink configuration"
-#~ msgstr "Подешавање мастила"
-
-#~ msgid "Textual desciption of inks used for simulated print-job"
-#~ msgstr "Текстуални опис мастила која се користе за симулацију штампе"
-
-#~ msgid "how the ink simulator is used"
-#~ msgstr "како се користи симулација штампе"
-
-#~ msgid "paper/fabric/material color"
-#~ msgstr "боја папира/тканине/материјала"
-
-#~ msgid "Ink1 color"
-#~ msgstr "Боја 1. мастила"
-
-#~ msgid "ink color"
-#~ msgstr "Боја мастила"
-
-#~ msgid "Ink2 color"
-#~ msgstr "Боја 2. мастила"
-
-#~ msgid "Ink3 color"
-#~ msgstr "Боја 3. мастила"
-
-#~ msgid "Ink4 color"
-#~ msgstr "Боја 4. мастила"
-
-#~ msgid "Ink5 color"
-#~ msgstr "Боја 5. мастила"
-
-#~ msgid "Ink limit"
-#~ msgstr "Ограничење мастила"
-
-#~ msgid "maximum amount of ink for one pixel, 2.5 = 250%% coverage"
-#~ msgstr "Највећа количина мастила за један пиксел, 2,5 = 250%% покровности"
-
-#~ msgid "Debug width"
-#~ msgstr "Опсег за тражење грешака"
-
-#~ msgid "how wide peel off bands for ink order vis"
-#~ msgstr "колико широко да одсечем траке за јачину мастила"
-
-#~ msgid "Ink Simulator"
-#~ msgstr "Симулација мастила"
-
-#~ msgid ""
-#~ "Spectral ink and paint simulator, for softproofing/simulating physical "
-#~ "color mixing and interactions."
-#~ msgstr ""
-#~ "Симулација мастила и боје за софтверски преглед пред штампу или "
-#~ "симулацију физичког мешања боја и њихових интеракција."
-
-#~ msgid "Radius of square pixel region (width and height will be radius*2+1)"
-#~ msgstr ""
-#~ "Полупречник квадратне области пиксела (ширина и висина ће бити "
-#~ "полупречник * 2 + 1)"
-
-#~ msgid "Edge preserving blur"
-#~ msgstr "Замућење уз очување ивица"
-
-#~ msgid "Real coordinate"
-#~ msgstr "Стварне координате"
-
-#~ msgid "Imaginary coordinate"
-#~ msgstr "Измишљене координате"
-
-#~ msgid "Mandelbrot set renderer"
-#~ msgstr "Изцртавање Манделброта"
-
-#~ msgid "vhs glitch fixer"
-#~ msgstr "исправка ВХС квара"
-
-#~ msgid "fixes vhs digitization glitches"
-#~ msgstr "поправља шумове који су настали дигитализацијом ВХС-а"
-
-#~ msgid "Gamma correction"
-#~ msgstr "Исправка гаме"
-
-#~ msgid "Target file path."
-#~ msgstr "Путања до циљне датотеке."
-
-#~ msgid "Raw image loader, wrapping dcraw with pipes."
-#~ msgstr "Учитавање сирове слике, који прослеђује наредбе у dcraw."
-
-#~ msgid "Preset"
-#~ msgstr "Подешавање"
-
-#~ msgid "Which curve to apply"
-#~ msgstr "Која крива се примењује"
-
-#~| msgid "Contrast Curve"
-#~ msgid "Insta curve"
-#~ msgstr "Брза крива"
-
-#~ msgid "Apply a preset curve to an image"
-#~ msgstr "Примењује већ подешену криву на слику"
-
-#~ msgid "Which filter to apply"
-#~ msgstr "Који филтер се примењује"
-
-#~| msgid "Filter"
-#~ msgid "Insta Filter"
-#~ msgstr "Брзи филтер"
-
-#~ msgid "Tilable"
-#~ msgstr "Плочице"
+#~ msgid "Curve Type"
+#~ msgstr "Врста кривуље"

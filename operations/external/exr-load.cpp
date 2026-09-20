@@ -31,12 +31,18 @@ property_file_path (path, "File", "")
 
 #include "gegl-op.h"
 
+/* ignore deprecated warnings from OpenEXR headers */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated"
+
 #include <ImfInputFile.h>
 #include <ImfChannelList.h>
 #include <ImfRgbaFile.h>
 #include <ImfRgbaYca.h>
 #include <ImfChromaticities.h>
 #include <ImfStandardAttributes.h>
+
+#pragma GCC diagnostic pop
 
 #include <stdio.h>
 #include <string.h>
@@ -626,22 +632,38 @@ query_exr (const gchar *path,
         }
 
       if (format_flags & COLOR_ALPHA)
+#ifndef _UCRT
         strcat (format_string, "A");
+#else
+        strcat_s (format_string, sizeof(format_string), "A");
+#endif
 
       switch (pt)
         {
           case UINT:
             format_flags |= COLOR_U32;
+#ifndef _UCRT
             strcat (format_string, " u32");
+#else
+            strcat_s (format_string, sizeof(format_string), " u32");
+#endif
             break;
           case HALF:
 	    format_flags |= COLOR_FP16;
+#ifndef _UCRT
             strcat (format_string, " half");
+#else
+            strcat_s (format_string, sizeof(format_string), " half");
+#endif
             break;
           case FLOAT:
           default:
             format_flags |= COLOR_FP32;
+#ifndef _UCRT
             strcat (format_string, " float");
+#else
+            strcat_s (format_string, sizeof(format_string), " float");
+#endif
             break;
         }
 

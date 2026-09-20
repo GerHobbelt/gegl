@@ -881,10 +881,7 @@ gegl_buffer_set_internal (GeglBuffer          *buffer,
                           const void          *src,
                           gint                 rowstride)
 {
-  if (gegl_buffer_ext_flush)
-    {
-      gegl_buffer_ext_flush (buffer, rect);
-    }
+  gegl_buffer_flush_ext (buffer, rect);
 
   gegl_buffer_iterate_write (buffer, rect, (void *) src, rowstride, format, level);
 
@@ -1972,9 +1969,9 @@ gegl_buffer_set (GeglBuffer          *buffer,
                rowstride == babl_format_get_bytes_per_pixel (format))
         {
           int     bpp = babl_format_get_bytes_per_pixel (buffer->soft_format);
-          uint8_t tmp[rect->height * bpp];
+          uint8_t *tmp = g_newa (uint8_t, rect->height * bpp);
           babl_process (babl_fish (format, buffer->soft_format),
-                        src, &tmp[0], rect->height);
+                        src, tmp, rect->height);
           _gegl_buffer_set_with_flags (buffer, rect, level, buffer->soft_format, tmp, bpp,
                                        GEGL_BUFFER_SET_FLAG_LOCK|
                                        GEGL_BUFFER_SET_FLAG_NOTIFY);
@@ -2048,8 +2045,7 @@ _gegl_buffer_get_unlocked (GeglBuffer          *buffer,
   if (! format)
     format = buffer->soft_format;
 
-  if (gegl_buffer_ext_flush)
-    gegl_buffer_ext_flush (buffer, rect);
+  gegl_buffer_flush_ext (buffer, rect);
 
   if (G_UNLIKELY (scale == 1.0 &&
       rect->width == 1))
@@ -2071,12 +2067,12 @@ _gegl_buffer_get_unlocked (GeglBuffer          *buffer,
         {
           /* first fetch all pixels to a temporary buffer */
           gint    bpp = babl_format_get_bytes_per_pixel (buffer->soft_format);
-          uint8_t tmp[rect->height * bpp];
-          gegl_buffer_iterate_read_dispatch (buffer, rect, &tmp[0],
+          uint8_t *tmp = g_newa (uint8_t, rect->height * bpp);
+          gegl_buffer_iterate_read_dispatch (buffer, rect, tmp,
                                              bpp, buffer->soft_format, 0, repeat_mode);
           /* then convert in a single shot */
           babl_process (babl_fish (buffer->soft_format, format),
-                        &tmp[0], dest_buf, rect->height);
+                        tmp, dest_buf, rect->height);
         }
       }
     return;
