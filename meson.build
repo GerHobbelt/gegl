@@ -49,6 +49,7 @@ dep_ver = {
   'json-glib'       : '>=1.0.0',
   'poly2tri-c'      : '>=0.0.0',
   'libnsgif'        : '>=1.0.0',
+  'opencl'          : '>=3.0',
 }
 
 # Core - optional
@@ -95,6 +96,7 @@ dep_ver += {
   'poppler'         : '>=0.71.0',
   'sdl1'            : '>=1.2.0',
   'sdl2'            : '>=2.0.5',
+  'sdl3'            : '>=3.2.0',
   'libavcodec'      : '>=55.69.100',
   'libavformat'     : '>=55.48.100',
   'libavutil'       : '>=55.92.100',
@@ -384,6 +386,17 @@ json_glib = dependency('json-glib-1.0',
 )
 libjpeg   = dependency(['libjpeg', 'libjpeg-turbo'], version: dep_ver.get('libjpeg'))
 libpng    = dependency('libpng',      version: dep_ver.get('libpng'))
+ctx_h     = cc.has_header('ctx.h')
+if not ctx_h
+  #see libs/ctx/meson.build
+  message('using built-in ctx headers')
+endif
+#we set 'required:' to false since we provide vendored OpenCL as fallback
+opencl    = dependency('OpenCL-Headers', version: dep_ver.get('opencl'), required: false)
+if not opencl.found()
+  #see gegl/opencl/meson.build
+  message('using built-in OpenCL headers')
+endif
 
 # Required libraries eventually provided in subprojects/ subdir
 poly2tri_c = dependency('poly2tri-c',
@@ -525,6 +538,10 @@ sdl1      = dependency('sdl',
 sdl2      = dependency(['sdl2', 'SDL2'],
   version: dep_ver.get('sdl2'),
   required: get_option('sdl2')
+)
+sdl3      = dependency(['sdl3', 'SDL3'],
+  version: dep_ver.get('sdl3'),
+  required: get_option('sdl3')
 )
 
 # AV libs
@@ -691,9 +708,11 @@ if host_machine.system() != 'emscripten'
 
   # Verify .def files for Windows linking (and for macOS too when -Wl,-exported_symbols_list is used).
   # We check this on non-Windows/non-macOS platform (Debian) on CI, and on Windows and macOS itself.
+  # (This also checks if .gir files have parity with the library so parity with .def files too)
   custom_target('check-def-files',
     input: [
       gegl_def,
+      g_ir.found() ? gegl_gir : [],
       gegl_npd_def,
       gegl_sc_def,
     ],
@@ -802,6 +821,7 @@ summary(
     'rsvg'              : librsvg.found(),
     'SDL1'              : sdl1.found(),
     'SDL2'              : sdl2.found(),
+    'SDL3'              : sdl3.found(),
     'spiro'             : libspiro.found(),
     'TIFF'              : libtiff.found(),
     'umfpack'           : libumfpack.found(),

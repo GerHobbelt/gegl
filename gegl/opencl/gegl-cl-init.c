@@ -34,6 +34,9 @@
 #ifdef _WIN32
 #define strdup _strdup
 #endif
+#ifdef __APPLE__
+#include <dlfcn.h>
+#endif
 #include <stdio.h>
 
 #include "gegl/gegl-debug.h"
@@ -122,7 +125,13 @@ const char *gegl_cl_errstring(cl_int err) {
   return strings[-err];
 }
 
-gboolean _gegl_cl_is_accelerated;
+static gboolean _gegl_cl_is_accelerated;
+
+gboolean
+gegl_cl_is_accelerated (void)
+{
+  return _gegl_cl_is_accelerated;
+}
 
 typedef struct
 {
@@ -302,6 +311,7 @@ gegl_cl_has_extension (const char *extension_name)
 #define CL_LIBRARY_NAME "libOpenCL.so.1"
 #endif
 
+#ifndef __APPLE__
 #define CL_LOAD_FUNCTION(func)                                                    \
 G_STMT_START                                                                      \
   {                                                                               \
@@ -325,6 +335,19 @@ G_STMT_START                                                                    
       }                                                                           \
   }                                                                               \
 G_STMT_END
+#else
+#define CL_LOAD_FUNCTION(func)                                                    \
+G_STMT_START                                                                      \
+  {                                                                               \
+    gegl_##func = dlsym (module, #func);                                          \
+    if (gegl_##func == NULL)                                                      \
+      {                                                                           \
+        GEGL_NOTE (GEGL_DEBUG_OPENCL, "symbol gegl_##func is NULL");              \
+        return FALSE;                                                             \
+      }                                                                           \
+  }                                                                               \
+G_STMT_END
+#endif
 
 #define CL_LOAD_EXTENSION_FUNCTION(func)                                          \
 G_STMT_START                                                                      \
@@ -353,7 +376,11 @@ gegl_cl_init (void)
 static gboolean
 gegl_cl_init_load_functions (void)
 {
+#ifndef __APPLE__
   GModule *module = g_module_open (CL_LIBRARY_NAME, G_MODULE_BIND_LAZY);
+#else
+  void *module = dlopen(CL_LIBRARY_NAME, RTLD_LAZY / RTLD_LOCAL);
+#endif
   if (!module)
     {
       GEGL_NOTE (GEGL_DEBUG_OPENCL, "Unable to load OpenCL library %s", CL_LIBRARY_NAME);
@@ -379,18 +406,28 @@ gegl_cl_init_load_functions (void)
   CL_LOAD_FUNCTION (clGetContextInfo);
   CL_LOAD_FUNCTION (clReleaseContext);
   CL_LOAD_FUNCTION (clRetainContext);
+#ifndef __APPLE__
   CL_LOAD_FUNCTION (clSetContextDestructorCallback);
+#endif
 
   /* Command-Queues */
+#ifndef __APPLE__
   CL_LOAD_FUNCTION (clCreateCommandQueueWithProperties);
+#else
+  CL_LOAD_FUNCTION (clCreateCommandQueue);
+#endif
   CL_LOAD_FUNCTION (clGetCommandQueueInfo);
   CL_LOAD_FUNCTION (clReleaseCommandQueue);
   CL_LOAD_FUNCTION (clRetainCommandQueue);
+#ifndef __APPLE__
   CL_LOAD_FUNCTION (clSetDefaultDeviceCommandQueue);
+#endif
 
   /* Buffer Objects */
   CL_LOAD_FUNCTION (clCreateBuffer);
+#ifndef __APPLE__
   CL_LOAD_FUNCTION (clCreateBufferWithProperties);
+#endif
   CL_LOAD_FUNCTION (clCreateSubBuffer);
   CL_LOAD_FUNCTION (clEnqueueReadBuffer);
   CL_LOAD_FUNCTION (clEnqueueWriteBuffer);
@@ -403,7 +440,9 @@ gegl_cl_init_load_functions (void)
 
   /* Image Objects */
   CL_LOAD_FUNCTION (clCreateImage);
+#ifndef __APPLE__
   CL_LOAD_FUNCTION (clCreateImageWithProperties);
+#endif
   CL_LOAD_FUNCTION (clEnqueueReadImage);
   CL_LOAD_FUNCTION (clEnqueueWriteImage);
   CL_LOAD_FUNCTION (clEnqueueCopyImage);
@@ -423,7 +462,9 @@ gegl_cl_init_load_functions (void)
   CL_LOAD_FUNCTION (clSetMemObjectDestructorCallback);
 
   /* Sampler Objects */
+#ifndef __APPLE__
   CL_LOAD_FUNCTION (clCreateSamplerWithProperties);
+#endif
   CL_LOAD_FUNCTION (clReleaseSampler);
   CL_LOAD_FUNCTION (clRetainSampler);
   CL_LOAD_FUNCTION (clGetSamplerInfo);
@@ -434,28 +475,38 @@ gegl_cl_init_load_functions (void)
   CL_LOAD_FUNCTION (clCreateProgramWithSource);
   CL_LOAD_FUNCTION (clCreateProgramWithBinary);
   CL_LOAD_FUNCTION (clCreateProgramWithBuiltInKernels);
+#ifndef __APPLE__
   CL_LOAD_FUNCTION (clCreateProgramWithIL);
+#endif
   CL_LOAD_FUNCTION (clGetProgramBuildInfo);
   CL_LOAD_FUNCTION (clGetProgramInfo);
   CL_LOAD_FUNCTION (clLinkProgram);
   CL_LOAD_FUNCTION (clReleaseProgram);
   CL_LOAD_FUNCTION (clRetainProgram);
+#ifndef __APPLE__
   CL_LOAD_FUNCTION (clSetProgramSpecializationConstant);
+#endif
   CL_LOAD_FUNCTION (clUnloadPlatformCompiler);
 
   /* Kernel Objects */
+#ifndef __APPLE__
   CL_LOAD_FUNCTION (clCloneKernel);
+#endif
   CL_LOAD_FUNCTION (clCreateKernel);
   CL_LOAD_FUNCTION (clCreateKernelsInProgram);
   CL_LOAD_FUNCTION (clGetKernelInfo);
   CL_LOAD_FUNCTION (clGetKernelArgInfo);
+#ifndef __APPLE__
   CL_LOAD_FUNCTION (clGetKernelSubGroupInfo);
+#endif
   CL_LOAD_FUNCTION (clGetKernelWorkGroupInfo);
   CL_LOAD_FUNCTION (clReleaseKernel);
   CL_LOAD_FUNCTION (clRetainKernel);
   CL_LOAD_FUNCTION (clSetKernelArg);
+#ifndef __APPLE__
   CL_LOAD_FUNCTION (clSetKernelArgSVMPointer);
   CL_LOAD_FUNCTION (clSetKernelExecInfo);
+#endif
 
   /* Executing Kernels */
   CL_LOAD_FUNCTION (clEnqueueNDRangeKernel);
@@ -475,19 +526,26 @@ gegl_cl_init_load_functions (void)
   CL_LOAD_FUNCTION (clEnqueueMarkerWithWaitList);
 
   /* Profiling Operations on Memory Objects and Kernels */
+#ifndef __APPLE__
   CL_LOAD_FUNCTION (clGetDeviceAndHostTimer);
+#endif
   CL_LOAD_FUNCTION (clGetEventProfilingInfo);
+#ifndef __APPLE__
   CL_LOAD_FUNCTION (clGetHostTimer);
+#endif
 
   /* Flush and Finish */
   CL_LOAD_FUNCTION (clFlush);
   CL_LOAD_FUNCTION (clFinish);
 
   /* Pipes */
+#ifndef __APPLE__
   CL_LOAD_FUNCTION (clCreatePipe);
   CL_LOAD_FUNCTION (clGetPipeInfo);
+#endif
 
   /* Shared Virtual Memory (SVM) */
+#ifndef __APPLE__
   CL_LOAD_FUNCTION (clSVMAlloc);
   CL_LOAD_FUNCTION (clSVMFree);
   CL_LOAD_FUNCTION (clEnqueueSVMFree);
@@ -496,6 +554,7 @@ gegl_cl_init_load_functions (void)
   CL_LOAD_FUNCTION (clEnqueueSVMMemFill);
   CL_LOAD_FUNCTION (clEnqueueSVMMigrateMem);
   CL_LOAD_FUNCTION (clEnqueueSVMUnmap);
+#endif
 
   /* Optional Extensions */
   CL_LOAD_FUNCTION (clGetExtensionFunctionAddressForPlatform);
@@ -663,7 +722,11 @@ gegl_cl_init_common (cl_device_type requested_device_type)
 
   if (!cl_state.is_loaded)
     {
+#ifndef __APPLE__
       cl_queue_properties queue_props[] = { CL_QUEUE_PROPERTIES, 0, 0 };
+#else
+      cl_command_queue_properties command_queue_flags = 0;
+#endif
       cl_context          ctx           = NULL;
 
       if (!gegl_cl_init_load_functions ())
@@ -688,10 +751,21 @@ gegl_cl_init_common (cl_device_type requested_device_type)
 
       cl_state.ctx = ctx;
 
+#ifdef __APPLE__
+      command_queue_flags = 0;
+#endif
       if (cl_state.enable_profiling)
+#ifndef __APPLE__
         queue_props[1] = CL_QUEUE_PROFILING_ENABLE;
+#else
+        command_queue_flags |= CL_QUEUE_PROFILING_ENABLE;
+#endif
 
+#ifndef __APPLE__
       cl_state.cq = gegl_clCreateCommandQueueWithProperties (cl_state.ctx, cl_state.device, (const cl_queue_properties *)&queue_props, &err);
+#else
+      cl_state.cq = gegl_clCreateCommandQueue (cl_state.ctx, cl_state.device, command_queue_flags, &err);
+#endif
 
       if (err != CL_SUCCESS)
         {
@@ -711,7 +785,7 @@ gegl_cl_init_common (cl_device_type requested_device_type)
     }
 
   if (cl_state.is_loaded)
-    _gegl_cl_is_accelerated = TRUE;
+      _gegl_cl_is_accelerated = TRUE;
 
   {
     gegl_buffer_ext_flush = (void*)gegl_buffer_cl_cache_flush;

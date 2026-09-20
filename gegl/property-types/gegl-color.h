@@ -44,7 +44,7 @@ struct _GeglColorClass
   GObjectClass parent_class;
 };
 
-GType        gegl_color_get_type               (void) G_GNUC_CONST;
+GType        gegl_color_get_type               (void);
 
 
 /***
@@ -277,7 +277,7 @@ void         gegl_color_set_hsla               (GeglColor   *color,
                                                 const Babl  *space);
 
 /**
- * gegl_color_set_pixel: (skip)
+ * gegl_color_set_pixel: (skip) (attributes skip-reason=provided_by_gegl_color_set_bytes)
  * @color: a #GeglColor
  * @format: a babl pixel format
  * @pixel: (not nullable): pointer to a pixel
@@ -289,7 +289,7 @@ void         gegl_color_set_pixel              (GeglColor   *color,
                                                 const void  *pixel);
 
 /**
- * gegl_color_get_pixel: (skip)
+ * gegl_color_get_pixel: (skip) (attributes skip-reason=provided_by_gegl_color_get_bytes)
  * @color: a #GeglColor
  * @format: a babl pixel format
  * @pixel: pointer to a pixel
@@ -346,7 +346,7 @@ gegl_color_cmp (GeglColor *color1, GeglColor *color2);
 #define GEGL_TYPE_PARAM_COLOR           (gegl_param_color_get_type ())
 #define GEGL_IS_PARAM_SPEC_COLOR(pspec) (G_TYPE_CHECK_INSTANCE_TYPE ((pspec), GEGL_TYPE_PARAM_COLOR))
 
-GType        gegl_param_color_get_type         (void) G_GNUC_CONST;
+GType        gegl_param_color_get_type         (void);
 
 /**
  * gegl_param_spec_color:
