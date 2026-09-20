@@ -268,7 +268,11 @@ rgbe_header_read_variables (rgbe_file *file,
             }
           else
             {
-              file->header.exposure *= exposure;
+              /* OpenImage writes HDR files with GAMMA=1 EXPOSURE=0.
+               * For now ignore exposure if it is 0, but eventually we
+               * should also handle gamma values that are not 1. */
+              if (exposure != 0.0)
+                file->header.exposure *= exposure;
             }
         }
 
@@ -617,7 +621,8 @@ rgbe_read_old_rle (const rgbe_file *file,
   g_return_val_if_fail (cursor && *cursor > 0, FALSE);
   g_return_val_if_fail (pixels,                FALSE);
 
-  g_return_val_if_reached (FALSE);
+  g_warning ("Loading hdr images using old style rle is unsupported.");
+  return FALSE;
 }
 
 
@@ -652,7 +657,7 @@ rgbe_read_new_rle (const rgbe_file *file,
   data     = (guint8 *)g_mapped_file_get_contents (file->file) + *cursor;
   g_return_val_if_fail (data[OFFSET_R] == 2 && data[OFFSET_G] == 2, FALSE);
   linesize = (data[OFFSET_B] << 8) | data[OFFSET_E];
-  max_size = file->header.x_axis.size * file->header.y_axis.size * RGBE_NUM_RGBE;
+  max_size = file->header.x_axis.size * RGBE_NUM_RGBE;
 
   if (RGBE_NUM_RGBE * linesize > max_size)
     {
@@ -684,13 +689,13 @@ rgbe_read_new_rle (const rgbe_file *file,
 
           data++;
 
-          /* Check if there's enought space in the buffer to avoid OOB */
-          if (length > (pixels + RGBE_NUM_RGBE * linesize - pixoffset[component]) / RGBE_NUM_RGBE)
+          /* Check if there's enough space in the buffer to avoid OOB */
+          if (length * RGBE_NUM_RGBE - component > pixels + max_size - pixoffset[component])
             {
               g_warning ("Buffer overflow detected.");
               return FALSE;
             }
-        
+
           /* A compressed run */
           if (rle)
             {

@@ -2,22 +2,22 @@
 # Copyright (C) 2018 gegl's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gegl package.
 #
-# yurchor <yurchor@ukr.net>, 2018, 2020, 2021, 2022, 2023, 2024, 2025, 2026.
+# SPDX-FileCopyrightText: 2018, 2020, 2021, 2022, 2023, 2024, 2025, 2026 yurchor <yurchor@ukr.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: gegl master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gegl/issues/\n"
-"POT-Creation-Date: 2026-06-27 17:49+0000\n"
-"PO-Revision-Date: 2026-06-28 20:59+0300\n"
+"POT-Creation-Date: 2026-08-11 11:36+0000\n"
+"PO-Revision-Date: 2026-08-12 20:28+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
-"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 23.04.3\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n%10>="
+"2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Lokalize 25.12.1\n"
 
 #: bin/gegl.c:184
 #, c-format
@@ -351,42 +351,42 @@ msgstr "Ніколи"
 msgid "Always"
 msgstr "Завжди"
 
-#: gegl/gegl-init.c:427
+#: gegl/gegl-init.c:431
 msgid "Where GEGL stores its swap"
 msgstr "Місце, де GEGL зберігатиме файл резервної пам'яті"
 
-#: gegl/gegl-init.c:432
+#: gegl/gegl-init.c:436
 msgid "Compression algorithm used for data stored in the swap"
 msgstr "Алгоритм стискання для даних, які зберігаються у резервній пам'яті"
 
-#: gegl/gegl-init.c:437
+#: gegl/gegl-init.c:441
 msgid "How much memory to (approximately) use for caching imagery"
 msgstr ""
 "Об'єм пам'яті (приблизно), який слід використовувати для кешування даних "
 "зображень"
 
-#: gegl/gegl-init.c:442
+#: gegl/gegl-init.c:446
 msgid "Default size of tiles in GeglBuffers"
 msgstr "Типовий розмір плиток у GeglBuffer-ах"
 
-#: gegl/gegl-init.c:447
+#: gegl/gegl-init.c:451
 msgid "The count of pixels to compute simultaneously"
 msgstr "Кількість пікселів, значення для яких слід обчислювати одночасно"
 
-#: gegl/gegl-init.c:452
+#: gegl/gegl-init.c:456
 msgid ""
 "The quality of rendering, a value between 0.0 (fast) and 1.0 (reference)"
 msgstr "Якість обробки. Значення від 0.0 (швидко) до 1.0 (ідеально)"
 
-#: gegl/gegl-init.c:457
+#: gegl/gegl-init.c:461
 msgid "The number of concurrent processing threads to use"
 msgstr "Кількість паралельних потоків обробки"
 
-#: gegl/gegl-init.c:462
+#: gegl/gegl-init.c:466
 msgid "Disable OpenCL"
 msgstr "Вимкнути OpenCL"
 
-#: gegl/gegl-init.c:474
+#: gegl/gegl-init.c:478
 msgid "Show GEGL Options"
 msgstr "Показати параметри GEGL"
 
@@ -1834,20 +1834,20 @@ msgstr ""
 "гаусовими розмиваннями"
 
 #: operations/common/display.c:23 operations/external/sdl2-display.c:28
-#: operations/external/sdl-display.c:25
+#: operations/external/sdl3-display.c:28 operations/external/sdl-display.c:25
 msgid "Window title"
 msgstr "Заголовок вікна"
 
 #: operations/common/display.c:24 operations/external/sdl2-display.c:29
-#: operations/external/sdl-display.c:26
+#: operations/external/sdl3-display.c:29 operations/external/sdl-display.c:26
 msgid "Title to be given to output window"
 msgstr "Заголовок вікна із виведеними даними"
 
-#: operations/common/display.c:142
+#: operations/common/display.c:141
 msgid "Display"
 msgstr "Показ"
 
-#: operations/common/display.c:144
+#: operations/common/display.c:143
 msgid "Display the input buffer in a window."
 msgstr "Показати вхідний буфер у вікні."
 
@@ -4077,11 +4077,11 @@ msgstr "Безшовний елемент мозаїки"
 msgid "Generate a tileable map"
 msgstr "Створити поділену на плитки карту"
 
-#: operations/common/normal-map.c:257
+#: operations/common/normal-map.c:271
 msgid "Normal Map"
 msgstr "Карта нормалей"
 
-#: operations/common/normal-map.c:260
+#: operations/common/normal-map.c:274
 msgid "Generate a normal map from a height map"
 msgstr "Створення карти нормалей за картою висот"
 
@@ -4571,7 +4571,7 @@ msgstr ""
 #. * arbitrary.
 #.
 #: operations/common/spherize.c:52 operations/common/unsharp-mask.c:31
-#: operations/common-gpl3+/edge.c:42
+#: operations/common-gpl3+/edge.c:42 operations/workshop/sharpen.c:9
 msgid "Amount"
 msgstr "Об'єм"
 
@@ -5528,13 +5528,12 @@ msgid "Edge handling"
 msgstr "Обробка країв"
 
 #: operations/common-cxx/distance-transform.cc:41
-#| msgid "How areas outside the input are considered when calculating distance"
 msgid ""
 "How areas outside the input are considered when calculating distance. Also "
 "known as: boundary conditions."
 msgstr ""
-"Спосіб врахування ділянок поза вхідними даними при обчисленні відстані. Інша"
-" назва: граничні умови."
+"Спосіб врахування ділянок поза вхідними даними при обчисленні відстані. Інша "
+"назва: граничні умови."
 
 #: operations/common-cxx/distance-transform.cc:44
 msgid "Threshold low"
@@ -8964,11 +8963,11 @@ msgstr "Записувач зображень PNG з використанням 
 msgid "URI of image to load."
 msgstr "Адреса зображення для завантаження."
 
-#: operations/external/ppm-load.c:476
+#: operations/external/ppm-load.c:484
 msgid "PPM File Loader"
 msgstr "Завантажувач файлів PPM"
 
-#: operations/external/ppm-load.c:478
+#: operations/external/ppm-load.c:486
 msgid "PPM image loader."
 msgstr "Завантажувач файлів PPM."
 
@@ -9055,6 +9054,14 @@ msgid ""
 msgstr ""
 "Показує вхідний буфер у вікні SDL2 (обмежено до однієї операції показу на "
 "процес через вади у реалізації SDL2)."
+
+#: operations/external/sdl3-display.c:207
+msgid "SDL3 Display"
+msgstr "SDL3-дисплей"
+
+#: operations/external/sdl3-display.c:210
+msgid "Displays the input buffer in an SDL3 window."
+msgstr "Показує вхідний буфер у вікні SDL3."
 
 #: operations/external/sdl-display.c:27
 msgid "Icon title"
@@ -10481,7 +10488,7 @@ msgstr "Зображення інтеграла"
 msgid "Compute integral and squared integral image"
 msgstr "Обчислити зображення інтеграла та інтеграла у квадраті"
 
-#: operations/workshop/rawbayer-load.c:156
+#: operations/workshop/rawbayer-load.c:167
 msgid ""
 "Raw image loader, wrapping dcraw with pipes, provides the raw bayer grid as "
 "grayscale, if the fileformat is .rawbayer it will use this loader instead of "
@@ -10544,6 +10551,23 @@ msgstr "Вибірковий відтінок-насиченість"
 #: operations/workshop/selective-hue-saturation.c:173
 msgid "Selective adjust Hue, Saturation and Lightness"
 msgstr "Вибіркове коригування відтінку, освітленості та насиченості"
+
+#: operations/workshop/sharpen.c:10
+msgid "Controls the amount of sharpness applied to an image"
+msgstr "Керує величиною різкості, яку буде застосовано до зображення"
+
+#: operations/workshop/sharpen.c:175 operations/workshop/sharpen.c:181
+#| msgid "Sharpness"
+msgid "Sharpen"
+msgstr "Збільшити різкість"
+
+#: operations/workshop/sharpen.c:177
+msgid ""
+"Sharpens the image by enhancing edge contrast using a standard 3x3 "
+"convolution kernel."
+msgstr ""
+"Збільшує різкість зображення шляхом удосконалення контрастності за допомогою "
+"стандартного ядра згортки 3x3."
 
 #: operations/workshop/shuffle-search.c:32
 msgid "How many times to run optimization"
