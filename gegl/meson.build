@@ -102,17 +102,15 @@ else
   simd_extra_def = []
 endif
 
-if not os_osx
-  gegl_def = custom_target('gegl.def',
-    input: [
-      'gegl-generic.def',
-      simd_extra_def,
-    ],
-    output: [ 'gegl.def', ],
-    command: [python, '-c', 'import sys; data="".join(open(f).read() for f in sys.argv[2:]); open(sys.argv[1],"w").write(data)', '@OUTPUT@', '@INPUT@'],
-    build_by_default: true,
-  )
-endif
+gegl_def = custom_target('gegl.def',
+  input: [
+    'gegl-generic.def',
+    simd_extra_def,
+  ],
+  output: [ 'gegl.def', ],
+  command: [python, '-c', 'import sys; data="".join(open(f).read() for f in sys.argv[2:]); open(sys.argv[1],"w").write(data)', '@OUTPUT@', '@INPUT@'],
+  build_by_default: true,
+)
 
 gegl_lib_args = {
   'sources': gegl_sources,
@@ -148,6 +146,15 @@ if g_ir.found()
     'opencl' / 'gegl-cl-introspection-support.h',
   )
 
+  # Silence 'duplicate -rpath' and other noisy warnings from Xcode 15+
+  # See: https://github.com/mesonbuild/meson/commit/17d1cc60ed8246b8e7f0786421bf1cdf5cb19254
+  gir_env = environment()
+  gir_env.append('GEGL_BUILD', '1', separator: ' ')
+  if os_osx
+    gir_env.append('CFLAGS', '-Wno-unused-command-line-argument', separator: ' ')
+    gir_env.append('LDFLAGS', '-Wl,-w', separator: ' ')
+  endif
+
   if meson.version().version_compare('>=1.2')
     gegl_gir = gnome.generate_gir(gegl_lib,
       sources: introspection_sources,
@@ -160,7 +167,7 @@ if g_ir.found()
       dependencies: [babl],
       export_packages: 'gegl-' + api_version,
       install: true,
-      env: ['GEGL_BUILD=1'],
+      env: gir_env,
     )
   else
     gegl_gir = gnome.generate_gir(gegl_lib,
