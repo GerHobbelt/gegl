@@ -227,9 +227,9 @@ if buildtype == 'debug' or buildtype == 'debugoptimized'
     # DWARF symbols for GCC and LLDB on Windows (fallback)
     debugging_format = 'DWARF'
     if cc.get_id() == 'clang'
-      # Optimize DWARF symbols to Dr. Mingw
+      # Optimize DWARF symbols to Dr. Mingw (not needed anymore)
       # https://github.com/jrfonseca/drmingw/issues/42
-      cflags_common += '-gdwarf-aranges'
+      #cflags_common += '-gdwarf-aranges'
     endif
   endif
 endif
@@ -285,7 +285,13 @@ if os_osx
   add_languages('objc', native: true)
   osx_ldflags = ['-Wl,-framework,Foundation', '-Wl,-framework,AppKit']
   add_project_link_arguments(osx_ldflags, language : ['objc', 'c'])
-  add_project_arguments('-xobjective-c', language : 'c')
+  osx_cflags = ['-xobjective-c']
+  min_os_flag = '-Werror=unguarded-availability-new'
+  if cc.has_argument(min_os_flag)
+    #needed to allow targeting older macOS while building on newer macOS (like on MS Windows)
+    osx_cflags += [min_os_flag]
+  endif
+  add_project_arguments(osx_cflags, language : 'c')
 endif
 
 # Build relocatable GEGL
@@ -613,7 +619,7 @@ build_reference = get_option('gtk-doc') or build_gi_docgen
 # Ideally meson should take care of it automatically.
 # See: https://github.com/mesonbuild/meson/issues/12977
 if os_win32 and debugging_format == 'Native' and cc.get_argument_syntax() != 'msvc'
-  install_win_debug_script = find_program('./meson_install_win_debug.py')
+  install_win_debug_script = find_program('tools/meson_install_win_debug.py')
   meson.add_install_script(install_win_debug_script)
 endif
 
@@ -683,8 +689,8 @@ subdir('docs')
 if host_machine.system() != 'emscripten'
   nm = find_program('nm', required: false)
 
-  # Verify .def files for Windows linking.
-  # We check this on non-Windows platform on CI, and on Windows itself.
+  # Verify .def files for Windows linking (and for macOS too when -Wl,-exported_symbols_list is used).
+  # We check this on non-Windows/non-macOS platform (Debian) on CI, and on Windows and macOS itself.
   custom_target('check-def-files',
     input: [
       gegl_def,
