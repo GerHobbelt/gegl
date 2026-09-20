@@ -34,71 +34,110 @@
 typedef struct
 {
   GeglBuffer           *buffer;
-  GeglTileStorage      *tile_storage;
   GeglRectangle         roi;
   cl_mem                tex;
   gboolean              valid;
-  gint                  used; /* don't free used entries */
+  gatomicrefcount       refcount;
 } CacheEntry;
 
 static GList *cache_entries = NULL;
 
-static GMutex cache_mutex = { 0, };
+static GRecMutex cache_mutex = { 0, };
 
 static gboolean
 cache_entry_find_invalid (gpointer *data)
 {
-  GList *elem;
+  gboolean found = FALSE;
 
-  for (elem=cache_entries; elem; elem=elem->next)
+  *data = NULL;
+
+  g_rec_mutex_lock (&cache_mutex);
+
+  for (GList *elem = cache_entries; elem != NULL; elem = elem->next)
     {
       CacheEntry *e = elem->data;
-      if (!e->valid && e->used == 0)
+      /* refcount == 1 means nothing else has a reference to the CacheEntry
+         but the global cache store itself. */
+      if (!e->valid && g_atomic_ref_count_compare (&e->refcount, 1))
         {
           *data = e;
-          return TRUE;
+          found = TRUE;
+          break;
         }
     }
 
-  *data = NULL;
-  return FALSE;
+  g_rec_mutex_unlock (&cache_mutex);
+
+  return found;
+}
+
+static void
+free_cache_entry (gpointer data)
+{
+  CacheEntry *entry = data;
+
+  GEGL_NOTE (GEGL_DEBUG_OPENCL, "Removing from cl-cache: %p %s {%d %d %d %d}",
+             entry->buffer,
+             babl_get_name (gegl_buffer_get_format (entry->buffer)),
+             entry->roi.x,
+             entry->roi.y,
+             entry->roi.width,
+             entry->roi.height);
+
+  gegl_clReleaseMemObject (entry->tex);
+
+  g_slice_free (CacheEntry, data);
+  cache_entries = g_list_remove (cache_entries, data);
 }
 
 cl_mem
 gegl_buffer_cl_cache_get (GeglBuffer          *buffer,
                           const GeglRectangle *roi)
 {
-  GList *elem;
+  cl_mem cache_tex = NULL;
 
-  for (elem=cache_entries; elem; elem=elem->next)
+  g_rec_mutex_lock (&cache_mutex);
+
+  for (GList *elem = cache_entries; elem != NULL; elem = elem->next)
     {
       CacheEntry *e = elem->data;
+
       if (e->valid && e->buffer == buffer
           && gegl_rectangle_equal (&e->roi, roi))
         {
-          e->used ++;
-          return e->tex;
+          g_atomic_ref_count_inc (&e->refcount);
+          cache_tex = e->tex;
+          break;
         }
     }
-  return NULL;
+
+  g_rec_mutex_unlock (&cache_mutex);
+
+  return cache_tex;
 }
 
 gboolean
 gegl_buffer_cl_cache_release (cl_mem tex)
 {
-  GList *elem;
+  gboolean found = FALSE;
 
-  for (elem=cache_entries; elem; elem=elem->next)
+  g_rec_mutex_lock (&cache_mutex);
+
+  for (GList *elem = cache_entries; elem != NULL; elem = elem->next)
     {
       CacheEntry *e = elem->data;
+
       if (e->tex == tex)
         {
-          e->used --;
-          g_assert (e->used >= 0);
-          return TRUE;
+          e->valid = !g_atomic_ref_count_dec (&e->refcount);
+          found = TRUE;
+          break;
         }
     }
-  return FALSE;
+
+  g_rec_mutex_unlock (&cache_mutex);
+
+  return found;
 }
 
 void
@@ -106,47 +145,50 @@ gegl_buffer_cl_cache_new (GeglBuffer            *buffer,
                           const GeglRectangle   *roi,
                           cl_mem                 tex)
 {
-  g_mutex_lock (&cache_mutex);
-
-  {
   CacheEntry *e = g_slice_new (CacheEntry);
 
-  e->buffer =  buffer;
-  e->tile_storage = buffer->tile_storage;
-  e->roi    = *roi;
-  e->tex    =  tex;
-  e->valid  =  TRUE;
-  e->used   =  0;
+  e->buffer        = buffer;
+  e->roi           = *roi;
+  e->tex           = tex;
+  e->valid         = TRUE;
+  g_atomic_ref_count_init (&e->refcount);
+
+  g_rec_mutex_lock (&cache_mutex);
 
   cache_entries = g_list_prepend (cache_entries, e);
-  }
 
-  g_mutex_unlock (&cache_mutex);
+  g_rec_mutex_unlock (&cache_mutex);
 }
 
 static inline gboolean
 _gegl_buffer_cl_cache_flush2 (GeglTileHandlerCache *cache,
                               const GeglRectangle  *roi)
 {
-  size_t size;
-  GList *elem;
-  GeglRectangle tmp;
-  cl_int cl_err = 0;
-
-  gpointer data;
+  gpointer data    = NULL;
+  cl_int   cl_err  = 0;
   gboolean need_cl = FALSE;
 
-  for (elem=cache_entries; elem; elem=elem->next)
-    {
-      CacheEntry *entry = elem->data;
+  g_rec_mutex_lock (&cache_mutex);
 
-      if (entry->valid && entry->tile_storage->cache == cache
+  for (GList *elem = cache_entries; elem != NULL; elem = elem->next)
+    {
+      CacheEntry    *entry = elem->data;
+      GeglRectangle  tmp;
+
+      if (entry->valid && entry->buffer->tile_storage->cache == cache
           && (!roi || gegl_rectangle_intersect (&tmp, roi, &entry->roi)))
         {
-          entry->valid = FALSE;
-          entry->used ++;
+          const Babl *format = gegl_buffer_get_format (entry->buffer);
+          size_t      size;
 
-          gegl_cl_color_babl (entry->buffer->soft_format, &size);
+          need_cl = TRUE;
+
+          /* Flush moves (not just copies) the content of a buffer from an
+             OpenCL device to the host and marks that entry as invalid. */
+          g_atomic_ref_count_inc (&entry->refcount);
+          entry->valid = FALSE;
+
+          gegl_cl_color_babl (format, &size);
 
           data = g_malloc(entry->roi.width * entry->roi.height * size);
 
@@ -154,10 +196,9 @@ _gegl_buffer_cl_cache_flush2 (GeglTileHandlerCache *cache,
                                             entry->tex, CL_TRUE, 0, entry->roi.width * entry->roi.height * size, data,
                                             0, NULL, NULL);
           /* tile-ize */
-          gegl_buffer_set (entry->buffer, &entry->roi, 0, entry->buffer->soft_format, data, GEGL_AUTO_ROWSTRIDE);
+          gegl_buffer_set (entry->buffer, &entry->roi, 0, format, data, GEGL_AUTO_ROWSTRIDE);
 
-          entry->used --;
-          need_cl = TRUE;
+          g_atomic_ref_count_dec (&entry->refcount);
 
           g_free(data);
 
@@ -170,41 +211,19 @@ _gegl_buffer_cl_cache_flush2 (GeglTileHandlerCache *cache,
       cl_err = gegl_clFinish (gegl_cl_get_command_queue ());
       CL_CHECK;
 
-      g_mutex_lock (&cache_mutex);
-
       while (cache_entry_find_invalid (&data))
-        {
-          CacheEntry *entry = data;
-
-#if 1
-          GEGL_NOTE (GEGL_DEBUG_OPENCL, "Removing from cl-cache: %p %s {%d %d %d %d}", entry->buffer, babl_get_name(entry->buffer->soft_format),
-                                                                                       entry->roi.x, entry->roi.y, entry->roi.width, entry->roi.height);
-#endif
-
-          gegl_clReleaseMemObject(entry->tex);
-
-          memset (entry, 0x0, sizeof (CacheEntry));
-
-          g_slice_free (CacheEntry, data);
-          cache_entries = g_list_remove (cache_entries, data);
-        }
-
-      g_mutex_unlock (&cache_mutex);
+        free_cache_entry (data);
     }
+
+  g_rec_mutex_unlock (&cache_mutex);
 
   return TRUE;
 
 error:
-
-  g_mutex_lock (&cache_mutex);
-
   while (cache_entry_find_invalid (&data))
-    {
-      g_slice_free (CacheEntry, data);
-      cache_entries = g_list_remove (cache_entries, data);
-    }
+    free_cache_entry (data);
 
-  g_mutex_unlock (&cache_mutex);
+  g_rec_mutex_unlock (&cache_mutex);
 
   /* XXX : result is corrupted */
   return FALSE;
@@ -228,43 +247,22 @@ void
 gegl_buffer_cl_cache_invalidate (GeglBuffer          *buffer,
                                  const GeglRectangle *roi)
 {
-  GeglRectangle tmp;
-  GList *elem;
   gpointer data;
 
-  for (elem=cache_entries; elem; elem=elem->next)
+  g_rec_mutex_lock (&cache_mutex);
+
+  for (GList *elem = cache_entries; elem != NULL; elem = elem->next)
     {
       CacheEntry *e = elem->data;
-      if (e->valid && e->buffer == buffer
-          && (!roi || gegl_rectangle_intersect (&tmp, roi, &e->roi)))
+      if (e->valid && e->buffer == buffer &&
+          (!roi || gegl_rectangle_intersect (NULL, roi, &e->roi)))
         {
-          g_assert (e->used == 0);
-          gegl_clReleaseMemObject (e->tex);
           e->valid = FALSE;
         }
     }
 
-  g_mutex_lock (&cache_mutex);
-
   while (cache_entry_find_invalid (&data))
-    {
-      CacheEntry *entry = data;
-      memset(entry, 0x0, sizeof (CacheEntry));
+    free_cache_entry (data);
 
-      g_slice_free (CacheEntry, data);
-      cache_entries = g_list_remove (cache_entries, data);
-    }
-
-  g_mutex_unlock (&cache_mutex);
-
-#if 0
-  g_printf ("-- ");
-  for (elem=cache_entry; elem; elem=elem->next)
-    {
-      CacheEntry *e = elem->data;
-      g_printf ("%p %p {%d, %d, %d, %d} %d | ", e->tex, e->buffer, e->roi.x, e->roi.y, e->roi.width, e->roi.height, e->valid);
-    }
-  g_printf ("\n");
-#endif
-
+  g_rec_mutex_unlock (&cache_mutex);
 }

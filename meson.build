@@ -2,7 +2,7 @@ project('gegl',
   'c', 'cpp',
   license: 'GPL3+',
   version: '0.4.71',
-  meson_version: '>=0.59.0',
+  meson_version: '>=0.60.0',
   default_options: [
     'c_std=gnu11',
     'cpp_std=c++14',
@@ -327,10 +327,10 @@ w3m               = find_program('w3m',
 ################################################################################
 # Required Dependencies
 
-config.set('HAVE_UNISTD_H',    cc.has_header('unistd.h'))
-config.set('HAVE_EXECINFO_H',  cc.has_header('execinfo.h'))
+config.set('HAVE_UNISTD_H',    cc.has_header('unistd.h') ? 1 : false) #1 is needed on older macOS
+config.set('HAVE_EXECINFO_H',  cc.has_header('execinfo.h') and target_machine.system() != 'android')
 config.set('HAVE_FSYNC',       cc.has_function('fsync'))
-config.set('HAVE_MALLOC_TRIM', cc.has_function('malloc_trim'))
+config.set('HAVE_MALLOC_TRIM', cc.has_function('malloc_trim') and host_machine.system() != 'emscripten')
 config.set('HAVE_STRPTIME',    cc.has_function('strptime'))
 
 math    = cc.find_library('m',  required: false)
@@ -371,7 +371,7 @@ gio       = [
 json_glib = dependency('json-glib-1.0',
   version: dep_ver.get('json-glib')
 )
-libjpeg   = dependency('libjpeg',     version: dep_ver.get('libjpeg'))
+libjpeg   = dependency(['libjpeg', 'libjpeg-turbo'], version: dep_ver.get('libjpeg'))
 libpng    = dependency('libpng',      version: dep_ver.get('libpng'))
 
 # Required libraries eventually provided in subprojects/ subdir
@@ -403,6 +403,11 @@ if g_ir.found()
     required: get_option('vapigen')
   )
 else
+  vapigen = disabler()
+endif
+if g_ir.found() and get_option('default_library') == 'static'
+  warning('Introspection is not supported with static libraries. See: https://gitlab.gnome.org/GNOME/gobject-introspection/-/issues/187')
+  g_ir = disabler()
   vapigen = disabler()
 endif
 
@@ -501,7 +506,7 @@ sdl1      = dependency('sdl',
   version: dep_ver.get('sdl1'),
   required: get_option('sdl1')
 )
-sdl2      = dependency('sdl2',
+sdl2      = dependency(['sdl2', 'SDL2'],
   version: dep_ver.get('sdl2'),
   required: get_option('sdl2')
 )
@@ -665,7 +670,7 @@ subdir('po')
 subdir('docs')
 
 
-if not os_osx and host_cpu_family != 'x86'
+if not os_osx and host_machine.system() != 'emscripten'
   nm = find_program('nm', required: false)
 
   # Verify .def files for Windows linking.
